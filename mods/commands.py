@@ -19,10 +19,6 @@ class Commands(Cog):
                 aliases=['debug', 'Eval', 'Debug'])
     @checks.is_owner()
     async def debug(self, ctx, *, code : str):
-        global LOG
-        global ANNOUNCE
-        LOG = self.bot.get_channel(config.LogChannel)
-        ANNOUNCE = self.bot.get_channel(config.AnnounceChannel)
         code = code.strip('` ')
         python = '```py\n{}\n```'
         result = None
@@ -89,6 +85,7 @@ class Commands(Cog):
         msg = ' '.join(content)
         auth = ctx.message.author
         authmen = auth.mention
+        ANNOUNCE = self.bot.get_channel(config.AnnounceChannel)
         if msg == '':
             emb.title = "An Error Occured"
             emb.description = emotes.rooBooli + " What do you want me to announce " + authmen + "?"
@@ -108,6 +105,7 @@ class Commands(Cog):
         msg = ' '.join(content)
         auth = ctx.message.author
         authmen = auth.mention
+        LOG = self.bot.get_channel(config.LogChannel)
 
         emb.title = emotes.rooHappy + " " + auth.name + " logged a message!"
         emb.description = msg

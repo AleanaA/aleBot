@@ -14,7 +14,7 @@
 
 ### Commands
 
-All commands can be listed using the help command, but role required commands are:
+All commands are listed here, along with the role required to use them
 
 - eval - Owner
 - die - Owner
@@ -26,6 +26,37 @@ All commands can be listed using the help command, but role required commands ar
 - log - Apprentice
 - say - Event
 - announce - Event
+- ping
+- Think
+- Dab
+- W
+- Wut
+- Sellout
+- Blank
+- REE
+- Aww
+- Whine
+- Devil
+- Nap
+- Magic
+- Duck
+- VV
+- Nom
+- EZ
+- Fite
+- Cry
+- Pew
+- Blind
+- Happy
+- Booli
+- Sip
+- POG
+- Joose
+- Bless
+- Scared
+- Hep
+- Fat
+- Derp
 
 ### Roles
 

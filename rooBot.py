@@ -7,9 +7,10 @@ import os
 from discord import Game
 from discord.ext import commands
 from discord.ext.commands import Bot
-from utils import checks
 from config import emotes
 from config import config
+from utils import checks
+from utils.config import Config
 
 if config.LogLevel == 'debug':
     logging.basicConfig(level=logging.DEBUG)
@@ -36,10 +37,10 @@ emb.colour = discord.Colour(0xff0000)
 class rooBot(commands.Bot):
     def __init__(self, *args, **kwargs):
         self.loop = kwargs.pop('loop', asyncio.get_event_loop())
-        self.token = config.Token
-        command_prefix = kwargs.pop('command_prefix', commands.when_mentioned_or(config.Prefix))
+        self.config = Config('config/config.ini')
+        self.token = self.config.token
+        command_prefix = kwargs.pop('command_prefix', commands.when_mentioned_or(self.config.prefix))
         super().__init__(command_prefix=command_prefix, *args, **kwargs)
-        self.remove_command('help')
         self.owner = None
         self.start_time = time.time()
         self.own_task = None
@@ -100,7 +101,7 @@ class rooBot(commands.Bot):
 
     async def on_ready(self):
         await self.wait_until_ready()
-        game = discord.Game(type=0, name="with tiny pandas! | {0}help".format(config.Prefix))
+        game = discord.Game(type=0, name=self.config.status + " | {0}help".format(self.config.prefix))
         await self.change_presence(activity=game)
         print("---------------------------------------")
         print("Logged in as " + self.user.name)
@@ -116,7 +117,7 @@ class rooBot(commands.Bot):
                     print(msg)
 
     def run(self):
-        super().run(self.token)
+        super().run(self.config.token)
 
     def die(self):
         try:

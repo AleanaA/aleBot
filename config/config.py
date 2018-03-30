@@ -10,17 +10,20 @@ Prefix = 'rb!'
 LogLevel = 'warn'
 
 # User and role ids for commands go here
-Owner = ownerid
-Admin =  adminid
-Supervisor = svid
-Moderator = modid
-Apprentice = appid
-Event = eventid
+Owner = 'ownerid'
+Admin =  'adminid'
+Supervisor = 'svid'
+Moderator = 'modid'
+Apprentice = 'appid'
+Event = 'eventid'
 
 # Channels for the Announce and Log commands, as well as rooBot's Auddit log channel
-AnnounceChannel = annid
-LogChannel = logid
-AudditChannel = audid
+AnnounceChannel = 'annid'
+LogChannel = 'logid'
+AudditChannel = 'audid'
+
+# Backup file for tags
+BACKUP_TAGS = "data/backup_tags.json"
 
 # Modules for commands go here.
 # Do *NOT* mess with this if you don't know what you're doing.
@@ -29,5 +32,6 @@ AudditChannel = audid
 Modules = [
     'mods.moderate',
     'mods.emotes',
-    'mods.commands'
+    'mods.commands',
+    'utils.database'
 ]

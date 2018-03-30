@@ -9,6 +9,7 @@ class No_Mod(commands.CommandError): pass
 class No_Super(commands.CommandError): pass
 class No_Admin(commands.CommandError): pass
 class No_Owner(commands.CommandError): pass
+class InvalidUsage(commands.CommandError): pass
 
 def is_owner_check(message):
     if message.author.id == config.Owner:

@@ -23,13 +23,13 @@ class Moderation(Cog):
         rsn = " ".join(reason)
         banned = await self.bot.get_user_info(userName)
         action = "Unbanned"
-        embed=discord.Embed(title=str(banned), url=banned.avatar_url, color=0x00ff00)
-        embed.set_author(name=auth.name,icon_url=auth.avatar_url)
-        embed.set_thumbnail(url=userName.avatar_url)
-        embed.add_field(name="Action", value=action, inline=True)
-        embed.add_field(name="Reason", value=rsn, inline=True)
         if rsn == "":
             rsn = "No Reason Specified"
+        embed=discord.Embed(title=str(banned), url=banned.avatar_url, color=0x00ff00)
+        embed.set_author(name=auth.name,icon_url=auth.avatar_url)
+        embed.set_thumbnail(url=banned.avatar_url)
+        embed.add_field(name="Action", value=action, inline=True)
+        embed.add_field(name="Reason", value=rsn, inline=True)
         await server.unban(banned, reason=rsn)
         await ctx.message.channel.send(embed=discord.Embed(description=emotes.rooFite + " {0} was successfully unbanned!".format(str(banned))))
         await AUDDIT.send(embed=embed)
@@ -46,13 +46,13 @@ class Moderation(Cog):
         auth = ctx.message.author
         rsn = " ".join(reason)
         action = "Kicked"
+        if rsn == "":
+            rsn = "No Reason Specified"
         embed=discord.Embed(title=str(userName), url=userName.avatar_url, color=0xff0000)
         embed.set_author(name=auth.name,icon_url=auth.avatar_url)
         embed.set_thumbnail(url=userName.avatar_url)
         embed.add_field(name="Action", value=action, inline=True)
         embed.add_field(name="Reason", value=rsn, inline=True)
-        if rsn == "":
-            rsn = "No Reason Specified"
         await server.kick(userName, reason=rsn)
         await ctx.message.channel.send(embed=discord.Embed(description=emotes.rooFite + " {0} was successfully kicked!".format(str(userName))))
         await AUDDIT.send(embed=embed)
@@ -69,13 +69,13 @@ class Moderation(Cog):
         auth = ctx.message.author
         rsn = " ".join(reason)
         action = "Banned"
+        if rsn == "":
+            rsn = "No Reason Specified"
         embed=discord.Embed(title=str(userName), url=userName.avatar_url, color=0xff0000)
         embed.set_author(name=auth.name,icon_url=auth.avatar_url)
         embed.set_thumbnail(url=userName.avatar_url)
         embed.add_field(name="Action", value=action, inline=True)
         embed.add_field(name="Reason", value=rsn, inline=True)
-        if rsn == "":
-            rsn = "No Reason Specified"
         await server.ban(userName, reason=rsn)
         await ctx.message.channel.send(embed=discord.Embed(description=emotes.rooFite + " {0} was successfully banned!".format(str(userName))))
         await AUDDIT.send(embed=embed)
@@ -93,13 +93,13 @@ class Moderation(Cog):
         rsn = " ".join(reason)
         banned = await self.bot.get_user_info(userName)
         action = "Banned"
-        embed=discord.Embed(title=str(banned), url=banned.avatar_url, color=0xff0000)
-        embed.set_author(name=auth.name,icon_url=auth.avatar_url)
-        embed.set_thumbnail(url=userName.avatar_url)
-        embed.add_field(name="Action", value=action, inline=True)
-        embed.add_field(name="Reason", value=rsn, inline=True)
         if rsn == "":
             rsn = "No Reason Specified"
+        embed=discord.Embed(title=str(banned), url=banned.avatar_url, color=0xff0000)
+        embed.set_author(name=auth.name,icon_url=auth.avatar_url)
+        embed.set_thumbnail(url=banned.avatar_url)
+        embed.add_field(name="Action", value=action, inline=True)
+        embed.add_field(name="Reason", value=rsn, inline=True)
         await server.ban(banned, reason=rsn)
         await ctx.message.channel.send(embed=discord.Embed(description=emotes.rooFite + " {0} was successfully banned!".format(str(banned))))
         await AUDDIT.send(embed=embed)
@@ -116,6 +116,8 @@ class Moderation(Cog):
         auth = ctx.message.author
         rsn = " ".join(reason)
         action = "Softbanned"
+        if rsn == "":
+            rsn = "No Reason Specified"
         embed=discord.Embed(title=str(userName), url=userName.avatar_url, color=0xff0000)
         embed.set_author(name=auth.name,icon_url=auth.avatar_url)
         embed.set_thumbnail(url=userName.avatar_url)
@@ -123,8 +125,6 @@ class Moderation(Cog):
         embed.add_field(name="Reason", value=rsn, inline=True)
         embed.add_field(name="ID", value=str(userName.id), inline=True)
         embed.set_footer(text=emotes.rooFite)
-        if rsn == "":
-            rsn = "No Reason Specified"
         await server.ban(userName, reason=rsn)
         await server.unban(userName, reason=rsn)
         await ctx.message.channel.send(embed=discord.Embed(description=emotes.rooFite + " {0} was successfully softbanned!".format(str(userName))))

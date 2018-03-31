@@ -1,14 +1,12 @@
 import asyncio
 import discord
 import inspect
-import re
 from discord import Game
 from discord.ext import commands
 from discord.ext.commands import Bot
 from config import emotes
 from config import config
 from utils import checks
-from utils.checks import InvalidUsage
 from utils.config import Config
 from utils.cog import Cog
 
@@ -17,8 +15,6 @@ emb = discord.Embed()
 color = emb.color
 
 class Commands(Cog):
-    def __init__(self, *args, **kwargs):
-        self.config = Config('config/config.ini')
     @commands.command(name='eval',
                 description="Owner Only!",
                 brief="Owner Only!",
@@ -88,6 +84,7 @@ class Commands(Cog):
                 aliases=['announce', 'ANNOUNCE'])
     @checks.is_event()
     async def announce(self, ctx, *content):
+        self.config = Config('config/config.ini')
         msg = ' '.join(content)
         auth = ctx.message.author
         authmen = auth.mention
@@ -108,6 +105,7 @@ class Commands(Cog):
                 aliases=['LOG', 'Log'])
     @checks.is_appr()
     async def log(self, ctx, *content):
+        self.config = Config('config/config.ini')
         msg = ' '.join(content)
         auth = ctx.message.author
         authmen = auth.mention

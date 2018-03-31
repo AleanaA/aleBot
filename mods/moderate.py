@@ -7,17 +7,16 @@ from utils import checks
 from utils.cog import Cog
 from utils.config import Config
 from config import emotes
-from config import config
+#from config import config
 
-class Moderation(Cog):
-    def __init__(self, *args, **kwargs):
-        self.config = Config('config/config.ini')
+class Moderation(Cog):        
     @commands.command(name='Unban',
                     description="Unbans a user",
                     brief="Unbans a user",
                     aliases=['unban'])
     @checks.is_mod()
     async def unban(self, ctx, userName, *reason):
+        self.config = Config('config/config.ini')
         AUDDIT = self.bot.get_channel(self.config.auddit)
         server = ctx.message.guild
         auth = ctx.message.author
@@ -41,6 +40,7 @@ class Moderation(Cog):
                     aliases=['kick'])
     @checks.is_appr()
     async def kick(self, ctx, userName: discord.Member, *reason):
+        self.config = Config('config/config.ini')
         AUDDIT = self.bot.get_channel(self.config.auddit)
         server = ctx.message.guild
         auth = ctx.message.author
@@ -63,6 +63,7 @@ class Moderation(Cog):
                     aliases=['ban'])
     @checks.is_mod()
     async def ban(self, ctx, userName: discord.User, *reason):
+        self.config = Config('config/config.ini')
         AUDDIT = self.bot.get_channel(self.config.auddit)
         server = ctx.message.guild
         auth = ctx.message.author
@@ -85,6 +86,7 @@ class Moderation(Cog):
                     aliases=['banid'])
     @checks.is_mod()
     async def banid(self, ctx, userName, *reason):
+        self.config = Config('config/config.ini')
         AUDDIT = self.bot.get_channel(self.config.auddit)
         server = ctx.message.guild
         auth = ctx.message.author
@@ -108,6 +110,7 @@ class Moderation(Cog):
                     aliases=['softban'])
     @checks.is_mod()
     async def softban(self, ctx, userName: discord.User, *reason):
+        self.config = Config('config/config.ini')
         AUDDIT = self.bot.get_channel(self.config.auddit)
         server = ctx.message.guild
         auth = ctx.message.author

@@ -2,6 +2,10 @@
 
 ## rooBot is yet another general purpose bot, but with tiny pandas
 
+### Support
+
+If you need assistance setting up the bot, or adding to it, come join [the support server!](https://discord.gg/3QpFUQx)
+
 ### Setup
 
 1. Ensure you have [Git](https://git-scm.com/downloads) installed.
@@ -9,12 +13,12 @@
 3. Ensure you have Python and pip installed, and added to your path. The bot was built using [Python 3.5.4,](https://www.python.org/ftp/python/3.5.4/python-3.5.4-amd64.exe) so that's your best bet.
 4. In the root directory of the bot, run `python -m pip -U -r requirements.txt` on windows, or `python3 -m pip -U -r requirements.txt` on Ubuntu.
 5. Create a bot account over on the [Discord developers page.](https://discordapp.com/developers/applications/me)
-6. Setup the config file in the `config` folder. This includes copying `config.example.py` to `config.py` and adding your bot token, your user id, your prefix, an announcement, log, and auddit log channel, and five roles.
+6. Setup the config file in the `config` folder. This includes copying `config.example.py` and `config.exemple.ini` to `config.py` and `config.ini` and adding your bot token, your user id, your prefix, an announcement, log, and auddit log channel, and five roles.
 7. That's it! Run the bot with either `run.bat` or `run.sh` and you should be good to go!
 
 ### Commands
 
-All commands are listed here, along with the role required to use them
+All commands can be listed using the help command, but role required commands are:
 
 - eval - Owner
 - die - Owner
@@ -26,37 +30,6 @@ All commands are listed here, along with the role required to use them
 - log - Apprentice
 - say - Event
 - announce - Event
-- ping
-- Think
-- Dab
-- W
-- Wut
-- Sellout
-- Blank
-- REE
-- Aww
-- Whine
-- Devil
-- Nap
-- Magic
-- Duck
-- VV
-- Nom
-- EZ
-- Fite
-- Cry
-- Pew
-- Blind
-- Happy
-- Booli
-- Sip
-- POG
-- Joose
-- Bless
-- Scared
-- Hep
-- Fat
-- Derp
 
 ### Roles
 

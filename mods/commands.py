@@ -11,10 +11,6 @@ from utils import checks
 from utils.config import Config
 from utils.cog import Cog
 
-
-emb = discord.Embed()
-color = emb.color
-
 class Commands(Cog):
     @commands.command(name='eval',
                 description="Owner Only!",
@@ -26,8 +22,7 @@ class Commands(Cog):
         python = '```py\n{}\n```'
         result = None
         auth = ctx.message.author
-        authmen = auth.mention
-        emb.set_thumbnail(url=None)
+        emb = discord.Embed()
 
         env = {
             'ctx': ctx,
@@ -59,6 +54,7 @@ class Commands(Cog):
                 brief="Gets the bots invite url!",
                 aliases=['Invite'])
     async def invite(self, ctx):
+        emb = discord.Embed()
         emb.title = "Invite URL"
         emb.description = "<https://discordapp.com/oauth2/authorize?client_id={0}&scope=bot&permissions=8>".format(str(self.bot.user.id))
         emb.color = 0x00ffff
@@ -72,6 +68,7 @@ class Commands(Cog):
     @checks.is_owner()
     async def avatar(self, ctx, msg=None):
         self.aiosession = aiohttp.ClientSession(loop=self.bot.loop)
+        emb = discord.Embed()
         emb.title = "Avatar Changed!"
         emb.color = 0x00ff00
         picture = msg.strip('<>')
@@ -88,6 +85,7 @@ class Commands(Cog):
                 aliases=['Username'])
     @checks.is_owner()
     async def username(self, ctx, msg):
+        emb = discord.Embed()
         emb.title = "Username Changed!"
         emb.color = 0x00ff00
         emb.set_thumbnail(url=self.bot.user.avatar_url)
@@ -101,17 +99,17 @@ class Commands(Cog):
                 aliases=[])
     @checks.is_event()
     async def say(self, ctx, *content):
+        emb = discord.Embed()
         msg = " ".join(content)
         auth = ctx.message.author
         authmen = auth.mention
-
         emb.title = ctx.message.author.mention + " said..."
         emb.description = msg
-        emb.set_thumbnail(url=None)
+
         if msg == '':
             emb.title = "An Error Occured"
             emb.description = emotes.Warn + " What do you want me to say " + authmen + "?"
-            emb.colour = color(0xff0000)
+            emb.color = 0xff0000
             await ctx.message.channel.send(embed=emb)
         else:
             await ctx.message.delete()
@@ -123,16 +121,17 @@ class Commands(Cog):
                 aliases=['announce', 'ANNOUNCE'])
     @checks.is_event()
     async def announce(self, ctx, *content):
+        emb = discord.Embed()
         self.config = Config('config/config.ini')
         msg = ' '.join(content)
         auth = ctx.message.author
         authmen = auth.mention
         ANNOUNCE = self.bot.get_channel(self.config.announce)
-        emb.set_thumbnail(url=None)
+
         if msg == '':
             emb.title = "An Error Occured"
             emb.description = emotes.Warn + " What do you want me to announce " + authmen + "?"
-            emb.colour = color(0xff0000)
+            emb.color = 0xff0000
             await ctx.message.channel.send(embed=emb)
         else:
             await ANNOUNCE.send(authmen + " - @everyone " + msg)
@@ -145,21 +144,21 @@ class Commands(Cog):
                 aliases=['LOG', 'Log'])
     @checks.is_appr()
     async def log(self, ctx, *content):
+        emb = discord.Embed()
         self.config = Config('config/config.ini')
         msg = ' '.join(content)
         auth = ctx.message.author
         authmen = auth.mention
         LOG = self.bot.get_channel(self.config.log)
-
         emb.title = emotes.Done + " " + auth.name + " logged a message!"
         emb.description = msg
         emb.colour = discord.Colour(0x0094ff)
-        emb.set_thumbnail(url=None)
+
 
         if msg == '':
             emb.title = "An Error Occured"
             emb.description = emotes.Warn + " What do you want me to add to the log " + authmen + "?"
-            emb.colour = color(0xff0000)
+            emb.color = 0xff0000
             await ctx.message.channel.send(embed=emb)
         else:
             await LOG.send(embed=emb)

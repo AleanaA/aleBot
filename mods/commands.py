@@ -101,7 +101,7 @@ class Commands(Cog):
         msg = " ".join(content)
         auth = ctx.message.author
         authmen = auth.mention
-        emb.title = ctx.message.author.mention + " said..."
+        emb.title = ctx.message.author.name + " said..."
         emb.description = msg
 
         if msg == '':

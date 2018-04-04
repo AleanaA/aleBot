@@ -27,6 +27,7 @@ class Commands(Cog):
         result = None
         auth = ctx.message.author
         authmen = auth.mention
+        emb.set_thumbnail = None
 
         env = {
             'ctx': ctx,
@@ -36,11 +37,6 @@ class Commands(Cog):
         }
 
         env.update(globals())
-        if code == '':
-            emb.title = "An Error Occured"
-            emb.description = emotes.Warn + " What do you want me to evaluate " + authmen + "?"
-            emb.colour = color(0xff0000)
-            await ctx.message.channel.send(embed=emb)
         try:
             result = eval(code, env)
             if inspect.isawaitable(result):
@@ -66,6 +62,7 @@ class Commands(Cog):
         emb.title = "Invite URL"
         emb.description = "<https://discordapp.com/oauth2/authorize?client_id={0}&scope=bot&permissions=8>".format(str(self.bot.user.id))
         emb.color = 0x00ffff
+        emb.set_thumbnail = None
         await ctx.message.channel.send(embed=emb)
 
     @commands.command(name='avatar',
@@ -110,6 +107,7 @@ class Commands(Cog):
 
         emb.title = ctx.message.author.mention + " said..."
         emb.description = msg
+        emb.set_thumbnail = None
         if msg == '':
             emb.title = "An Error Occured"
             emb.description = emotes.Warn + " What do you want me to say " + authmen + "?"
@@ -130,6 +128,7 @@ class Commands(Cog):
         auth = ctx.message.author
         authmen = auth.mention
         ANNOUNCE = self.bot.get_channel(self.config.announce)
+        emb.set_thumbnail = None
         if msg == '':
             emb.title = "An Error Occured"
             emb.description = emotes.Warn + " What do you want me to announce " + authmen + "?"
@@ -155,6 +154,7 @@ class Commands(Cog):
         emb.title = emotes.Done + " " + auth.name + " logged a message!"
         emb.description = msg
         emb.colour = discord.Colour(0x0094ff)
+        emb.set_thumbnail = None
 
         if msg == '':
             emb.title = "An Error Occured"

@@ -58,6 +58,16 @@ class Commands(Cog):
     async def ping(self, ctx):
         await ctx.message.channel.send(ctx.message.author.mention + " " + emotes.Done)
 
+    @commands.command(name='invite',
+                description="Gets the bots invite url!",
+                brief="Gets the bots invite url!",
+                aliases=['Invite'])
+    async def invite(self, ctx):
+        emb.title = "Invite URL"
+        emb.description = "<https://discordapp.com/oauth2/authorize?client_id={0}&scope=bot&permissions=8>".format(str(self.bot.user.id))
+        emb.color = 0x00ffff
+        await ctx.message.channel.send(embed=emb)
+
     @commands.command(name='avatar',
                 description="Changes the bots avatar!",
                 brief="Changes the bots avatar!",

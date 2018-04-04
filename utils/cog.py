@@ -1,5 +1,5 @@
 from collections import OrderedDict
-from rooBot import rooBot
+from bot import bot
 
 class CogMeta(type):
     def __prepare__(cls, *args, **kwargs):
@@ -7,7 +7,7 @@ class CogMeta(type):
         return OrderedDict()
 
 class Cog(metaclass=CogMeta):
-    def __init__(self, bot:rooBot):
+    def __init__(self, bot:bot):
         self._bot = bot
 
     @property
@@ -15,5 +15,5 @@ class Cog(metaclass=CogMeta):
         return self._bot
 
     @classmethod
-    def setup(cls, bot:rooBot):
+    def setup(cls, bot:bot):
         bot.add_cog(cls(bot))

@@ -38,7 +38,7 @@ class Commands(Cog):
         env.update(globals())
         if code == '':
             emb.title = "An Error Occured"
-            emb.description = emotes.rooBooli + " What do you want me to evaluate " + authmen + "?"
+            emb.description = emotes.Warn + " What do you want me to evaluate " + authmen + "?"
             emb.colour = color(0xff0000)
             await ctx.message.channel.send(embed=emb)
         try:
@@ -56,7 +56,7 @@ class Commands(Cog):
                 brief="Ping!",
                 aliases=['Ping', 'Ping!'])
     async def ping(self, ctx):
-        await ctx.message.channel.send(ctx.message.author.mention + " " + emotes.rooBot)
+        await ctx.message.channel.send(ctx.message.author.mention + " " + emotes.Done)
 
     @commands.command(name='avatar',
                 description="Changes the bots avatar!",
@@ -98,11 +98,11 @@ class Commands(Cog):
         auth = ctx.message.author
         authmen = auth.mention
 
-        emb.title = emotes.rooHappy
+        emb.title = ctx.message.author.mention + " said..."
         emb.description = msg
         if msg == '':
             emb.title = "An Error Occured"
-            emb.description = emotes.rooBooli + " What do you want me to say " + authmen + "?"
+            emb.description = emotes.Warn + " What do you want me to say " + authmen + "?"
             emb.colour = color(0xff0000)
             await ctx.message.channel.send(embed=emb)
         else:
@@ -122,13 +122,13 @@ class Commands(Cog):
         ANNOUNCE = self.bot.get_channel(self.config.announce)
         if msg == '':
             emb.title = "An Error Occured"
-            emb.description = emotes.rooBooli + " What do you want me to announce " + authmen + "?"
+            emb.description = emotes.Warn + " What do you want me to announce " + authmen + "?"
             emb.colour = color(0xff0000)
             await ctx.message.channel.send(embed=emb)
         else:
-            await ANNOUNCE.send(emotes.rooAww + " " + authmen + " - @everyone " + msg)
+            await ANNOUNCE.send(authmen + " - @everyone " + msg)
             await ctx.message.delete()
-            await ctx.message.channel.send(emotes.rooBot + " Announcement Created")
+            await ctx.message.channel.send(emotes.Done + " Announcement Created")
 
     @commands.command(name='log',
                 description="Allows select users to make a log entry!",
@@ -142,19 +142,19 @@ class Commands(Cog):
         authmen = auth.mention
         LOG = self.bot.get_channel(self.config.log)
 
-        emb.title = emotes.rooHappy + " " + auth.name + " logged a message!"
+        emb.title = emotes.Done + " " + auth.name + " logged a message!"
         emb.description = msg
         emb.colour = discord.Colour(0x0094ff)
 
         if msg == '':
             emb.title = "An Error Occured"
-            emb.description = emotes.rooBooli + " What do you want me to add to the log " + authmen + "?"
+            emb.description = emotes.Warn + " What do you want me to add to the log " + authmen + "?"
             emb.colour = color(0xff0000)
             await ctx.message.channel.send(embed=emb)
         else:
             await LOG.send(embed=emb)
             await ctx.message.delete()
-            await ctx.message.channel.send(embed=discord.Embed(colour=discord.Colour(0x00ff2c), description=emotes.rooBot + " Log Added"))
+            await ctx.message.channel.send(embed=discord.Embed(colour=discord.Colour(0x00ff2c), description=emotes.Done + " Log Added"))
 
     @commands.command(name='die',
                 description="Shuts down the bot",
@@ -163,7 +163,7 @@ class Commands(Cog):
     @checks.is_owner()
     async def die(self, ctx):
         print(str(ctx.message.author) + " triggered a shutdown!")
-        await ctx.message.channel.send(embed=discord.Embed(description=emotes.rooBooli + " Alright, I'll shut down... Good night " + ctx.message.author.mention, color=0x0035ff))
+        await ctx.message.channel.send(embed=discord.Embed(description=emotes.Done + " " + self.bot.name + " is now shutting down..." + ctx.message.author.mention, color=0x0035ff))
         await self.bot.logout()
 
 def setup(bot):

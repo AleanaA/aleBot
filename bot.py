@@ -34,7 +34,7 @@ class Object(object):
 emb = discord.Embed()
 emb.title = ("An Error Occured")
 emb.colour = discord.Colour(0xff0000)
-class rooBot(commands.Bot):
+class bot(commands.Bot):
     def __init__(self, *args, **kwargs):
         self.loop = kwargs.pop('loop', asyncio.get_event_loop())
         self.config = Config('config/config.ini')
@@ -50,7 +50,7 @@ class rooBot(commands.Bot):
     def __del__(self):
         self.loop.set_exception_handler(lambda *args, **kwargs: None)
     async def on_command_error(self, ctx, e):
-        emb.description = emotes.rooWhine + " " + str(e)
+        emb.description = emotes.Error + " " + str(e)
         if isinstance(e, commands.MissingRequiredArgument):
             print(str(e) + " - Command - " + ctx.message.content)
             await ctx.message.channel.send(embed=emb)
@@ -75,26 +75,26 @@ class rooBot(commands.Bot):
             await ctx.message.channel.send(embed=emb)
         elif isinstance(e, checks.No_Owner):
             print("User " + str(ctx.message.author) + " lacked permission! - Command - " + ctx.message.content)
-            emb.description = emotes.rooBooli + " Only Aleana can use this command " + ctx.message.author.mention + "!"
+            emb.description = emotes.Warn + " Only Aleana can use this command " + ctx.message.author.mention + "!"
             await ctx.message.channel.send(embed=emb)
         elif isinstance(e, checks.No_Admin):
-            emb.description = emotes.rooBooli + " Only Admins can use this command " + ctx.message.author.mention + "!"
+            emb.description = emotes.Warn + " Only Admins can use this command " + ctx.message.author.mention + "!"
             print("User " + str(ctx.message.author) + " lacked permission! - Command - " + ctx.message.content)
             await ctx.message.channel.send(embed=emb)
         elif isinstance(e, checks.No_Super):
-            emb.description = emotes.rooBooli + " Only Supervisors can use this command " + ctx.message.author.mention + "!"
+            emb.description = emotes.Warn + " Only Supervisors can use this command " + ctx.message.author.mention + "!"
             print("User " + str(ctx.message.author) + " lacked permission! - Command - " + ctx.message.content)
             await ctx.message.channel.send(embed=emb)
         elif isinstance(e, checks.No_Mod):
-            emb.description = emotes.rooBooli + " Only Moderators can use this command " + ctx.message.author.mention + "!"
+            emb.description = emotes.Warn + " Only Moderators can use this command " + ctx.message.author.mention + "!"
             print("User " + str(ctx.message.author) + " lacked permission! - Command - " + ctx.message.content)
             await ctx.message.channel.send(embed=emb)
         elif isinstance(e, checks.No_Appr):
-            emb.description = emotes.rooBooli + " Only Apprentices can use this command " + ctx.message.author.mention + "!"
+            emb.description = emotes.Warn + " Only Apprentices can use this command " + ctx.message.author.mention + "!"
             print("User " + str(ctx.message.author) + " lacked permission! - Command - " + ctx.message.content)
             await ctx.message.channel.send(embed=emb)
         elif isinstance(e, checks.No_Event):
-            emb.description = emotes.rooBooli + " Only Event Hosts can use this command " + ctx.message.author.mention + "!"
+            emb.description = emotes.Warn + " Only Event Hosts can use this command " + ctx.message.author.mention + "!"
             print("User " + str(ctx.message.author) + " lacked permission! - Command - " + ctx.message.content)
             await ctx.message.channel.send(embed=emb)
 

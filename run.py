@@ -1,11 +1,11 @@
 import asyncio
 import datetime
 import os, sys
-from rooBot import rooBot
+from bot import bot
 
 loop = asyncio.get_event_loop()
 
-bot = rooBot(loop=loop, max_messages=10000)
+bot = bot(loop=loop, max_messages=10000)
 
 if __name__ == "__main__":
     try:

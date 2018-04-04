@@ -31,7 +31,7 @@ class Moderation(Cog):
         embed.add_field(name="Action", value=action, inline=True)
         embed.add_field(name="Reason", value=rsn, inline=True)
         await server.unban(banned, reason=rsn)
-        await ctx.message.channel.send(embed=discord.Embed(description=emotes.rooFite + " {0} was successfully unbanned!".format(str(banned))))
+        await ctx.message.channel.send(embed=discord.Embed(description=emotes.Done + " {0} was successfully unbanned!".format(str(banned))))
         await AUDDIT.send(embed=embed)
 
     @commands.command(name='Kick',
@@ -54,7 +54,7 @@ class Moderation(Cog):
         embed.add_field(name="Action", value=action, inline=True)
         embed.add_field(name="Reason", value=rsn, inline=True)
         await server.kick(userName, reason=rsn)
-        await ctx.message.channel.send(embed=discord.Embed(description=emotes.rooFite + " {0} was successfully kicked!".format(str(userName))))
+        await ctx.message.channel.send(embed=discord.Embed(description=emotes.Done + " {0} was successfully kicked!".format(str(userName))))
         await AUDDIT.send(embed=embed)
 
     @commands.command(name='Ban',
@@ -77,7 +77,7 @@ class Moderation(Cog):
         embed.add_field(name="Action", value=action, inline=True)
         embed.add_field(name="Reason", value=rsn, inline=True)
         await server.ban(userName, reason=rsn)
-        await ctx.message.channel.send(embed=discord.Embed(description=emotes.rooFite + " {0} was successfully banned!".format(str(userName))))
+        await ctx.message.channel.send(embed=discord.Embed(description=emotes.Done + " {0} was successfully banned!".format(str(userName))))
         await AUDDIT.send(embed=embed)
 
     @commands.command(name='BanID',
@@ -101,7 +101,7 @@ class Moderation(Cog):
         embed.add_field(name="Action", value=action, inline=True)
         embed.add_field(name="Reason", value=rsn, inline=True)
         await server.ban(banned, reason=rsn)
-        await ctx.message.channel.send(embed=discord.Embed(description=emotes.rooFite + " {0} was successfully banned!".format(str(banned))))
+        await ctx.message.channel.send(embed=discord.Embed(description=emotes.Done + " {0} was successfully banned!".format(str(banned))))
         await AUDDIT.send(embed=embed)
 
     @commands.command(name='Softban',
@@ -124,10 +124,10 @@ class Moderation(Cog):
         embed.add_field(name="Action", value=action, inline=True)
         embed.add_field(name="Reason", value=rsn, inline=True)
         embed.add_field(name="ID", value=str(userName.id), inline=True)
-        embed.set_footer(text=emotes.rooFite)
+        embed.set_footer(text=emotes.Done)
         await server.ban(userName, reason=rsn)
         await server.unban(userName, reason=rsn)
-        await ctx.message.channel.send(embed=discord.Embed(description=emotes.rooFite + " {0} was successfully softbanned!".format(str(userName))))
+        await ctx.message.channel.send(embed=discord.Embed(description=emotes.Done + " {0} was successfully softbanned!".format(str(userName))))
         await AUDDIT.send(embed=embed)
 
 

@@ -1,6 +1,6 @@
-# rooBot
+# aleBot
 
-## rooBot is yet another general purpose bot, but with tiny pandas
+## aleBot is another multipurpose bot, but it's modular!
 
 ### Support
 
@@ -15,6 +15,9 @@ If you need assistance setting up the bot, or adding to it, come join [the suppo
 5. Create a bot account over on the [Discord developers page.](https://discordapp.com/developers/applications/me)
 6. Setup the config file in the `config` folder. This includes copying `config.example.py` and `config.exemple.ini` to `config.py` and `config.ini` and adding your bot token, your user id, your prefix, an announcement, log, and auddit log channel, and five roles.
 7. That's it! Run the bot with either `run.bat` or `run.sh` and you should be good to go!
+
+It should be noted that emotes will probably be displayed incorrectly, as you won't have the emotes in `emotes.py`
+To fix this, just replace those emote IDs with ones from a server the bot is in, corresponding to the emote.
 
 ### Commands
 

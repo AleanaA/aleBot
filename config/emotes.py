@@ -1,4 +1,5 @@
-#Emotes can be added and removed here.
+# Emotes can be added and removed here.
+# The default emotes probably won't work for you, so you should change them.
 rooBot = "<:Bot:426685770389127178>"
 rooWut = "<:Wut:426685770309304326>"
 rooWhine= "<:Whine:426685770351509514>"

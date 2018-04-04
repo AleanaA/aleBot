@@ -33,7 +33,7 @@ class Object(object):
 
 emb = discord.Embed()
 emb.title = ("An Error Occured")
-emb.colour = discord.Colour(0xff0000)
+emb.color = discord.Color(0xff0000)
 class bot(commands.Bot):
     def __init__(self, *args, **kwargs):
         self.loop = kwargs.pop('loop', asyncio.get_event_loop())

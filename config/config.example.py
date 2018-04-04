@@ -8,6 +8,5 @@ LogLevel = 'warn'
 # but can easily prevent you from using commands if you delete the existing modules.
 Modules = [
     'mods.moderate',
-    'mods.emotes',
     'mods.commands'
 ]

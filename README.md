@@ -6,8 +6,6 @@
 
 If you need assistance setting up the bot, or adding to it, come join [the support server!](https://discord.gg/3QpFUQx)
 
-If you make a pull request, please submit it to Review and not master.
-
 ### Setup
 
 1. Ensure you have [Git](https://git-scm.com/downloads) installed.

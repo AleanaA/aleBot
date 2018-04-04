@@ -21,8 +21,6 @@ class Commands(Cog):
         code = code.strip('` ')
         python = '```py\n{}\n```'
         result = None
-        auth = ctx.message.author
-        emb = discord.Embed()
 
         env = {
             'ctx': ctx,

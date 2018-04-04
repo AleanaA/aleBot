@@ -109,6 +109,9 @@ class bot(commands.Bot):
         for server in self.guilds:
             print(server.name)
         print("---------------------------------------")
+        print("Remember to invite your bot to your server!")
+        print("https://discordapp.com/oauth2/authorize?client_id={0}&scope=bot&permissions=8".format(str(self.user.id)))
+        print("---------------------------------------")
         for cog in config.Modules:
                 try:
                     self.load_extension(cog)

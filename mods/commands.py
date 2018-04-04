@@ -1,6 +1,7 @@
 import asyncio
 import discord
 import inspect
+import aiohttp
 from discord import Game
 from discord.ext import commands
 from discord.ext.commands import Bot

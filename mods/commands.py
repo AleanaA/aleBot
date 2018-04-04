@@ -57,6 +57,36 @@ class Commands(Cog):
     async def ping(self, ctx):
         await ctx.message.channel.send(ctx.message.author.mention + " " + emotes.rooBot)
 
+    @commands.command(name='avatar',
+                description="Changes the bots avatar!",
+                brief="Changes the bots avatar!",
+                aliases=['Avatar'])
+    @checks.is_owner()
+    async def avatar(self, ctx, msg=None):
+        self.aiosession = aiohttp.ClientSession(loop=self.bot.loop)
+        emb.title = "Avatar Changed!"
+        emb.color = 0x00ff00
+        picture = msg.strip('<>')
+        emb.set_thumbnail(url=msg)
+        emb.description = "Avatar successfully changed to " + msg
+
+        async with self.aiosession.get(picture) as res:
+            await self.bot.user.edit(avatar=await res.read())
+            await ctx.message.channel.send(embed=emb)
+
+    @commands.command(name='username',
+                description="Changes the bots username!",
+                brief="Changes the bots username!",
+                aliases=['Username'])
+    @checks.is_owner()
+    async def username(self, ctx, msg):
+        emb.title = "Username Changed!"
+        emb.color = 0x00ff00
+        emb.set_thumbnail(url=self.bot.user.avatar_url)
+        emb.description = "Username successfully changed to " + msg
+        await self.bot.user.edit(username=msg)
+        await ctx.message.channel.send(embed=emb)
+
     @commands.command(name='say',
                 description="Text Command",
                 brief="Text Command",

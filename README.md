@@ -1,4 +1,4 @@
-# aleBot
+# ![aleBot](https://i.imgur.com/WA6U3qM.png)
 
 ## aleBot is another multipurpose bot, but it's modular!
 

@@ -4,7 +4,7 @@
 
 ### Support
 
-If you need assistance setting up the bot, or adding to it, come join [the support server!](https://discord.gg/3QpFUQx)
+If you need assistance setting up the bot, or adding to it, come join [the support server!](https://discord.gg/M6apruQ)
 
 ### Setup
 

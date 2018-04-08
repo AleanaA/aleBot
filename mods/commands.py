@@ -170,7 +170,7 @@ class Commands(Cog):
     @checks.is_owner()
     async def die(self, ctx):
         print(str(ctx.message.author) + " triggered a shutdown!")
-        await ctx.message.channel.send(embed=discord.Embed(description=emotes.Done + " " + self.bot.user.name + " is now shutting down..." + ctx.message.author.mention, color=0x0035ff))
+        await ctx.message.channel.send(embed=discord.Embed(description=emotes.Done + " " + self.bot.user.name + " is now shutting down... " + ctx.message.author.mention, color=0x0035ff))
         await self.bot.logout()
 
     @commands.command(name='load',

@@ -32,8 +32,6 @@ class Object(object):
     pass
 
 emb = discord.Embed()
-emb.title = ("An Error Occured")
-emb.color = discord.Color(0xff0000)
 class bot(commands.Bot):
     def __init__(self, *args, **kwargs):
         self.loop = kwargs.pop('loop', asyncio.get_event_loop())
@@ -50,6 +48,8 @@ class bot(commands.Bot):
     def __del__(self):
         self.loop.set_exception_handler(lambda *args, **kwargs: None)
     async def on_command_error(self, ctx, e):
+        emb.title = ("An Error Occured")
+        emb.color = discord.Color(0xff0000)
         emb.description = emotes.Error + " " + str(e)
         if isinstance(e, commands.MissingRequiredArgument):
             print(str(e) + " - Command - " + ctx.message.content)
@@ -102,7 +102,7 @@ class bot(commands.Bot):
     async def on_ready(self):
         await self.wait_until_ready()
         owner = await self.get_user_info(self.config.owner)
-        await owner.send("Test")
+        await owner.send(owner.avatar_url)
         game = discord.Game(type=0, name=self.config.status + " | {0}help".format(self.config.prefix))
         await self.change_presence(activity=game)
         print("---------------------------------------")

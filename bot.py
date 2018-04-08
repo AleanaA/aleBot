@@ -101,7 +101,7 @@ class bot(commands.Bot):
 
     async def on_ready(self):
         await self.wait_until_ready()
-        owner = await self.get_user_info(config.owner)
+        owner = await self.get_user_info(self.config.owner)
         await owner.send("Test")
         game = discord.Game(type=0, name=self.config.status + " | {0}help".format(self.config.prefix))
         await self.change_presence(activity=game)

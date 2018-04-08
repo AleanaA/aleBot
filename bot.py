@@ -102,7 +102,11 @@ class bot(commands.Bot):
     async def on_ready(self):
         await self.wait_until_ready()
         owner = await self.get_user_info(self.config.owner)
-        await owner.send(owner.avatar_url)
+        embed=discord.Embed(title="Bot load", description=self.user.name + " has just loaded.", color=0x05d1dc)
+        embed.set_author(name=owner.name,icon_url=owner.avatar_url)
+        embed.set_thumbnail(url=self.user.avatar_url)
+        embed.add_field(name=, value=, inline=False)
+        await owner.send(embed=embed)
         game = discord.Game(type=0, name=self.config.status + " | {0}help".format(self.config.prefix))
         await self.change_presence(activity=game)
         print("---------------------------------------")

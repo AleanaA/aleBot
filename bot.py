@@ -25,9 +25,6 @@ elif config.LogLevel == 'critical':
 else:
     print("A log level was not specified, so nothing will be logged to console!")
 
-logging.basicConfig(filename='rooBot.log',level=logging.INFO)
-logging.basicConfig(filename='rooBot.debug.log',level=logging.DEBUG)
-
 class Object(object):
     pass
 

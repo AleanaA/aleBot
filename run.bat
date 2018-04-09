@@ -11,7 +11,7 @@ IF EXIST %SYSTEMROOT%\py.exe (
 python --version > NUL 2>&1
 IF %ERRORLEVEL% NEQ 0 GOTO nopython
 
-CMD /k python run.py
+CMD /k python -u run.py
 GOTO end
 
 :nopython

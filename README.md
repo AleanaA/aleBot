@@ -13,7 +13,7 @@ If you need assistance setting up the bot, or adding to it, come join [the suppo
 3. Ensure you have Python and pip installed, and added to your path. The bot was built using [Python 3.5.4,](https://www.python.org/ftp/python/3.5.4/python-3.5.4-amd64.exe) so that's your best bet.
 4. In the root directory of the bot, run `python -m pip -U -r requirements.txt` on windows, or `python3 -m pip -U -r requirements.txt` on Ubuntu.
 5. Create a bot account over on the [Discord developers page.](https://discordapp.com/developers/applications/me)
-6. Setup the config file in the `config` folder. This includes copying `config.example.py` and `config.exemple.ini` to `config.py` and `config.ini` and adding your bot token, your user id, your prefix, an announcement, log, and auddit log channel, and five roles.
+6. Setup the config file in the `config` folder. This includes copying `config.example.py` and `config.exemple.ini` to `config.py` and `config.ini` and adding your bot token, your user id, your prefix, an announcement, log, and auddit log channel.
 7. That's it! Run the bot with either `run.bat` or `run.sh` and you should be good to go!
 
 It should be noted that emotes will probably be displayed incorrectly, as you won't have the emotes in `emotes.py`\n
@@ -27,9 +27,9 @@ All commands can be listed using the help command, but role required commands ar
 - die - Owner
 - avatar - Owner
 - username - Owner
-- load - Owner
-- unload - Owner
-- reload - Owner
+- load - Admin
+- unload - Admin
+- reload - Admin
 - ban - Mod
 - banid - Mod
 - softban - Mod
@@ -46,11 +46,10 @@ be sure to uncheck public bot on the [page where you created your bot!](https://
 
 The role permissions work as follows:
 
-- Owner has permission to all commands, except Event
 - Admin has permission to Admin commands and lower, except Event
 - Supervisor has permission to Supervisor commands and lower, except Event
 - Moderator has permission to Moderator commands and lower, except Event
 - Apprentice has permission to Apprentice commands, and no others.
 - Event has permissions to Event commands. All event commands require the user to have the Event role no matter what.
 
-As an example, if you want to have three roles instead of five, you can put the same role in for Admin and Supervisor, and the Same in for Moderator and Apprentice, or if you'd like all of the roles to have access to Event commands, make the Event role the same as the Apprentice role.
+The bot will check for the role name in the list of the users roles. To allow a user to have access to commands, you must give them the corresponding role, as listed above.

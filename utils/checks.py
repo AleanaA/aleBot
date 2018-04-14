@@ -23,7 +23,7 @@ def is_owner():
     return commands.check(lambda ctx: is_owner_check(ctx.message))
 
 def is_admin_check(message):
-    if config.admin in [role.id for role in message.author.roles]:
+    if "Admin" in [role.name for role in message.author.roles]:
         return True
     elif message.author.id == config.owner:
         return True
@@ -33,9 +33,9 @@ def is_admin():
     return commands.check(lambda ctx: is_admin_check(ctx.message))
 
 def is_super_check(message):
-    if config.supervisor in [role.id for role in message.author.roles]:
+    if "Supervisor" in [role.name for role in message.author.roles]:
         return True
-    elif config.admin in [role.id for role in message.author.roles]:
+    elif "Admin" in [role.name for role in message.author.roles]:
         return True
     elif message.author.id == config.owner:
         return True
@@ -45,11 +45,11 @@ def is_super():
     return commands.check(lambda ctx: is_super_check(ctx.message))
 
 def is_mod_check(message):
-    if config.moderator in [role.id for role in message.author.roles]:
+    if "Moderator" in [role.name for role in message.author.roles]:
         return True
-    elif config.supervisor in [role.id for role in message.author.roles]:
+    elif "Supervisor" in [role.name for role in message.author.roles]:
         return True
-    elif config.admin in [role.id for role in message.author.roles]:
+    elif "Admin" in [role.name for role in message.author.roles]:
         return True
     elif message.author.id == config.owner:
         return True
@@ -59,13 +59,13 @@ def is_mod():
     return commands.check(lambda ctx: is_mod_check(ctx.message))
 
 def is_appr_check(message):
-    if config.apprentice in [role.id for role in message.author.roles]:
+    if "Apprentice" in [role.name for role in message.author.roles]:
         return True
-    elif config.moderator in [role.id for role in message.author.roles]:
+    elif "Moderator" in [role.name for role in message.author.roles]:
         return True
-    elif config.supervisor in [role.id for role in message.author.roles]:
+    elif "Supervisor" in [role.name for role in message.author.roles]:
         return True
-    elif config.admin in [role.id for role in message.author.roles]:
+    elif "Admin" in [role.name for role in message.author.roles]:
         return True
     elif message.author.id == config.owner:
         return True
@@ -75,7 +75,7 @@ def is_appr():
     return commands.check(lambda ctx: is_appr_check(ctx.message))
 
 def is_event_check(message):
-    if config.event in [role.id for role in message.author.roles]:
+    if "Event" in [role.name for role in message.author.roles]:
         return True
     raise No_Event
 

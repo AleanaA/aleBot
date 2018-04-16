@@ -234,7 +234,7 @@ class Commands(Cog):
                 description="Show a users profile!",
                 brief="Show a profile!",
                 aliases=[])
-    async def profile(self, ctx, user: discord.Member):
+    async def profile(self, ctx, *user: discord.Member):
         if user == "":
             user = ctx.message.author
         roles = [role.name for role in user.roles]

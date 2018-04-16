@@ -238,7 +238,7 @@ class Commands(Cog):
         if not user:
             user = ctx.message.author
         else:
-            user = "".join(user)
+            user = user[0]
         roles = [role.name for role in user.roles]
         del roles[0]
         rolecount = len(roles)

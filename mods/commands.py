@@ -263,7 +263,7 @@ class Commands(Cog):
         embed.add_field(name="Activity", value=user.activity, inline=True)
         embed.add_field(name="Highest Role", value=user.top_role, inline=True)
         if not user.voice:
-            embed.add_field(name="Voice Channel", value="User not in a channel.", inline=True)
+            embed.add_field(name="Voice Channel", value="User not in a voice channel.", inline=True)
         else:
             embed.add_field(name="Voice Channel", value=user.voice.channel, inline=True)
         embed.set_footer(text="User is in {0} roles.".format(rolecount))

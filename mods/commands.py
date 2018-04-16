@@ -235,7 +235,7 @@ class Commands(Cog):
                 brief="Show a profile!",
                 aliases=[])
     async def profile(self, ctx, *user: discord.Member):
-        if user == "":
+        if not user:
             user = ctx.message.author
         roles = [role.name for role in user.roles]
         del roles[0]

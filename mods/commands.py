@@ -234,9 +234,11 @@ class Commands(Cog):
                 description="Show a users profile!",
                 brief="Show a profile!",
                 aliases=[])
-    async def profile(self, ctx, user: discord.Member):
+    async def profile(self, ctx, *user: discord.Member):
         if not user:
             user = ctx.message.author
+        else:
+            user = "".join(user)
         roles = [role.name for role in user.roles]
         del roles[0]
         rolecount = len(roles)

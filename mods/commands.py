@@ -239,6 +239,16 @@ class Commands(Cog):
             user = ctx.message.author
         else:
             user = user[0]
+        if str(user.status) == "online":
+            status = "Online"
+        elif str(user.status) == "offline":
+            status = "Offline"
+        elif str(user.status) == "idle":
+            status = "Idle"
+        elif str(user.status) == "dnd":
+            status = "Do Not Disturb"
+        elif str(user.status) == "do_not_disturb": # This is a catch, as a 'Just in case'
+            status = "Do Not Disturb"
         roles = [role.name for role in user.roles]
         del roles[0]
         rolecount = len(roles)
@@ -249,7 +259,7 @@ class Commands(Cog):
         embed.add_field(name="ID", value=user.id, inline=True)
         embed.add_field(name="Joined Server", value=user.joined_at.strftime("%b %d, %Y; %I:%M %p"), inline=True)
         embed.add_field(name="Account Created", value=user.created_at.strftime("%b %d, %Y; %I:%M %p"), inline=True)
-        embed.add_field(name="Status", value=str(user.status), inline=True)
+        embed.add_field(name="Status", value=status, inline=True)
         embed.add_field(name="Activity", value=user.activity, inline=True)
         embed.set_footer(text="User is in {0} roles.".format(rolecount))
         await ctx.message.channel.send(embed=embed)

@@ -99,7 +99,7 @@ class bot(commands.Bot):
     async def on_ready(self):
         await self.wait_until_ready()
         owner = await self.get_user_info(self.config.owner)
-        embed=discord.Embed(title="Bot load", description=self.user.name + " has just loaded.\n<https://discordapp.com/oauth2/authorize?client_id={0}&scope=bot&permissions=8>", color=0x05d1dc)
+        embed=discord.Embed(title="Invite URL", url="https://discordapp.com/oauth2/authorize?client_id={0}&scope=bot&permissions=8".format(str(self.user.id), description=self.user.name + " has just loaded.", color=0x05d1dc)
         embed.set_author(name=owner.name,icon_url=owner.avatar_url)
         embed.set_thumbnail(url=self.user.avatar_url)
         await owner.send(embed=embed)

@@ -244,7 +244,7 @@ class Commands(Cog):
         embed.set_author(name="User info for " + str(user),icon_url=user.avatar_url)
         embed.set_thumbnail(url=user.avatar_url)
         embed.add_field(name="Nickname", value=user.display_name, inline=True)
-        embed.add_field(name="ID", value=user.ID, inline=True)
+        embed.add_field(name="ID", value=user.id, inline=True)
         embed.add_field(name="Joined Server", value=user.joined_at, inline=True)
         embed.add_field(name="Account Created", value=user.created_at, inline=True)
         embed.add_field(name="Status", value=str(user.status), inline=True)

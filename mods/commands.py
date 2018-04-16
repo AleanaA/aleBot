@@ -230,5 +230,26 @@ class Commands(Cog):
             emb.description = 'Failed to reload mod {0}\n{1}: {2}'.format(cog, type(e).__name__, e)
             await ctx.message.channel.send(embed=emb)
 
+    @commands.command(name='profile',
+                description="Show a users profile!",
+                brief="Show a profile!",
+                aliases=[])
+    async def profile(self, ctx, user: discord.Member):
+        if user == "":
+            user = ctx.message.author
+        roles = [role.name for role in user.roles]
+        del roles[0]
+        rolecount = len(roles)
+        embed=discord.Embed(color=0x0000ff)
+        embed.set_author(name="User info for " + str(user),icon_url=user.avatar_url)
+        embed.set_thumbnail(url=user.avatar_url)
+        embed.add_field(name="Nickname", value=user.display_name, inline=True)
+        embed.add_field(name="ID", value=user.ID, inline=True)
+        embed.add_field(name="Joined Server", value=user.joined_at, inline=True)
+        embed.add_field(name="Account Created", value=user.created_at, inline=True)
+        embed.add_field(name="Status", value=str(user.status), inline=True)
+        embed.add_field(name="Activity", value=user.activity, inline=True)
+        embed.set_footer(text="User is in {0} roles.".format(rolecount))
+        await ctx.message.channel.send(embed=embed)
 def setup(bot):
     bot.add_cog(Commands(bot))

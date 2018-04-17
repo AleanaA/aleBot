@@ -2,3 +2,4 @@ __pycache__/
 *.pyc
 config/config.py
 config/config.ini
+config/emotes.py

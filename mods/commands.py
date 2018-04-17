@@ -10,6 +10,7 @@ from config import config
 from utils import checks
 from utils.config import Config
 from utils.cog import Cog
+from utils import osu
 
 class Commands(Cog):
     @commands.command(name='eval',

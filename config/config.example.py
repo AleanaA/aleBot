@@ -8,5 +8,6 @@ LogLevel = 'warn'
 # but can easily prevent you from using commands if you delete the existing modules.
 Modules = [
     'mods.moderate',
-    'mods.commands'
+    'mods.commands',
+    'mods.cogloader'
 ]

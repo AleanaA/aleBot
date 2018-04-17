@@ -173,63 +173,6 @@ class Commands(Cog):
         await ctx.message.channel.send(embed=discord.Embed(description=emotes.Done + " " + self.bot.user.name + " is now shutting down... " + ctx.message.author.mention, color=0x0035ff))
         await self.bot.logout()
 
-    @commands.command(name='load',
-                description="Loads a cog",
-                brief="Loads a cog")
-    @checks.is_owner()
-    async def load(self, ctx, mod):
-        cog = "mods." + mod
-        emb = discord.Embed()
-        emb.title = ("Cog Loader")
-        try:
-            self.bot.load_extension(cog)
-            emb.description = "Loaded cog `" + mod + "` successfully"
-            emb.colour = 0x00ff00
-            await ctx.message.channel.send(embed=emb)
-            print("User " + str(ctx.message.author) + " loaded module " + mod)
-        except Exception as e:
-            emb.description = 'Failed to load mod {0}\n{1}: {2}'.format(cog, type(e).__name__, e)
-            emb.colour = 0xff0000
-            await ctx.message.channel.send(embed=emb)
-
-    @commands.command(name='unload',
-                description="Unloads a cog",
-                brief="Unloads a cog")
-    @checks.is_owner()
-    async def unload(self, ctx, mod):
-        cog = "mods." + mod
-        emb = discord.Embed()
-        emb.title = ("Cog Loader")
-        try:
-            self.bot.unload_extension(cog)
-            emb.description = "Unloaded cog `" + mod + "` successfully"
-            emb.colour = 0x00ff00
-            await ctx.message.channel.send(embed=emb)
-            print("User " + str(ctx.message.author) + " unloaded module " + mod)
-        except Exception as e:
-            emb.description = 'Failed to unload mod {0}\n{1}: {2}'.format(cog, type(e).__name__, e)
-            emb.colour = 0xff0000
-            await ctx.message.channel.send(embed=emb)
-
-    @commands.command(name='reload',
-                description="Reloads a cog",
-                brief="Reloads a cog")
-    @checks.is_owner()
-    async def reload(self, ctx, mod):
-        cog = "mods." + mod
-        emb = discord.Embed()
-        emb.title = ("Cog Loader")
-        try:
-            self.bot.unload_extension(cog)
-            self.bot.load_extension(cog)
-            emb.description = "Reloaded cog `" + mod + "` successfully"
-            emb.colour = 0x00ff00
-            await ctx.message.channel.send(embed=emb)
-            print("User " + str(ctx.message.author) + " reloaded module " + mod)
-        except Exception as e:
-            emb.description = 'Failed to reload mod {0}\n{1}: {2}'.format(cog, type(e).__name__, e)
-            await ctx.message.channel.send(embed=emb)
-
     @commands.command(name='profile',
                 description="Show a users profile!",
                 brief="Show a profile!",

@@ -23,6 +23,7 @@ class Commands(Cog):
         result = None
 
         env = {
+            'bot': self.bot,
             'ctx': ctx,
             'message': ctx.message,
             'channel': ctx.message.channel,

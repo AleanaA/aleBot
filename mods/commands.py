@@ -23,7 +23,7 @@ class Commands(Cog):
         result = None
 
         env = {
-            'self': self
+            'self': self,
             'bot': self.bot,
             'ctx': ctx,
             'message': ctx.message,

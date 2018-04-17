@@ -21,10 +21,10 @@ class CogLoader(Cog):
             emb.title = "Cog Loader " + emotes.Warn
             emb.colour = 0xffff00
             emb.description = "Please issue a subcommand!\nAvailable options are:"
-            emb.add_field(name="Load", value="Load a module.")
-            emb.add_field(name="Reload", value="Reload a module.")
-            emb.add_field(name="Unload", value="Unload a module that you've manually loaded.\nModules in `config.py` will stay loaded.")
-            emb.add_field(name="List", value="List all loaded cogs.")
+            emb.add_field(name="Load", value="Load a module.", inline=False)
+            emb.add_field(name="Reload", value="Reload a module.", inline=False)
+            emb.add_field(name="Unload", value="Unload a module that you've manually loaded.\nModules in `config.py` will stay loaded.", inline=False)
+            emb.add_field(name="List", value="List all loaded cogs.", inline=False)
             await ctx.message.channel.send(embed=emb)
 
     @cog.command(name='load',

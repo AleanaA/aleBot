@@ -92,15 +92,15 @@ class Moderation(Cog):
                     aliases=['banid'])
     @checks.is_mod()
     async def banid(self, ctx, userName, *reason):
-        if ctx.message.author.top_role <= userName.top_role:
-            await ctx.message.channel.send(embed=discord.Embed(title="Permission Error", description="You don't have permission to kick that user!", color=0xff0000))
-            return
         self.config = Config('config/config.ini')
         AUDDIT = self.bot.get_channel(self.config.auddit)
         server = ctx.message.guild
         auth = ctx.message.author
         rsn = " ".join(reason)
         banned = await self.bot.get_user_info(userName)
+        if ctx.message.author.top_role <= banned.top_role:
+            await ctx.message.channel.send(embed=discord.Embed(title="Permission Error", description="You don't have permission to kick that user!", color=0xff0000))
+            return
         action = "Banned"
         if rsn == "":
             rsn = "No Reason Specified"

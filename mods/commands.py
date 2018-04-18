@@ -205,11 +205,6 @@ class Commands(Cog):
         elif user.activity.type == 3: # Users shouldn't have this type yet, however it's here to catch it for Bots and SelfBot users.
             activity = "Watching **{}**".format(user.activity)
 
-        if user.color == 0x000000:
-            color = 0xffffff
-        else:
-            color = user.color
-
         roles = [role.name for role in user.roles]
         del roles[0]
         rolecount = len(roles)

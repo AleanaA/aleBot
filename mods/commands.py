@@ -197,31 +197,31 @@ class Commands(Cog):
         if user.activity == None:
             activity = "None"
         elif user.activity.type == 0:
-            activity = "Playing {}".format(user.activity)
+            activity = "**Playing** {}".format(user.activity)
         elif user.activity.type == 1:
-            activity = "Streaming {}".format(user.activity)
+            activity = "**Streaming** {}".format(user.activity)
         elif user.activity.type == 2:
-            activity = "Listening to {}".format(user.activity)
+            activity = "**Listening to** {}".format(user.activity)
         elif user.activity.type == 3: # Users shouldn't have this type yet, however it's here to catch it for Bots and SelfBot users.
-            activity = "Watching {}".format(user.activity)
+            activity = "**Watching** {}".format(user.activity)
 
         roles = [role.name for role in user.roles]
         del roles[0]
         rolecount = len(roles)
         embed=discord.Embed(color=user.color)
         embed.set_author(name="User info for " + str(user),icon_url=user.avatar_url)
-        embed.set_thumbnail(url=user.avatar_url)
-        embed.add_field(name="Nickname", value=user.display_name, inline=True)
-        embed.add_field(name="ID", value=user.id, inline=True)
-        embed.add_field(name="Joined Server", value=user.joined_at.strftime("%b %d, %Y; %I:%M %p"), inline=True)
-        embed.add_field(name="Account Created", value=user.created_at.strftime("%b %d, %Y; %I:%M %p"), inline=True)
-        embed.add_field(name="Status", value=status, inline=True)
-        embed.add_field(name="Activity", value=activity, inline=True)
-        embed.add_field(name="Highest Role", value=user.top_role, inline=True)
+        embed.set_image(url=user.avatar_url)
+        embed.add_field(name="Nickname", value=user.display_name)
+        embed.add_field(name="ID", value=user.id)
+        embed.add_field(name="Joined Server", value=user.joined_at.strftime("%b %d, %Y; %I:%M %p"))
+        embed.add_field(name="Account Created", value=user.created_at.strftime("%b %d, %Y; %I:%M %p"))
+        embed.add_field(name="Status", value=status)
+        embed.add_field(name="Activity", value=activity)
+        embed.add_field(name="Highest Role", value=user.top_role)
         if not user.voice:
-            embed.add_field(name="Voice Channel", value="User not in a channel.", inline=True)
+            embed.add_field(name="Voice Channel", value="User not in a channel.")
         else:
-            embed.add_field(name="Voice Channel", value=user.voice.channel, inline=True)
+            embed.add_field(name="Voice Channel", value=user.voice.channel)
         embed.set_footer(text="User is in {0} roles.".format(rolecount))
         await ctx.message.channel.send(embed=embed)
 def setup(bot):

@@ -224,6 +224,6 @@ class Commands(Cog):
         else:
             embed.add_field(name="Voice Channel", value=user.voice.channel, inline=True)
         await ctx.message.channel.send(embed=embed)
-        embed.set_footer(icon_url=ctx.message.author.avatar_url, text="Requested by {}".format(ctx.message.author))
+        embed.set_footer(text="Requested by {}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
 def setup(bot):
     bot.add_cog(Commands(bot))

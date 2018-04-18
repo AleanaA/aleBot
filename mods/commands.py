@@ -218,7 +218,7 @@ class Commands(Cog):
         embed.add_field(name="Status", value=status, inline=True)
         embed.add_field(name="Activity", value=activity, inline=True)
         embed.add_field(name="Highest Role", value=user.top_role, inline=True)
-        embed.add_field(name="Roles", value=rolecount, inline=True))
+        embed.add_field(name="Roles", value=rolecount, inline=True)
         if not user.voice:
             embed.add_field(name="Voice Channel", value="User not in a channel.", inline=True)
         else:

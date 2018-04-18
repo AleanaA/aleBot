@@ -65,7 +65,7 @@ class Moderation(Cog):
                     brief="Bans a user",
                     aliases=['ban'])
     @checks.is_mod()
-    async def ban(self, ctx, userName: discord.User, *reason):
+    async def ban(self, ctx, userName: discord.Member, *reason):
         if ctx.message.author.top_role <= userName.top_role:
             await ctx.message.channel.send(embed=discord.Embed(title="Permission Error", description="You don't have permission to kick that user!", color=0xff0000))
             return
@@ -118,7 +118,7 @@ class Moderation(Cog):
                     brief="Softbans a user",
                     aliases=['softban'])
     @checks.is_mod()
-    async def softban(self, ctx, userName: discord.User, *reason):
+    async def softban(self, ctx, userName: discord.Member, *reason):
         if ctx.message.author.top_role <= userName.top_role:
             await ctx.message.channel.send(embed=discord.Embed(title="Permission Error", description="You don't have permission to kick that user!", color=0xff0000))
             return

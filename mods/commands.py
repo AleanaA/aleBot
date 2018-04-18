@@ -194,7 +194,7 @@ class Commands(Cog):
             status = "Do Not Disturb"
         elif str(user.status) == "do_not_disturb": # This is a catch, as a 'Just in case'
             status = "Do Not Disturb"
-        if user.activity == "None":
+        if user.activity == None:
             activity = "None"
         elif user.activity.type == 0:
             activity = "Playing {}".format(user.activity)

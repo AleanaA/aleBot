@@ -205,8 +205,8 @@ class Commands(Cog):
         elif user.activity.type == 3: # Users shouldn't have this type yet, however it's here to catch it for Bots and SelfBot users.
             activity = "Watching **{}**".format(user.activity)
 
-        if user.color == "#000000":
-            color = "#ffffff"
+        if user.color == 0x000000:
+            color = 0xffffff
         else:
             color = user.color
 

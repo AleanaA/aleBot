@@ -40,6 +40,9 @@ class Moderation(Cog):
                     aliases=['kick'])
     @checks.is_appr()
     async def kick(self, ctx, userName: discord.Member, *reason):
+        if ctx.message.author.top_role <= userName.top_role:
+            ctx.message.channel.send(embed=discord.Embed(description="You don't have permission to kick that user!", color=0xff0000))
+            return
         self.config = Config('config/config.ini')
         AUDDIT = self.bot.get_channel(self.config.auddit)
         server = ctx.message.guild

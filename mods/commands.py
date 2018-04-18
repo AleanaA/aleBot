@@ -208,7 +208,7 @@ class Commands(Cog):
         roles = [role.name for role in user.roles]
         del roles[0]
         rolecount = len(roles)
-        embed=discord.Embed(color=user.color, timestamp=ctx.message.created_at)
+        embed=discord.Embed(color=user.color)
         embed.set_author(name="User info for " + str(user),icon_url=user.avatar_url)
         embed.set_thumbnail(url=user.avatar_url)
         embed.add_field(name="Nickname", value=user.display_name)
@@ -219,10 +219,18 @@ class Commands(Cog):
         embed.add_field(name="Activity", value=activity)
         embed.add_field(name="Highest Role", value=user.top_role)
         embed.add_field(name="Roles", value=rolecount)
-        if not user.voice:
-            embed.add_field(name="Voice Channel", value="User not in a channel.")
-        else:
+        if user.voice:
             embed.add_field(name="Voice Channel", value=user.voice.channel)
+            if user.voice.deaf == true:
+                embed.add_field(name="Voice State", value="Server Deafened")
+            if user.voice.mute == true:
+                embed.add_field(name="Voice State", value="Server Muted")
+            if user.voice.self_deaf == true:
+                embed.add_field(name="Voice State", value="Deafened")
+            if user.voice.self_mute == true:
+                embed.add_field(name="Voice State", value="Muted")
+            else:
+                embed.add_field(name="Voice State", value="Open")
         await ctx.message.channel.send(embed=embed)
         embed.set_footer(text="Requested by {}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
 def setup(bot):

@@ -10,7 +10,6 @@ from config import config
 from utils import checks
 from utils.config import Config
 from utils.cog import Cog
-from utils import osu
 
 class Commands(Cog):
     @commands.command(name='eval',
@@ -195,6 +194,17 @@ class Commands(Cog):
             status = "Do Not Disturb"
         elif str(user.status) == "do_not_disturb": # This is a catch, as a 'Just in case'
             status = "Do Not Disturb"
+        if user.activity == "None":
+            activity = "None"
+        elif user.activity.type == 0:
+            activity = "Playing {}".format(user.activity)
+        elif user.activity.type == 1:
+            activity = "Streaming {}".format(user.activity)
+        elif user.activity.type == 2:
+            activity = "Listening to {}".format(user.activity)
+        elif user.activity.type == 3: # Users shouldn't have this type yet, however it's here to catch it for Bots and SelfBot users.
+            activity = "Watching {}".format(user.activity)
+
         roles = [role.name for role in user.roles]
         del roles[0]
         rolecount = len(roles)
@@ -206,7 +216,7 @@ class Commands(Cog):
         embed.add_field(name="Joined Server", value=user.joined_at.strftime("%b %d, %Y; %I:%M %p"), inline=True)
         embed.add_field(name="Account Created", value=user.created_at.strftime("%b %d, %Y; %I:%M %p"), inline=True)
         embed.add_field(name="Status", value=status, inline=True)
-        embed.add_field(name="Activity", value=user.activity, inline=True)
+        embed.add_field(name="Activity", value=activity, inline=True)
         embed.add_field(name="Highest Role", value=user.top_role, inline=True)
         if not user.voice:
             embed.add_field(name="Voice Channel", value="User not in a channel.", inline=True)

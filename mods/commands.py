@@ -208,7 +208,7 @@ class Commands(Cog):
         roles = [role.name for role in user.roles]
         del roles[0]
         rolecount = len(roles)
-        embed=discord.Embed(color=user.color)
+        embed=discord.Embed(color=user.color, timestamp=ctx.message.created_at.strftime("%b %d, %Y; %I:%M %p"))
         embed.set_author(name="User info for " + str(user),icon_url=user.avatar_url)
         embed.set_image(url=user.avatar_url)
         embed.add_field(name="Nickname", value=user.display_name, inline=True)
@@ -218,11 +218,12 @@ class Commands(Cog):
         embed.add_field(name="Status", value=status, inline=True)
         embed.add_field(name="Activity", value=activity, inline=True)
         embed.add_field(name="Highest Role", value=user.top_role, inline=True)
+        embed.add_field(name="Roles", value=rolecount, inline=True))
         if not user.voice:
             embed.add_field(name="Voice Channel", value="User not in a channel.", inline=True)
         else:
             embed.add_field(name="Voice Channel", value=user.voice.channel, inline=True)
-        embed.set_footer(text="User is in {0} roles.".format(rolecount))
         await ctx.message.channel.send(embed=embed)
+        embed.set_footer(icon_url=ctx.message.author.avatar_url, text="Requested by {}".format(ctx.message.author))
 def setup(bot):
     bot.add_cog(Commands(bot))

@@ -235,5 +235,6 @@ class Commands(Cog):
                 embed.add_field(name="Voice State", value="Open", inline=False)
         await ctx.message.channel.send(embed=embed)
         embed.set_footer(text="Requested by {}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.timestamp = ctx.message.created_at
 def setup(bot):
     bot.add_cog(Commands(bot))

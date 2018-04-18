@@ -223,11 +223,11 @@ class Commands(Cog):
             embed.add_field(name="Voice Channel", value=user.voice.channel)
             if user.voice.deaf == True:
                 embed.add_field(name="Voice State", value="Server Deafened")
-            if user.voice.mute == True:
+            elif user.voice.mute == True:
                 embed.add_field(name="Voice State", value="Server Muted")
-            if user.voice.self_deaf == True:
+            elif user.voice.self_deaf == True:
                 embed.add_field(name="Voice State", value="Deafened")
-            if user.voice.self_mute == True:
+            elif user.voice.self_mute == True:
                 embed.add_field(name="Voice State", value="Muted")
             else:
                 embed.add_field(name="Voice State", value="Open")

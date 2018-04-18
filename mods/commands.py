@@ -208,7 +208,7 @@ class Commands(Cog):
         roles = [role.name for role in user.roles]
         del roles[0]
         rolecount = len(roles)
-        embed=discord.Embed(color=color)
+        embed=discord.Embed(color=user.color)
         embed.set_author(name="User info for " + str(user),icon_url=user.avatar_url)
         embed.set_thumbnail(url=user.avatar_url)
         embed.add_field(name="Nickname", value=user.display_name, inline=False)

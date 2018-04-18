@@ -221,13 +221,13 @@ class Commands(Cog):
         embed.add_field(name="Roles", value=rolecount)
         if user.voice:
             embed.add_field(name="Voice Channel", value=user.voice.channel)
-            if user.voice.deaf == true:
+            if user.voice.deaf == True:
                 embed.add_field(name="Voice State", value="Server Deafened")
-            if user.voice.mute == true:
+            if user.voice.mute == True:
                 embed.add_field(name="Voice State", value="Server Muted")
-            if user.voice.self_deaf == true:
+            if user.voice.self_deaf == True:
                 embed.add_field(name="Voice State", value="Deafened")
-            if user.voice.self_mute == true:
+            if user.voice.self_mute == True:
                 embed.add_field(name="Voice State", value="Muted")
             else:
                 embed.add_field(name="Voice State", value="Open")

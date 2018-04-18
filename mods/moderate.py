@@ -41,7 +41,7 @@ class Moderation(Cog):
     @checks.is_appr()
     async def kick(self, ctx, userName: discord.Member, *reason):
         if ctx.message.author.top_role <= userName.top_role:
-            await ctx.message.channel.send(embed=discord.Embed(description="You don't have permission to kick that user!", color=0xff0000))
+            await ctx.message.channel.send(embed=discord.Embed(title="Permission Error", description="You don't have permission to kick that user!", color=0xff0000))
             return
         self.config = Config('config/config.ini')
         AUDDIT = self.bot.get_channel(self.config.auddit)
@@ -66,6 +66,9 @@ class Moderation(Cog):
                     aliases=['ban'])
     @checks.is_mod()
     async def ban(self, ctx, userName: discord.User, *reason):
+        if ctx.message.author.top_role <= userName.top_role:
+            await ctx.message.channel.send(embed=discord.Embed(title="Permission Error", description="You don't have permission to kick that user!", color=0xff0000))
+            return
         self.config = Config('config/config.ini')
         AUDDIT = self.bot.get_channel(self.config.auddit)
         server = ctx.message.guild
@@ -89,6 +92,9 @@ class Moderation(Cog):
                     aliases=['banid'])
     @checks.is_mod()
     async def banid(self, ctx, userName, *reason):
+        if ctx.message.author.top_role <= userName.top_role:
+            await ctx.message.channel.send(embed=discord.Embed(title="Permission Error", description="You don't have permission to kick that user!", color=0xff0000))
+            return
         self.config = Config('config/config.ini')
         AUDDIT = self.bot.get_channel(self.config.auddit)
         server = ctx.message.guild
@@ -113,6 +119,9 @@ class Moderation(Cog):
                     aliases=['softban'])
     @checks.is_mod()
     async def softban(self, ctx, userName: discord.User, *reason):
+        if ctx.message.author.top_role <= userName.top_role:
+            await ctx.message.channel.send(embed=discord.Embed(title="Permission Error", description="You don't have permission to kick that user!", color=0xff0000))
+            return
         self.config = Config('config/config.ini')
         AUDDIT = self.bot.get_channel(self.config.auddit)
         server = ctx.message.guild

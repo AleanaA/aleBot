@@ -1,5 +1,5 @@
 # Set the level the console will log at. 
-# Values can be 'debug', 'info', 'warn', 'error', 'critical', or left blank to disable logging
+# Values can be 'debug', 'info', 'warn', 'error', 'critical', or left blank to disable logging.
 LogLevel = 'warn'
 
 # Modules for commands go here.

@@ -35,12 +35,6 @@ class Config:
         self.status = config.get('Bot', 'Status', fallback=None)
         # [IDs]
         self.owner = int(config.get('IDs', 'Owner', fallback=None))
-        self.admin = int(config.get('IDs', 'Admin', fallback=None))
-        self.supervisor = int(config.get('IDs', 'Supervisor', fallback=None))
-        self.moderator = int(config.get('IDs', 'Moderator', fallback=None))
-        self.apprentice = int(config.get('IDs', 'Apprentice', fallback=None))
-        self.event = int(config.get('IDs', 'Event', fallback=None))
-        self.announce = int(config.get('IDs', 'AnnounceChannel', fallback=None))
         self.log = int(config.get('IDs', 'LogChannel', fallback=None))
         self.auddit = int(config.get('IDs', 'AudditChannel', fallback=None))
 
@@ -62,21 +56,6 @@ class Config:
             critical = True
         if not self.owner:
             log.critical('You must provide an owner id in the config.ini')
-            critical = True
-        if not self.admin:
-            log.critical('You must provide an admin role id in the config.ini')
-            critical = True
-        if not self.supervisor:
-            log.critical('You must provide a supervisor role id in the config.ini')
-            critical = True
-        if not self.moderator:
-            log.critical('You must provide a moderator role id in the config.ini')
-            critical = True
-        if not self.apprentice:
-            log.critical('You must provide an apprentice role id in the config.ini')
-            critical = True
-        if not self.event:
-            log.critical('You must provide an event role id in the config.ini')
             critical = True
         if not self.announce:
             log.critical('You must provide an announcement channel id in the config.ini')

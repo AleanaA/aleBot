@@ -35,6 +35,7 @@ class Config:
         self.status = config.get('Bot', 'Status', fallback=None)
         # [IDs]
         self.owner = int(config.get('IDs', 'Owner', fallback=None))
+        self.announce = int(config.get('IDs', 'AnnounceChannel', fallback=None))
         self.log = int(config.get('IDs', 'LogChannel', fallback=None))
         self.auddit = int(config.get('IDs', 'AudditChannel', fallback=None))
 

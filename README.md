@@ -37,7 +37,7 @@ All commands can be listed using the help command, but role required commands ar
 - say - Event
 - announce - Event
 
-There is an invite command, so if you don't want users to be able to access your bot without permission\n
+There is an invite command, so if you don't want users to be able to access your bot without permission
 be sure to uncheck public bot on the [page where you created your bot!](https://discordapp.com/developers/applications/me)
 
 ### Roles

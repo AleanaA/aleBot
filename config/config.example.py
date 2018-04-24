@@ -9,5 +9,6 @@ LogLevel = 'warn'
 Modules = [
     'mods.moderate',
     'mods.commands',
-    'mods.cogloader'
+    'mods.cogloader',
+    'mods.mpd'
 ]

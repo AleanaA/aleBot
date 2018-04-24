@@ -2,6 +2,7 @@ import asyncio
 import discord
 import inspect
 import aiohttp
+import datetime
 from discord import Game
 from discord.ext import commands
 from discord.ext.commands import Bot
@@ -15,12 +16,15 @@ from mpd import MPDClient
 player = MPDClient()
 
 class MPD(Cog):
+    def __init__(self, *args, **kwargs):
+        self.ip = "localhost"
+        self.port = "6600"
     @commands.group(name='mpd',
                  description="Command for MPD managing.")
     async def mpd(self, ctx):
         if ctx.invoked_subcommand is None:
             emb = discord.Embed()
-            emb.title = "MPD Client " + emotes.Warn
+            emb.title = ":musical_note: MPD Client " + emotes.Warn
             emb.colour = 0xffff00
             emb.description = "Please issue a valid subcommand!\nAvailable options are:"
             emb.add_field(name="Play", value="Starts playing what's in the queue.", inline=False)
@@ -35,15 +39,30 @@ class MPD(Cog):
             emb.add_field(name="Playlist", value="Add a playlist to the current queue.", inline=False)
             await ctx.message.channel.send(embed=emb)
     
+    @mpd.command(name='server',
+                description="Sets an alternative server to connect to.")
+    @checks.is_owner()
+    async def server(self, ctx, ip, *port):
+        emb = discord.Embed()
+        emb.title = ":musical_note: MPD Client"
+        emb.colour = 0x00aaff
+        self.ip = ip
+        if not port:
+            self.port = "6600"
+        emb.description = "Set the MPD Server to `{0}:{1}`.".format(self.ip, self.port)
+        await ctx.message.channel.send(embed=emb)
+
     @mpd.command(name='back',
                 description="Plays the previous song in the queue.")
     @checks.is_owner()
     async def back(self, ctx):
-        ip = "localhost"
-        port = "6600"
-        player.connect(ip, int(port))
+        emb = discord.Embed()
+        emb.title = ":musical_note: MPD Client"
+        emb.colour = 0x00aaff
+        emb.description = "Playing previous song in the current queue."
+        player.connect(self.ip, int(self.port))
         player.previous()
-        await ctx.message.channel.send("Playing previous song in the current queue.")
+        await ctx.message.channel.send(embed=emb)
         player.close()
         player.disconnect()
 
@@ -51,11 +70,13 @@ class MPD(Cog):
                 description="Starts playing what's in the queue.")
     @checks.is_owner()
     async def play(self, ctx):
-        ip = "localhost"
-        port = "6600"
-        player.connect(ip, int(port))
+        emb = discord.Embed()
+        emb.title = ":musical_note: MPD Client"
+        emb.colour = 0x00aaff
+        emb.description = "Started the current queue."
+        player.connect(self.ip, int(self.port))
         player.play()
-        await ctx.message.channel.send("Started the current queue.")
+        await ctx.message.channel.send(embed=emb)
         player.close()
         player.disconnect()
 
@@ -63,11 +84,13 @@ class MPD(Cog):
                 description="Skips the currently playing song.")
     @checks.is_owner()
     async def skip(self, ctx):
-        ip = "localhost"
-        port = "6600"
-        player.connect(ip, int(port))
+        emb = discord.Embed()
+        emb.title = ":musical_note: MPD Client"
+        emb.colour = 0x00aaff
+        emb.description = "Playing the next song in the current queue"
+        player.connect(self.ip, int(self.port))
         player.next()
-        await ctx.message.channel.send("Playing the next song in the current queue")
+        await ctx.message.channel.send(embed=emb)
         player.close()
         player.disconnect()
 
@@ -75,11 +98,13 @@ class MPD(Cog):
                 description="Pauses the currently playing song.")
     @checks.is_owner()
     async def pause(self, ctx):
-        ip = "localhost"
-        port = "6600"
-        player.connect(ip, int(port))
+        emb = discord.Embed()
+        emb.title = ":musical_note: MPD Client"
+        emb.colour = 0x00aaff
+        emb.description = "Paused the currently playing song."
+        player.connect(self.ip, int(self.port))
         player.pause()
-        await ctx.message.channel.send("Paused the currently playing song.")
+        await ctx.message.channel.send(embed=emb)
         player.close()
         player.disconnect()
 
@@ -87,11 +112,13 @@ class MPD(Cog):
                 description="Stops and clears the current queue.")
     @checks.is_owner()
     async def clear(self, ctx):
-        ip = "localhost"
-        port = "6600"
-        player.connect(ip, int(port))
+        emb = discord.Embed()
+        emb.title = ":musical_note: MPD Client"
+        emb.colour = 0x00aaff
+        emb.description = "Cleared the current queue."
+        player.connect(self.ip, int(self.port))
         player.clear()
-        await ctx.message.channel.send("Cleared the current queue.")
+        await ctx.message.channel.send(embed=emb)
         player.close()
         player.disconnect()
 
@@ -99,35 +126,36 @@ class MPD(Cog):
                 description="Shuffles the current queue.")
     @checks.is_owner()
     async def shuffle(self, ctx):
-        ip = "localhost"
-        port = "6600"
-        player.connect(ip, int(port))
+        emb = discord.Embed()
+        emb.title = ":musical_note: MPD Client"
+        emb.colour = 0x00aaff
+        emb.description = "Shuffled the current queue."
+        player.connect(self.ip, int(self.port))
         player.shuffle()
-        await ctx.message.channel.send("Shuffled the current queue.")
-        player.close()
-        player.disconnect()
-
-    @mpd.command(name='shownext',
-                description="Shows the next song in the current queue.")
-    async def shownext(self, ctx):
-        ip = "localhost"
-        port = "6600"
-        player.connect(ip, int(port))
-        print(player.status())
-        nextsong = player.status().get('nextsong')
-        await ctx.message.channel.send("Next up: {0} by {1}".format(player.playlistinfo()[int(nextsong)]['title'], player.playlistinfo()[int(nextsong)]['artist']))
+        await ctx.message.channel.send(embed=emb)
         player.close()
         player.disconnect()
 
     @mpd.command(name='np',
                 description="Shows the song currently playing.")
     async def np(self, ctx):
-        ip = "localhost"
-        port = "6600"
-        player.connect(ip, int(port))
+        player.connect(self.ip, int(self.port))
+        emb = discord.Embed()
+        emb.title = ":musical_note: MPD Client"
         try:
-            await ctx.message.channel.send("Currently playing {0} by {1}.".format(player.currentsong()['title'], player.currentsong()['artist']))
+            nextsong = player.status().get('nextsong')
+            time = str(datetime.timedelta(seconds=round(float(player.status().get('elapsed')))))
+            length = str(datetime.timedelta(seconds=int(player.currentsong()['time'])))
+            emb.colour = 0x00aaff
+            emb.description = "Showing the currently playing song."
+            emb.add_field(name="Song Name", value=player.currentsong()['title'], inline=False)
+            emb.add_field(name="Song Artist", value=player.currentsong()['artist'], inline=False)
+            emb.add_field(name="Time", value="`{0} / {1}`".format(time, length), inline=False)
+            emb.add_field(name="Next Song", value= "{0} | {1}".format(player.playlistinfo()[int(nextsong)]['title'], player.playlistinfo()[int(nextsong)]['artist']))
+            await ctx.message.channel.send(embed=emb)
         except KeyError:
+            emb.colour = 0xffff00
+            emb.description = "Nothing seems to be playing, or an error occured."
             await ctx.message.channel.send("Nothing seems to be playing, or an error occured.")
         player.close()
         player.disconnect()
@@ -136,12 +164,14 @@ class MPD(Cog):
                 description="Add a playlist to the current queue.")
     @checks.is_owner()
     async def playlist(self, ctx, *playlist):
-        ip = "localhost"
-        port = "6600"
-        player.connect(ip, int(port))
+        player.connect(self.ip, int(self.port))
         playlist = ' '.join(playlist)
+        emb = discord.Embed()
+        emb.title = ":musical_note: MPD Client"
+        emb.colour = 0x00aaff
+        emb.description = "Loaded playlist '{0}'".format(playlist)
         player.load(playlist)
-        await ctx.message.channel.send("Loaded playlist '{0}'".format(playlist))
+        await ctx.message.channel.send(embed=emb)
         player.close()
         player.disconnect()
 
@@ -149,15 +179,32 @@ class MPD(Cog):
                 description="List all available playlists.")
     @checks.is_owner()
     async def playlists(self, ctx):
-        ip = "localhost"
-        port = "6600"
-        player.connect(ip, int(port))
+        player.connect(self.ip, int(self.port))
         playlists = player.listplaylists()
+        emb = discord.Embed()
+        emb.title = ":musical_note: MPD Client"
+        emb.colour = 0x00aaff
+        emb.description = "Listing all available playlists."
         reply = ""
         for playlist in playlists:
-            playlistlist = "Playlist: {0}\n".format(playlist['playlist'])
+            playlistlist = "{0}\n\n".format(playlist['playlist'])
             reply += playlistlist
-        await ctx.message.channel.send("__Playlists__\n\n{0}".format(reply))
+        emb.add_field(name="Playlists", value=reply, inline=False)
+        await ctx.message.channel.send(embed=emb)
+        player.close()
+        player.disconnect()
+
+    @mpd.command(name='vol',
+                description="Changes the volume of the server.")
+    @checks.is_owner()
+    async def vol(self, ctx, volume):
+        emb = discord.Embed()
+        emb.title = ":musical_note: MPD Client"
+        emb.colour = 0x00aaff
+        emb.description = "Set the volume to {0}/100".format(volume)
+        player.connect(self.ip, int(self.port))
+        player.setvol(volume)
+        await ctx.message.channel.send(embed=emb)
         player.close()
         player.disconnect()
 

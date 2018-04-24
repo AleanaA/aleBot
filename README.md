@@ -16,7 +16,7 @@ If you need assistance setting up the bot, or adding to it, come join [the suppo
 6. Setup the config file in the `config` folder. This includes copying `config.example.py` and `config.exemple.ini` to `config.py` and `config.ini` and adding your bot token, your user id, your prefix, an announcement, log, and auddit log channel.
 7. That's it! Run the bot with either `run.bat` or `run.sh` and you should be good to go!
 
-It should be noted that emotes will probably be displayed incorrectly, as you won't have the emotes in `emotes.py`\n
+It should be noted that emotes will probably be displayed incorrectly, as you won't have the emotes in `emotes.py`
 To fix this, just replace those emote IDs with ones from a server the bot is in, corresponding to the emote.
 
 ### Commands
@@ -37,7 +37,7 @@ All commands can be listed using the help command, but role required commands ar
 - say - Event
 - announce - Event
 
-There is an invite command, so if you don't want users to be able to access your bot without permission,\n
+There is an invite command, so if you don't want users to be able to access your bot without permission
 be sure to uncheck public bot on the [page where you created your bot!](https://discordapp.com/developers/applications/me)
 
 ### Roles

@@ -13,7 +13,7 @@ If you need assistance setting up the bot, or adding to it, come join [the suppo
 3. Ensure you have Python and pip installed, and added to your path. The bot was built using [Python 3.5.4,](https://www.python.org/ftp/python/3.5.4/python-3.5.4-amd64.exe) so that's your best bet.
 4. In the root directory of the bot, run `python -m pip -U -r requirements.txt` on windows, or `python3 -m pip -U -r requirements.txt` on Linux.
 5. Create a bot account over on the [Discord developers page.](https://discordapp.com/developers/applications/me)
-6. Setup the config file in the `config` folder. This includes copying `config.example.py` and `config.exemple.ini` to `config.py` and `config.ini` and adding your bot token, your user id, your prefix, an announcement, log, and auddit log channel.
+6. Setup the config file in the `config` folder. This includes copying `config.example.py` and `config.example.ini` to `config.py` and `config.ini` and adding your bot token, your user id, your prefix, an announcement, log, and auddit log channel.
 7. That's it! Run the bot with either `run.bat` or `run.sh` and you should be good to go!
 
 It should be noted that emotes will probably be displayed incorrectly, as you won't have the emotes in `emotes.py`

@@ -44,8 +44,7 @@ class Unshared(Cog):
                 embed.add_field(name="Server Name: {0}".format(server.name), value=servers)
                 await server.leave()
                 await owneruser.send(embed=embed)
-                return await ctx.message.channel.send(emotes.Done)
-            await ctx.message.channel.send(emotes.Error + " No unshared servers.")
+                await ctx.message.channel.send(emotes.Done)
                 
 
     @unshared.command(name='list')
@@ -64,8 +63,7 @@ class Unshared(Cog):
                 servers += "**ID:** {0}\n**Owner:** {1}\n**Owner ID:** {2}\n**Members:** {3}\n**Join Date:** {4}".format(str(server.id), server.owner, server.owner.id, str(server.member_count),botuser.joined_at.strftime("%b %d, %Y; %I:%M %p"))
                 embed.add_field(name="Server Name: {0}".format(server.name), value=servers)
                 await owneruser.send(embed=embed)
-                return await ctx.message.channel.send(emotes.Done)
-            await ctx.message.channel.send(emotes.Error + " No unshared servers.")
+                await ctx.message.channel.send(emotes.Done)
 
 def setup(bot):
     bot.add_cog(Unshared(bot))

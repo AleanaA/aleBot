@@ -3,6 +3,7 @@ import discord
 import inspect
 import aiohttp
 import utils
+import re
 from discord import Game
 from discord.ext import commands
 from discord.ext.commands import Bot
@@ -52,9 +53,9 @@ class Unshared(Cog):
                     await server.leave()
                     await owneruser.send(embed=embed)
         if unavailable_servers != 0:
-            await ctx.message.channel.send("{0} {1} servers are unavailable, skipping.".format(emote.Error, str(unavailable_servers)))
+            await ctx.message.channel.send("{0} {1} servers are unavailable, skipping.".format(emotes.Error, str(unavailable_servers)))
         if unshared_servers != 0:
-            await ctx.message.channel.send("{0} {1} servers were left because bot does not share them with owner!".format(emote.Done, str(unshared_servers)))
+            await ctx.message.channel.send("{0} {1} servers were left because bot does not share them with owner!".format(emotes.Done, str(unshared_servers)))
         else:
             await ctx.message.channel.send("{0} No servers were left because bot shares all servers with owner!".format(emotes.Warn))
 
@@ -67,6 +68,7 @@ class Unshared(Cog):
         owneruser = await self.bot.get_user_info(config.owner)
         owner = config.owner
         servers = ""
+        Done = emotes.Done.strip("<").strip(">")
         for server in self.bot.guilds:
             check = server.get_member(owner)
             botuser = server.get_member(self.bot.user.id)
@@ -74,7 +76,7 @@ class Unshared(Cog):
                 servers += "**ID:** {0}\n**Owner:** {1}\n**Owner ID:** {2}\n**Members:** {3}\n**Join Date:** {4}".format(str(server.id), server.owner, server.owner.id, str(server.member_count),botuser.joined_at.strftime("%b %d, %Y; %I:%M %p"))
                 embed.add_field(name="Server Name: {0}".format(server.name), value=servers)
                 await owneruser.send(embed=embed)
-                await ctx.message.channel.send(emotes.Done)
+                await ctx.message.add_reaction(Done)
 
 def setup(bot):
     bot.add_cog(Unshared(bot))

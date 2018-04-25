@@ -18,7 +18,7 @@ class Emote(Cog):
     @commands.group(name='emote',
                 description="Manage emotes on the current server!",
                 brief="Manage emotes on the current server!")
-    @checks.is_super
+    @checks.is_super()
     async def emote(self, ctx):
         if ctx.invoked_subcommand is None:
             emb = discord.Embed()

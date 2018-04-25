@@ -126,6 +126,16 @@ class bot(commands.Bot):
                     msg = 'Failed to load mod {0}\n{1}: {2}'.format(cog, type(e).__name__, e)
                     print(msg)
 
+    async def on_server_join(self, server:discord.Guild):
+        owner = await self.get_user_info(self.config.owner)
+        print("Bot has joined a server: {}".format(server.name))
+        await owner.send(embed=discord.Embed(title="Joined Server", description=server.name, color=0x00ff00))
+
+    async def on_server_remove(self, server:discord.Guild):
+        owner = await self.get_user_info(self.config.owner)
+        print("Bot has left a server: {}".format(server.name))
+        await owner.send(embed=discord.Embed(title="Left Server", description=server.name, color=0xff0000))
+
     def run(self):
         super().run(self.config.token)
 

@@ -27,7 +27,7 @@ All commands can be listed using the help command, but role required commands ar
 - die - Owner
 - avatar - Owner
 - username - Owner
-- cog - Admin
+- cog - Owner
 - ban - Mod
 - banid - Mod
 - softban - Mod

@@ -16,7 +16,8 @@ from utils.cog import Cog
 class Emote(Cog):
 
     @commands.group(name='emote',
-                description="Manage emotes on the current server!")
+                description="Manage emotes on the current server!",
+                brief="Manage emotes on the current server!")
     @checks.is_super
     async def emote(self, ctx):
         if ctx.invoked_subcommand is None:

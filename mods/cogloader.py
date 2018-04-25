@@ -11,9 +11,9 @@ from utils.config import Config
 from utils.cog import Cog
 
 class CogLoader(Cog):
-
     @commands.group(name='cog',
-                description="Command for Cog management.")
+                    description="Command for Cog management.",
+                    brief="Command for Cog management.")
     @checks.is_owner()
     async def cog(self, ctx):
         if ctx.invoked_subcommand is None:

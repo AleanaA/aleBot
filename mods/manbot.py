@@ -15,7 +15,8 @@ from utils.cog import Cog
 class BotOptions(Cog):
     
     @commands.group(name='bot',
-                    description="Manages settings for the bot.")
+                    description="Manage settings for the bot.",
+                    brief="Manage settings for the bot.")
     @checks.is_owner()
     async def manbot(self, ctx):
         if ctx.invoked_subcommand is None:

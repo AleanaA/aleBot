@@ -15,7 +15,8 @@ from utils.cog import Cog
 class Unshared(Cog):
 
     @commands.group(name='unshared',
-                description="Manage servers the bot does not share with owner.")
+                description="Manage servers the bot does not share with owner.",
+                brief="Manage servers the bot does not share with owner.")
     @checks.is_owner()
     async def unshared(self, ctx):
         if ctx.invoked_subcommand is None:

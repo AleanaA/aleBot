@@ -132,7 +132,7 @@ class BotOptions(Cog):
                     self.bot.load_extension(cog)
                     msg += '+Successfully reloaded mod {0}\n\n'.format(cog)
                 except Exception as e:
-                    msg += '-Error reloading mod {0}\n{1}: {2}\n\n'.format(cog, type(e).__name__, e)
+                    msg += '-Error reloading mod {0}\n-{1}: {2}\n\n'.format(cog, type(e).__name__, e)
         emb.description = "Bot has updated to the latest commit in repository.\nAll mods in `config.py` have attempted to be reloaded.\nIt is advised that you restart if anything outside the mods folder was updated."
         emb.add_field(name="Cog Loader", value="```diff\n{}```".format(msg), inline=False)
         if len(out.decode('utf8')) <= 1000:

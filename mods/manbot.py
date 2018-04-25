@@ -135,7 +135,7 @@ class BotOptions(Cog):
                     msg += 'Error reloading mod {0}\n{1}: {2}\n\n'.format(cog, type(e).__name__, e)
         emb.description = "Bot has updated to the latest commit in repository.\nAll mods in `config.py` have attempted to be reloaded.\nIt is advised that you restart if anything outside the mods folder was updated."
         emb.add_field(name="Cog Loader", value=msg, inline=False)
-        if len(out.decode('utf8')) <= 1:
+        if len(out.decode('utf8')) <= 1000:
             emb.add_field(name="Update Output", value="```{}```".format(out.decode('utf8')), inline=False)
         else:
             emb.add_field(name="Update Output", value="```Output longer than 1000 chars, see text file for output.```", inline=False)

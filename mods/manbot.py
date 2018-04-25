@@ -134,11 +134,11 @@ class BotOptions(Cog):
                 except Exception as e:
                     msg += 'Error reloading mod {0}\n{1}: {2}\n\n'.format(cog, type(e).__name__, e)
         emb.description = "Bot has updated to the latest commit in repository.\nAll mods in `config.py` have attempted to be reloaded.\nIt is advised that you restart."
-        emb.add_field(name="Cog Loader", value=msg)
-        emb.add_field(name="Update Output", value="```{}```".format(out))
+        emb.add_field(name="Cog Loader", value=msg, inline=False)
+        emb.add_field(name="Update Output", value="```{}```".format(out), inline=False)
         print("Bot has updated to the latest commit in repository.\nAll mods in `config.py` have attempted to be reloaded.\nIt is advised that you restart.")
         print(msg)
-        print(out)
+        print(out.decode('utf8'))
         await ctx.message.channel.send(embed=emb)
 
 def setup(bot):

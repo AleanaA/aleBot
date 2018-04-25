@@ -10,7 +10,7 @@ Modules = [
     'mods.moderate',
     'mods.commands',
     'mods.cogloader',
-    'mods.mpd',
     'mods.emote',
-    'mods.unshared'
+    'mods.unshared',
+    'mods.manbot'
 ]

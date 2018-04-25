@@ -5,6 +5,8 @@ import aiohttp
 import utils
 import os
 import re
+import time
+import subprocess
 from discord import Game
 from discord.ext import commands
 from discord.ext.commands import Bot
@@ -113,6 +115,27 @@ class BotOptions(Cog):
         print(str(ctx.message.author) + " triggered a shutdown!")
         await ctx.message.channel.send(embed=discord.Embed(description=emotes.Done + " " + self.bot.user.name + " is now shutting down... " + ctx.message.author.mention, color=0x0035ff))
         await self.bot.logout()
+
+    @manbot.command(name='update',
+                description="Update the bot through git.",
+                brief="Update the bot through git.")
+    async def update(self, ctx):
+        subprocess.call(["git", "pull"])
+        emb = discord.Embed()
+        emb.title = "Bot Updater"
+        emb.color = 0x00aaff
+        msg = ''
+        for cog in config.Modules:
+                try:
+                    self.bot.reload_extension(cog)
+                    msg += 'Successfully reloaded mod {0}\n\n'.format(cog)
+                except Exception as e:
+                    msg += 'Error reloading mod {0}\n{1}: {2}\n\n'.format(cog, type(e).__name__, e)
+        emb.description = "Bot has updated to the latest commit in repository.\nAll mods in `config.py` have attempted to be reloaded.\nIt is advised that you restart."
+        emb.add_field(name="Cog Loader", value=msg)
+        print("Bot has updated to the latest commit in repository.\nAll mods in `config.py` have attempted to be reloaded.\nIt is advised that you restart.")
+        print(msg)
+        await ctx.message.channel.send(embed=emb)
 
 def setup(bot):
     bot.add_cog(BotOptions(bot))

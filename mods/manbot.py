@@ -146,7 +146,8 @@ class BotOptions(Cog):
         f.write(out.decode('utf8'))
         f.close()
         await ctx.message.channel.send(embed=emb)
-        await ctx.message.channel.send(file=discord.File('output.txt'))
+        if len(out.decode('utf8')) >=1000:
+            await ctx.message.channel.send(file=discord.File('output.txt'))
         os.remove('output.txt')
 
 def setup(bot):

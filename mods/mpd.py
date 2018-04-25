@@ -20,7 +20,8 @@ class MPD(Cog):
         self.ip = "localhost"
         self.port = "6600"
     @commands.group(name='mpd',
-                 description="Command for MPD managing.")
+                 description="Command for MPD managing.",
+                 brief="Command for MPD managing.")
     async def mpd(self, ctx):
         if ctx.invoked_subcommand is None:
             emb = discord.Embed()
@@ -40,8 +41,7 @@ class MPD(Cog):
             await ctx.message.channel.send(embed=emb)
     
     @mpd.command(name='server',
-                description="Sets an alternative server to connect to.",
-                brief="Sets an alternative server to connect to.")
+                description="Sets an alternative server to connect to.")
     @checks.is_owner()
     async def server(self, ctx, ip, *port):
         emb = discord.Embed()

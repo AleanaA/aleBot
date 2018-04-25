@@ -53,20 +53,7 @@ class bot(commands.Bot):
             await ctx.message.channel.send(embed=emb)
         elif isinstance(e, commands.CommandInvokeError):
             print(str(e) + " - Command - " + ctx.message.content)
-            if 'Forbidden' in str(e):
-                await ctx.message.channel.send(embed=emb)
-            elif 'NotFound' in str(e):
-                await ctx.message.channel.send(embed=emb)
-            elif 'NameError' in str(e):
-                await ctx.message.channel.send(embed=emb)
-            elif 'HTTPException' in str(e):
-                await ctx.message.channel.send(embed=emb)
-            elif 'SyntaxError' in str(e):
-                await ctx.message.channel.send(embed=emb)
-            elif 'TypeError' in str(e):
-                await ctx.message.channel.send(embed=emb)
-            elif 'AttributeError' in str(e):
-                await ctx.message.channel.send(embed=emb)
+            await ctx.message.channel.send(embed=emb)
         elif isinstance(e, commands.BadArgument):
             print(str(e) + " - Command - " + ctx.message.content)
             await ctx.message.channel.send(embed=emb)
@@ -102,14 +89,32 @@ class bot(commands.Bot):
         embed=discord.Embed(title="Invite URL", url="https://discordapp.com/oauth2/authorize?client_id={0}&scope=bot&permissions=8".format(str(self.user.id)), description=self.user.name + " has just loaded.", color=0x05d1dc)
         embed.set_author(name=owner.name,icon_url=owner.avatar_url)
         embed.set_thumbnail(url=self.user.avatar_url)
-        await owner.send(embed=embed)
         game = discord.Game(type=0, name=self.config.status + " | {0}help".format(self.config.prefix))
         await self.change_presence(activity=game)
         print("---------------------------------------")
         print("Logged in as " + self.user.name)
-        print("Current servers:")
+        print("")
+        print("Current Shared Servers:")
+        notsharedcount = 0
         for server in self.guilds:
-            print(server.name)
+            conf = Config('config/config.ini')
+            ownercheck = conf.owner
+            check = server.get_member(ownercheck)
+            if check != None:
+                print("Server ID: "+str(server.id)+" | Server Name: "+server.name)
+        print("")
+        print("Current Unshared Servers:")
+        for server in self.guilds:
+            conf = Config('config/config.ini')
+            ownercheck = conf.owner
+            check = server.get_member(ownercheck)
+            if check == None:
+                print("Server ID: "+str(server.id)+" | Server Name: "+server.name)
+                notsharedcount = notsharedcount+1
+        embed.add_field(name="Unshared Servers", value=str(notsharedcount))
+        embed.add_field(name="Total Servers", value=str(len(self.guilds)))
+        await owner.send(embed=embed)
+        print("")
         print("---------------------------------------")
         print("Remember to invite your bot to your server!")
         print("https://discordapp.com/oauth2/authorize?client_id={0}&scope=bot&permissions=8".format(str(self.user.id)))

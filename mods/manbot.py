@@ -120,7 +120,8 @@ class BotOptions(Cog):
                 description="Update the bot through git.",
                 brief="Update the bot through git.")
     async def update(self, ctx):
-        subprocess.call(["git", "pull"])
+        process = subprocess.Popen(['git', 'pull'], stdout=subprocess.PIPE)
+        out = process.communicate()
         emb = discord.Embed()
         emb.title = "Bot Updater"
         emb.color = 0x00aaff
@@ -134,8 +135,10 @@ class BotOptions(Cog):
                     msg += 'Error reloading mod {0}\n{1}: {2}\n\n'.format(cog, type(e).__name__, e)
         emb.description = "Bot has updated to the latest commit in repository.\nAll mods in `config.py` have attempted to be reloaded.\nIt is advised that you restart."
         emb.add_field(name="Cog Loader", value=msg)
+        emb.add_field(name="Update Output", value="```{}```".format(out))
         print("Bot has updated to the latest commit in repository.\nAll mods in `config.py` have attempted to be reloaded.\nIt is advised that you restart.")
         print(msg)
+        print(out)
         await ctx.message.channel.send(embed=emb)
 
 def setup(bot):

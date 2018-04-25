@@ -121,7 +121,7 @@ class BotOptions(Cog):
                 brief="Update the bot through git.")
     async def update(self, ctx):
         process = subprocess.Popen(['git', 'pull'], stdout=subprocess.PIPE)
-        out = process.communicate()
+        out, err = process.communicate()
         emb = discord.Embed()
         emb.title = "Bot Updater"
         emb.color = 0x00aaff

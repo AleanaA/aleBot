@@ -13,134 +13,12 @@ from utils.config import Config
 from utils.cog import Cog
 
 class Commands(Cog):
-    @commands.command(name='eval',
-                description="Owner Only!",
-                brief="Owner Only!",
-                aliases=['debug', 'Eval', 'Debug'])
-    @checks.is_owner()
-    async def debug(self, ctx, *, code : str):
-        code = code.strip('` ')
-        python = '```py\n{}\n```'
-        result = None
-
-        env = {
-            'self': self,
-            'bot': self.bot,
-            'ctx': ctx,
-            'message': ctx.message,
-            'channel': ctx.message.channel,
-            'author': ctx.message.author
-        }
-
-        env.update(globals())
-        try:
-            result = eval(code, env)
-            if inspect.isawaitable(result):
-                result = await result
-        except Exception as e:
-            await ctx.message.channel.send(embed=discord.Embed(colour=discord.Colour(0xff0000), title="Python Eval", description=python.format(type(e).__name__ + ': ' + str(e))))
-            return
-
-        await ctx.message.channel.send(embed=discord.Embed(colour=discord.Colour(0x0094ff), title="Python Eval", description=python.format(result)))
-
-    @commands.group(name='unshared',
-                description="Manage servers the bot does not share with owner.")
-    @checks.is_owner()
-    async def unshared(self, ctx):
-        if ctx.invoked_subcommand is None:
-            emb = discord.Embed()
-            emb.title = "Unshared Servers " + emotes.Warn
-            emb.colour = 0xffff00
-            emb.description = "Please issue a valid subcommand!\nAvailable options are:"
-            emb.add_field(name="Leave", value="Leaves all servers the bot does not share with owner.", inline=False)
-            emb.add_field(name="List", value="Lists all servers the bot does not share with owner.", inline=False)
-            await ctx.message.channel.send(embed=emb)
-
-    @unshared.command(name='leave')
-    async def leaveunshared(self, ctx):
-        embed = discord.Embed()
-        embed.title = "Bot left unshared servers"
-        embed.color = 0x00ffff
-        config = Config('config/config.ini')
-        owneruser = await self.bot.get_user_info(config.owner)
-        owner = config.owner
-        servers = ""
-        for server in self.bot.guilds:
-            check = server.get_member(owner)
-            botuser = server.get_member(self.bot.user.id)
-            if check == None:
-                servers += "**ID:** {0}\n**Owner:** {1}\n**Owner ID:** {2}\n**Members:** {3}\n**Join Date:** {4}".format(str(server.id), server.owner, server.owner.id, str(server.member_count),botuser.joined_at.strftime("%b %d, %Y; %I:%M %p"))
-                embed.add_field(name="Server Name: {0}".format(server.name), value=servers)
-                await server.leave()
-                await owneruser.send(embed=embed)
-
-    @unshared.command(name='list')
-    async def listunshared(self, ctx):
-        embed = discord.Embed()
-        embed.title = "Unshared Server List"
-        embed.color = 0x00ffff
-        config = Config('config/config.ini')
-        owneruser = await self.bot.get_user_info(config.owner)
-        owner = config.owner
-        servers = ""
-        for server in self.bot.guilds:
-            check = server.get_member(owner)
-            botuser = server.get_member(self.bot.user.id)
-            if check == None:
-                servers += "**ID:** {0}\n**Owner:** {1}\n**Owner ID:** {2}\n**Members:** {3}\n**Join Date:** {4}".format(str(server.id), server.owner, server.owner.id, str(server.member_count),botuser.joined_at.strftime("%b %d, %Y; %I:%M %p"))
-                embed.add_field(name="Server Name: {0}".format(server.name), value=servers)
-                await owneruser.send(embed=embed)
-
     @commands.command(name='ping',
                 description="Ping!",
                 brief="Ping!",
                 aliases=['Ping', 'Ping!'])
     async def ping(self, ctx):
         await ctx.message.channel.send(ctx.message.author.mention + " " + emotes.Done)
-
-    @commands.command(name='invite',
-                description="Gets the bots invite url!",
-                brief="Gets the bots invite url!",
-                aliases=['Invite'])
-    async def invite(self, ctx):
-        emb = discord.Embed()
-        emb.title = "Invite URL"
-        emb.description = "<https://discordapp.com/oauth2/authorize?client_id={0}&scope=bot&permissions=8>".format(str(self.bot.user.id))
-        emb.color = 0x00ffff
-        emb.set_thumbnail(url=self.bot.user.avatar_url)
-        await ctx.message.channel.send(embed=emb)
-
-    @commands.command(name='avatar',
-                description="Changes the bots avatar!",
-                brief="Changes the bots avatar!",
-                aliases=['Avatar'])
-    @checks.is_owner()
-    async def avatar(self, ctx, msg=None):
-        self.aiosession = aiohttp.ClientSession(loop=self.bot.loop)
-        emb = discord.Embed()
-        emb.title = "Avatar Changed!"
-        emb.color = 0x00ff00
-        picture = msg.strip('<>')
-        emb.set_thumbnail(url=msg)
-        emb.description = "Avatar successfully changed to " + msg
-
-        async with self.aiosession.get(picture) as res:
-            await self.bot.user.edit(avatar=await res.read())
-            await ctx.message.channel.send(embed=emb)
-
-    @commands.command(name='username',
-                description="Changes the bots username!",
-                brief="Changes the bots username!",
-                aliases=['Username'])
-    @checks.is_owner()
-    async def username(self, ctx, msg):
-        emb = discord.Embed()
-        emb.title = "Username Changed!"
-        emb.color = 0x00ff00
-        emb.set_thumbnail(url=self.bot.user.avatar_url)
-        emb.description = "Username successfully changed to " + msg
-        await self.bot.user.edit(username=msg)
-        await ctx.message.channel.send(embed=emb)
 
     @commands.command(name='say',
                 description="Text Command",
@@ -213,16 +91,6 @@ class Commands(Cog):
             await LOG.send(embed=emb)
             await ctx.message.delete()
             await ctx.message.channel.send(embed=discord.Embed(colour=discord.Colour(0x00ff2c), description=emotes.Done + " Log Added"))
-
-    @commands.command(name='die',
-                description="Shuts down the bot",
-                brief="Shuts down the bot",
-                aliases=['sd', 'shutdown'])
-    @checks.is_owner()
-    async def die(self, ctx):
-        print(str(ctx.message.author) + " triggered a shutdown!")
-        await ctx.message.channel.send(embed=discord.Embed(description=emotes.Done + " " + self.bot.user.name + " is now shutting down... " + ctx.message.author.mention, color=0x0035ff))
-        await self.bot.logout()
 
     @commands.command(name='profile',
                 description="Show a users profile!",

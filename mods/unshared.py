@@ -52,9 +52,13 @@ class Unshared(Cog):
                     embed.add_field(name="Server Name: {0}".format(server.name), value=servers)
                     await server.leave()
                     await owneruser.send(embed=embed)
-        if unavailable_servers != 0:
+        if unavailable_servers == 1:
+            await ctx.message.channel.send("{0} {1} server is unavailable, skipping.".format(emotes.Error, str(unavailable_servers)))
+        elif unavailable_servers != 0:
             await ctx.message.channel.send("{0} {1} servers are unavailable, skipping.".format(emotes.Error, str(unavailable_servers)))
-        if unshared_servers != 0:
+        if unshared_servers == 1:
+            await ctx.message.channel.send("{0} {1} server was left because bot does not share it with owner!".format(emotes.Done, str(unshared_servers)))
+        elif unshared_servers != 0:
             await ctx.message.channel.send("{0} {1} servers were left because bot does not share them with owner!".format(emotes.Done, str(unshared_servers)))
         else:
             await ctx.message.channel.send("{0} No servers were left because bot shares all servers with owner!".format(emotes.Warn))

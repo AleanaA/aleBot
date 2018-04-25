@@ -23,11 +23,10 @@ To fix this, just replace those emote IDs with ones from a server the bot is in,
 
 All commands can be listed using the help command, but role required commands are:
 
-- eval - Owner
-- die - Owner
-- avatar - Owner
-- username - Owner
 - cog - Owner
+- bot - Owner
+- unshared - Owner
+- emote - Supervisor
 - ban - Mod
 - banid - Mod
 - softban - Mod
@@ -36,9 +35,6 @@ All commands can be listed using the help command, but role required commands ar
 - log - Apprentice
 - say - Event
 - announce - Event
-
-There is an invite command, so if you don't want users to be able to access your bot without permission
-be sure to uncheck public bot on the [page where you created your bot!](https://discordapp.com/developers/applications/me)
 
 ### Roles
 

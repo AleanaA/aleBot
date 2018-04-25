@@ -127,7 +127,8 @@ class BotOptions(Cog):
         msg = ''
         for cog in config.Modules:
                 try:
-                    self.bot.reload_extension(cog)
+                    self.bot.unload_extension(cog)
+                    self.bot.load_extension(cog)
                     msg += 'Successfully reloaded mod {0}\n\n'.format(cog)
                 except Exception as e:
                     msg += 'Error reloading mod {0}\n{1}: {2}\n\n'.format(cog, type(e).__name__, e)

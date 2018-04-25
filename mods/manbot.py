@@ -12,7 +12,7 @@ from utils import checks
 from utils.config import Config
 from utils.cog import Cog
 
-class Commands(Cog):
+class BotOptions(Cog):
     
     @commands.group(name='bot',
                     description="Manages settings for the bot.")
@@ -112,4 +112,4 @@ class Commands(Cog):
         await self.bot.logout()
 
 def setup(bot):
-    bot.add_cog(Commands(bot))
+    bot.add_cog(BotOptions(bot))

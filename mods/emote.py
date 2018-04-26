@@ -46,7 +46,7 @@ class Emote(Cog):
             return await ctx.message.channel.send(embed=emb)
         emote = await ctx.message.guild.create_custom_emoji(name=name, image=response.content)
         emb.colour = 0x00ff00
-        emb.description = "Successfully added the emotes {0.name} <{1}:{0.name}:{0.id}>!".format(emote, "a" if emote.animated else "")
+        emb.description = "Successfully added the emote {0.name} <{1}:{0.name}:{0.id}>!".format(emote, "a" if emote.animated else "")
         await ctx.message.channel.send(embed=emb)
 
     @emote.command(name='del',

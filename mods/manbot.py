@@ -136,9 +136,9 @@ class BotOptions(Cog):
         emb.description = "Bot has updated to the latest commit in repository.\nAll mods in `config.py` have attempted to be reloaded.\nIt is advised that you restart if anything outside the mods folder was updated."
         emb.add_field(name="Cog Loader", value="```diff\n{}```".format(msg), inline=False)
         if len(out.decode('utf8')) <= 1000:
-            emb.add_field(name=emotes.Terminal+"Update Output", value="```http\n{}```".format(out.decode('utf8')), inline=False)
+            emb.add_field(name=emotes.Terminal+" Update Output", value="```http\n{}```".format(out.decode('utf8')), inline=False)
         else:
-            emb.add_field(name=emotes.Terminal+"Update Output", value="```md\n#Output longer than 1000 chars, see text file for output.```", inline=False)
+            emb.add_field(name=emotes.Terminal+" Update Output", value="```md\n#Output longer than 1000 chars, see text file for output.```", inline=False)
         print("Bot has updated to the latest commit in repository.\nAll mods in `config.py` have attempted to be reloaded.\nIt is advised that you restart if anything outside the mods folder was updated.")
         print(msg)
         print(out.decode('utf8'))

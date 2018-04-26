@@ -2,6 +2,10 @@
 
 ## aleBot is another multipurpose bot, but it's modular!
 
+### Pull Requests
+
+As long as your PR adds strictly mods and doesn't add them to `config.example.py`, they will be viewed and modified as needed. If your PR modifies `config.example.py`, it will be closed. 
+
 ### Support
 
 If you need assistance setting up the bot, or adding to it, come join [the support server!](https://discord.gg/M6apruQ)

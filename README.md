@@ -4,7 +4,7 @@
 
 ### Pull Requests
 
-As long as your PR adds strictly mods and doesn't add them to `config.example.py`, they will be viewed and modified as needed. If your PR modifies `config.example.py`, it will be closed. 
+As long as your PR adds strictly mods and doesn't add them to `config.example.py`, they will be viewed and merged. If your PR modifies `config.example.py`, it will be closed. If it is deemed useful enough to the user, then it may be added into the example for automatic loading.
 
 ### Support
 

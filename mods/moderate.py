@@ -16,8 +16,9 @@ class Moderation(Cog):
                     aliases=['unban'])
     @checks.is_mod()
     async def unban(self, ctx, userName, *reason):
-        self.config = Config('config/config.ini')
-        AUDDIT = self.bot.get_channel(self.config.auddit)
+        AUDDIT = discord.utils.get(self.bot.get_all_channels(), guild__name=ctx.message.guild.name, name='audit')
+        if AUDDIT == None:
+            return await ctx.message.channel.send("No channel named 'audit'")
         server = ctx.message.guild
         auth = ctx.message.author
         rsn = " ".join(reason)
@@ -43,8 +44,9 @@ class Moderation(Cog):
         if ctx.message.author.top_role <= userName.top_role:
             await ctx.message.channel.send(embed=discord.Embed(title="Permission Error", description="You don't have permission to kick that user!", color=0xff0000))
             return
-        self.config = Config('config/config.ini')
-        AUDDIT = self.bot.get_channel(self.config.auddit)
+        AUDDIT = discord.utils.get(self.bot.get_all_channels(), guild__name=ctx.message.guild.name, name='audit')
+        if AUDDIT == None:
+            return await ctx.message.channel.send("No channel named 'audit'")
         server = ctx.message.guild
         auth = ctx.message.author
         rsn = " ".join(reason)
@@ -69,8 +71,9 @@ class Moderation(Cog):
         if ctx.message.author.top_role <= userName.top_role:
             await ctx.message.channel.send(embed=discord.Embed(title="Permission Error", description="You don't have permission to kick that user!", color=0xff0000))
             return
-        self.config = Config('config/config.ini')
-        AUDDIT = self.bot.get_channel(self.config.auddit)
+        AUDDIT = discord.utils.get(self.bot.get_all_channels(), guild__name=ctx.message.guild.name, name='audit')
+        if AUDDIT == None:
+            return await ctx.message.channel.send("No channel named 'audit'")
         server = ctx.message.guild
         auth = ctx.message.author
         rsn = " ".join(reason)
@@ -92,8 +95,9 @@ class Moderation(Cog):
                     aliases=['banid'])
     @checks.is_mod()
     async def banid(self, ctx, userName, *reason):
-        self.config = Config('config/config.ini')
-        AUDDIT = self.bot.get_channel(self.config.auddit)
+        AUDDIT = discord.utils.get(self.bot.get_all_channels(), guild__name=ctx.message.guild.name, name='audit')
+        if AUDDIT == None:
+            return await ctx.message.channel.send("No channel named 'audit'")
         server = ctx.message.guild
         auth = ctx.message.author
         rsn = " ".join(reason)
@@ -122,8 +126,9 @@ class Moderation(Cog):
         if ctx.message.author.top_role <= userName.top_role:
             await ctx.message.channel.send(embed=discord.Embed(title="Permission Error", description="You don't have permission to kick that user!", color=0xff0000))
             return
-        self.config = Config('config/config.ini')
-        AUDDIT = self.bot.get_channel(self.config.auddit)
+        AUDDIT = discord.utils.get(self.bot.get_all_channels(), guild__name=ctx.message.guild.name, name='audit')
+        if AUDDIT == None:
+            return await ctx.message.channel.send("No channel named 'audit'")
         server = ctx.message.guild
         auth = ctx.message.author
         rsn = " ".join(reason)

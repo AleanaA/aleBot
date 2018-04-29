@@ -49,11 +49,10 @@ class Commands(Cog):
     @checks.is_event()
     async def announce(self, ctx, *content):
         emb = discord.Embed()
-        self.config = Config('config/config.ini')
         msg = ' '.join(content)
         auth = ctx.message.author
         authmen = auth.mention
-        ANNOUNCE = self.bot.get_channel(self.config.announce)
+        ANNOUNCE = discord.utils.get(self.bot.get_all_channels(), guild__name=ctx.message.guild.name, name='announcements')
 
         if msg == '':
             emb.title = "An Error Occured"

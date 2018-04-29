@@ -35,9 +35,7 @@ class Config:
         self.status = config.get('Bot', 'Status', fallback=None)
         # [IDs]
         self.owner = int(config.get('IDs', 'Owner', fallback=None))
-        self.announce = int(config.get('IDs', 'AnnounceChannel', fallback=None))
         self.log = int(config.get('IDs', 'LogChannel', fallback=None))
-        self.auddit = int(config.get('IDs', 'AudditChannel', fallback=None))
 
         self.validate()
 
@@ -58,14 +56,8 @@ class Config:
         if not self.owner:
             log.critical('You must provide an owner id in the config.ini')
             critical = True
-        if not self.announce:
-            log.critical('You must provide an announcement channel id in the config.ini')
-            critical = True
         if not self.log:
             log.critical('You must provide a log channel id in the config.ini')
-            critical = True
-        if not self.auddit:
-            log.critical('You must provide an auddit channel id in the config.ini')
             critical = True
         if critical:
             raise Shutdown()

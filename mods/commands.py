@@ -115,13 +115,13 @@ class Commands(Cog):
         if user.activity == None:
             activity = "None"
         elif user.activity.type == 0:
-            activity = "Playing **{}**".format(user.activity)
+            activity = "Playing **{}**".format(user.activity.name)
         elif user.activity.type == 1:
-            activity = "Streaming **{}**".format(user.activity)
+            activity = "Streaming **{}**".format(user.activity.name)
         elif user.activity.type == 2:
-            activity = "Listening to **{}**".format(user.activity)
+            activity = "Listening to **{0} - {1}**".format(user.activity.artist, user.activity.title)
         elif user.activity.type == 3: # Users shouldn't have this type yet, however it's here to catch it for Bots and SelfBot users.
-            activity = "Watching **{}**".format(user.activity)
+            activity = "Watching **{}**".format(user.activity.name)
 
         title = ""
         if user.id == 168118999337402368:

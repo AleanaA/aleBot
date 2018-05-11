@@ -1,6 +1,7 @@
 import asyncio
 import discord
 import inspect
+import datetime
 import aiohttp
 import utils
 from discord import Game
@@ -196,7 +197,8 @@ class Commands(Cog):
             embed.add_field(name="Artist", value=user.activity.artist)
             embed.add_field(name="Title", value=user.activity.title)
             embed.add_field(name="Album", value=user.activity.album)
-            embed.add_field(name="Duration", value=user.activity.duration.strftime("%b %d, %Y; %I:%M %p"))
+            time = str(datetime.timedelta(seconds=round(float(user.activity.duration))))
+            embed.add_field(name="Duration", value=time)
             embed.add_field(name="Track URL", value="https://open.spotify.com/track/{}".format(user.activity.track_id))
 
             embed.set_footer(text="Requested by {0}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)

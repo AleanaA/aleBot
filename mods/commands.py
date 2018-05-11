@@ -96,6 +96,7 @@ class Commands(Cog):
                 brief="Show a profile!",
                 aliases=[])
     async def profile(self, ctx, *user: discord.Member):
+        owner = await self.bot.get_user_info(self.config.owner)
         if not user:
             user = ctx.message.author
         else:
@@ -121,10 +122,27 @@ class Commands(Cog):
         elif user.activity.type == 3: # Users shouldn't have this type yet, however it's here to catch it for Bots and SelfBot users.
             activity = "Watching **{}**".format(user.activity)
 
+        title = ""
+        if user.ID == 168118999337402368:
+            title += "[Developer]\n"
+        if user.ID == 393275164273410050:
+            title += "[Tester]\n"
+        if user.ID == 218200635693072384:
+            title += "[Tester]\n"
+        if user.ID == 205577405069262848:
+            title += "[Tester]\n"
+        if user.ID == 272614137660702720:
+            title += "[Tester]\n"
+        if user.ID == 162349100396707840:
+            title += "[Close Friend]\n"
+        if user.ID == 168141723019640832:
+            title += "[Close Friend]\n"
+        if user.ID == owner.ID:
+            title += "[Bot Owner]\n"
         roles = [role.name for role in user.roles]
         del roles[0]
         rolecount = len(roles)
-        embed=discord.Embed(color=user.color)
+        embed=discord.Embed(title="Titles", description=title, color=user.color)
         embed.set_author(name="User info for " + str(user),icon_url=user.avatar_url)
         embed.set_thumbnail(url=user.avatar_url)
         embed.add_field(name="Nickname", value=user.display_name, inline=False)

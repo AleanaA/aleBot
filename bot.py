@@ -127,11 +127,9 @@ class bot(commands.Bot):
                     print(msg)
 
     async def on_guild_join(self, server:discord.Guild):
-        owner = await self.get_user_info(self.config.owner)
         print("Bot has joined a server: {}".format(server.name))
 
     async def on_guild_remove(self, server:discord.Guild):
-        owner = await self.get_user_info(self.config.owner)
         print("Bot has left a server: {}".format(server.name))
 
     def run(self):

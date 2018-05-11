@@ -199,7 +199,7 @@ class Commands(Cog):
             embed.timestamp = ctx.message.created_at
             await ctx.message.channel.send(embed=embed)
         else:
-            embed=discord.Embed(title="Spotify Error", description="User is not listening to spotify", color=0xff0000)
+            embed=discord.Embed(title="Spotify Error", description="{} is not listening to spotify, tell them to listen to some music!".format(user.mention), color=0xff0000)
             await ctx.message.channel.send(embed=embed)
 def setup(bot):
     bot.add_cog(Commands(bot))

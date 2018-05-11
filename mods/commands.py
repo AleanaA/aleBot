@@ -192,7 +192,6 @@ class Commands(Cog):
             embed.set_image(url=user.activity.album_cover_url)
             embed.add_field(name="Artists", value=user.activity.artist)
             embed.add_field(name="Title", value=user.activity.title)
-            embed.add_field(name="Duration", value=str(datetime.timedelta(seconds=round(float(str(user.activity.duration.total_seconds()))))))
             embed.add_field(name="Album", value=user.activity.album, inline=False)
             embed.add_field(name="Duration", value=str(datetime.timedelta(seconds=round(float(str(user.activity.duration.total_seconds()))))), inline=False)
             embed.add_field(name="Track URL", value="https://open.spotify.com/track/{}".format(user.activity.track_id), inline=False)

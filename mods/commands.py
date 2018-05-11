@@ -123,21 +123,21 @@ class Commands(Cog):
             activity = "Watching **{}**".format(user.activity)
 
         title = ""
-        if user.ID == 168118999337402368:
+        if user.id == 168118999337402368:
             title += "[Developer]\n"
-        if user.ID == 393275164273410050:
+        if user.id == 393275164273410050:
             title += "[Tester]\n"
-        if user.ID == 218200635693072384:
+        if user.id == 218200635693072384:
             title += "[Tester]\n"
-        if user.ID == 205577405069262848:
+        if user.id == 205577405069262848:
             title += "[Tester]\n"
-        if user.ID == 272614137660702720:
+        if user.id == 272614137660702720:
             title += "[Tester]\n"
-        if user.ID == 162349100396707840:
+        if user.id == 162349100396707840:
             title += "[Close Friend]\n"
-        if user.ID == 168141723019640832:
+        if user.id == 168141723019640832:
             title += "[Close Friend]\n"
-        if user.ID == owner.ID:
+        if user.id == owner.id:
             title += "[Bot Owner]\n"
         roles = [role.name for role in user.roles]
         del roles[0]

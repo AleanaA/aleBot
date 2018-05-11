@@ -119,7 +119,7 @@ class Commands(Cog):
         elif user.activity.type == 1:
             activity = "Streaming **{}**".format(user.activity.name)
         elif user.activity.type == 2:
-            activity = "Listening to **{0} - {1}**".format(user.activity.artist, user.activity.title)
+            activity = "Listening to **{0} - {1} | For more info, run `!spotify @user`**".format(user.activity.artist, user.activity.title)
         elif user.activity.type == 3: # Users shouldn't have this type yet, however it's here to catch it for Bots and SelfBot users.
             activity = "Watching **{}**".format(user.activity.name)
 
@@ -145,9 +145,10 @@ class Commands(Cog):
         rolecount = len(roles)
         if title == "":
             title = "None"
-        embed=discord.Embed(title="Titles", description=title, color=user.color)
+        embed=discord.Embed(color=user.color)
         embed.set_author(name="User info for " + str(user),icon_url=user.avatar_url)
         embed.set_thumbnail(url=user.avatar_url)
+        embed.add_field(name="Titles", value=title, inline=False)
         embed.add_field(name="Nickname", value=user.display_name, inline=False)
         embed.add_field(name="ID", value=user.id, inline=False)
         embed.add_field(name="Joined Server", value=user.joined_at.strftime("%b %d, %Y; %I:%M %p"), inline=False)
@@ -173,5 +174,36 @@ class Commands(Cog):
         embed.set_footer(text="Requested by {0}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
         embed.timestamp = ctx.message.created_at
         await ctx.message.channel.send(embed=embed)
+
+    @commands.command(name='spotify',
+                description="Show a users profile!",
+                brief="Show a profile!",
+                aliases=[])
+    async def spotify(self, ctx, *user: discord.Member):
+        self.config = Config('config/config.ini')
+        owner = await self.bot.get_user_info(self.config.owner)
+        if not user:
+            user = ctx.message.author
+        else:
+            user = user[0]
+        if user.activity.name == "Spotify":
+            embed=discord.Embed(color=ctx.message.author.activity.color)
+
+            embed.set_author(name="Spotify info for " + str(user),icon_url=user.avatar_url)
+
+            embed.set_thumbnail(url=user.activity.album_cover_url)
+
+            embed.add_field(name="Artist", value=user.activity.artist)
+            embed.add_field(name="Title", value=user.activity.title)
+            embed.add_field(name="Album", value=user.activity.album)
+            embed.add_field(name="Duration", value=user.activity.duration.strftime("%b %d, %Y; %I:%M %p"))
+            embed.add_field(name="Track URL", value="https://open.spotify.com/track/{}".format(user.activity.track_id))
+
+            embed.set_footer(text="Requested by {0}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+            embed.timestamp = ctx.message.created_at
+            await ctx.message.channel.send(embed=embed)
+        else:
+            embed=discord.Embed(title="Error", description="User is not listening to spotify", color=user.color)
+            await ctx.message.channel.send(embed=embed)
 def setup(bot):
     bot.add_cog(Commands(bot))

@@ -120,7 +120,7 @@ class Commands(Cog):
         elif user.activity.type == 1:
             activity = "Streaming **{}**".format(user.activity.name)
         elif user.activity.type == 2:
-            activity = "Listening to **{0} - {1}**\n*For more info, run `!spotify @user`*".format(user.activity.artist, user.activity.title)
+            activity = "Listening to **{0} - {1}**\n*For more info, run `{3}spotify @user`*".format(user.activity.artist, user.activity.title, self.bot.prefix)
         elif user.activity.type == 3: # Users shouldn't have this type yet, however it's here to catch it for Bots and SelfBot users.
             activity = "Watching **{}**".format(user.activity.name)
 

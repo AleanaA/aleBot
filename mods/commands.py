@@ -182,7 +182,6 @@ class Commands(Cog):
                 aliases=[])
     async def spotify(self, ctx, *user: discord.Member):
         self.config = Config('config/config.ini')
-        owner = await self.bot.get_user_info(self.config.owner)
         if not user:
             user = ctx.message.author
         else:
@@ -196,10 +195,9 @@ class Commands(Cog):
 
             embed.add_field(name="Artist", value=user.activity.artist)
             embed.add_field(name="Title", value=user.activity.title)
-            embed.add_field(name="Album", value=user.activity.album)
-            time = str(datetime.timedelta(seconds=round(float(str(user.activity.duration.total_seconds())))))
-            embed.add_field(name="Duration", value=time)
-            embed.add_field(name="Track URL", value="https://open.spotify.com/track/{}".format(user.activity.track_id))
+            embed.add_field(name="Album", value=user.activity.album, inline=False)
+            embed.add_field(name="Duration", value=str(datetime.timedelta(seconds=round(float(str(user.activity.duration.total_seconds()))))), inline=False)
+            embed.add_field(name="Track URL", value="https://open.spotify.com/track/{}".format(user.activity.track_id), inline=False)
 
             embed.set_footer(text="Requested by {0}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
             embed.timestamp = ctx.message.created_at

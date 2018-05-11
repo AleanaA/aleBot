@@ -120,7 +120,7 @@ class Commands(Cog):
         elif user.activity.type == 1:
             activity = "Streaming **{}**".format(user.activity.name)
         elif user.activity.type == 2:
-            activity = "Listening to **{0} - {1} | For more info, run `!spotify @user`**".format(user.activity.artist, user.activity.title)
+            activity = "Listening to **{0} - {1}**\n*For more info, run `!spotify @user`*".format(user.activity.artist, user.activity.title)
         elif user.activity.type == 3: # Users shouldn't have this type yet, however it's here to catch it for Bots and SelfBot users.
             activity = "Watching **{}**".format(user.activity.name)
 
@@ -188,17 +188,13 @@ class Commands(Cog):
             user = user[0]
         if user.activity.name == "Spotify":
             embed=discord.Embed(color=user.activity.color)
-
             embed.set_author(name="Spotify info for " + str(user),icon_url=user.avatar_url)
-
             embed.set_thumbnail(url=user.activity.album_cover_url)
-
             embed.add_field(name="Artist", value=user.activity.artist)
             embed.add_field(name="Title", value=user.activity.title)
             embed.add_field(name="Album", value=user.activity.album, inline=False)
             embed.add_field(name="Duration", value=str(datetime.timedelta(seconds=round(float(str(user.activity.duration.total_seconds()))))), inline=False)
             embed.add_field(name="Track URL", value="https://open.spotify.com/track/{}".format(user.activity.track_id), inline=False)
-
             embed.set_footer(text="Requested by {0}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
             embed.timestamp = ctx.message.created_at
             await ctx.message.channel.send(embed=embed)

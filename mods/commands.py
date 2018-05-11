@@ -143,6 +143,8 @@ class Commands(Cog):
         roles = [role.name for role in user.roles]
         del roles[0]
         rolecount = len(roles)
+        if title == "":
+            title = "None"
         embed=discord.Embed(title="Titles", description=title, color=user.color)
         embed.set_author(name="User info for " + str(user),icon_url=user.avatar_url)
         embed.set_thumbnail(url=user.avatar_url)

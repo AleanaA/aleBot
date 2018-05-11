@@ -187,7 +187,7 @@ class Commands(Cog):
         else:
             user = user[0]
         if user.activity.name == "Spotify":
-            embed=discord.Embed(color=ctx.message.author.activity.color)
+            embed=discord.Embed(color=user.activity.color)
 
             embed.set_author(name="Spotify info for " + str(user),icon_url=user.avatar_url)
 
@@ -203,7 +203,7 @@ class Commands(Cog):
             embed.timestamp = ctx.message.created_at
             await ctx.message.channel.send(embed=embed)
         else:
-            embed=discord.Embed(title="Error", description="User is not listening to spotify", color=user.color)
+            embed=discord.Embed(title="Spotify Error", description="User is not listening to spotify", color=0xff0000)
             await ctx.message.channel.send(embed=embed)
 def setup(bot):
     bot.add_cog(Commands(bot))

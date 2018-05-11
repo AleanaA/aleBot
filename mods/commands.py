@@ -189,7 +189,7 @@ class Commands(Cog):
         if user.activity.name == "Spotify":
             embed=discord.Embed(color=user.activity.color)
             embed.set_author(name="Spotify info for " + str(user),icon_url=user.avatar_url)
-            embed.set_thumbnail(url=user.activity.album_cover_url)
+            embed.set_image(url=user.activity.album_cover_url)
             embed.add_field(name="Artists", value=user.activity.artist)
             embed.add_field(name="Title", value=user.activity.title)
             embed.add_field(name="Album", value=user.activity.album, inline=False)

@@ -99,6 +99,8 @@ class Commands(Cog):
     async def profile(self, ctx, *user: discord.Member):
         self.config = Config('config/config.ini')
         owner = await self.bot.get_user_info(self.config.owner)
+        prefix = self.config.prefix
+        await ctx.message.channel.send(prefix)
         if not user:
             user = ctx.message.author
         else:
@@ -120,7 +122,7 @@ class Commands(Cog):
         elif user.activity.type == 1:
             activity = "Streaming **{}**".format(user.activity.name)
         elif user.activity.type == 2:
-            activity = "Listening to **{0} - {1}**\n*For more info, run `{3}spotify @user`*".format(user.activity.artist, user.activity.title, self.config.prefix)
+            activity = "Listening to **{0} - {1}**\n*For more info, run `{3}spotify @user`*".format(user.activity.artist, user.activity.title, prefix)
         elif user.activity.type == 3: # Users shouldn't have this type yet, however it's here to catch it for Bots and SelfBot users.
             activity = "Watching **{}**".format(user.activity.name)
 

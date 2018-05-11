@@ -197,7 +197,7 @@ class Commands(Cog):
             embed.add_field(name="Artist", value=user.activity.artist)
             embed.add_field(name="Title", value=user.activity.title)
             embed.add_field(name="Album", value=user.activity.album)
-            time = str(datetime.timedelta(seconds=round(float(user.activity.duration))))
+            time = str(datetime.timedelta(seconds=round(float(str(user.activity.duration)))))
             embed.add_field(name="Duration", value=time)
             embed.add_field(name="Track URL", value="https://open.spotify.com/track/{}".format(user.activity.track_id))
 

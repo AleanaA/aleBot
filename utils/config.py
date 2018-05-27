@@ -33,6 +33,7 @@ class Config:
         self.token = config.get('Bot', 'Token', fallback=None)
         self.prefix = config.get('Bot', 'Prefix', fallback=None)
         self.status = config.get('Bot', 'Status', fallback=None)
+        self.activity = config.get('Bot', 'Activity', fallback=0)
         # [IDs]
         self.owner = int(config.get('IDs', 'Owner', fallback=None))
         self.log = int(config.get('IDs', 'LogChannel', fallback=None))
@@ -47,17 +48,11 @@ class Config:
         if not self.token:
             log.critical('You must provide a token in the config.ini')
             critical = True
-        if not self.prefix:
-            log.critical('You must provide a prefix in the config.ini')
-            critical = True
         if not self.status:
-            log.critical('You must provide a status in the config.ini')
-            critical = True
+            log.critical('No Status provided!')
         if not self.owner:
-            log.critical('You must provide an owner id in the config.ini')
-            critical = True
+            log.critical('No Owner ID provided!')
         if not self.log:
-            log.critical('You must provide a log channel id in the config.ini')
-            critical = True
+            log.critical('No Log ID provided!')
         if critical:
             raise Shutdown()

@@ -45,6 +45,7 @@ class bot(commands.Bot):
     def __del__(self):
         self.loop.set_exception_handler(lambda *args, **kwargs: None)
     async def on_command_error(self, ctx, e):
+        owner = await self.get_user_info(self.config.owner)
         emb.title = ("An Error Occured")
         emb.color = discord.Color(0xff0000)
         emb.description = emotes.Error + " " + str(e)
@@ -59,7 +60,7 @@ class bot(commands.Bot):
             await ctx.message.channel.send(embed=emb)
         elif isinstance(e, checks.No_Owner):
             print("User " + str(ctx.message.author) + " lacked permission! - Command - " + ctx.message.content)
-            emb.description = emotes.Warn + " Only Aleana can use this command " + ctx.message.author.mention + "!"
+            emb.description = emotes.Warn + " Only " + owner.name + " can use this command " + ctx.message.author.mention + "!"
             await ctx.message.channel.send(embed=emb)
         elif isinstance(e, checks.No_Admin):
             emb.description = emotes.Warn + " Only Admins can use this command " + ctx.message.author.mention + "!"
@@ -89,7 +90,7 @@ class bot(commands.Bot):
         embed=discord.Embed(title="Invite URL", url="https://discordapp.com/oauth2/authorize?client_id={0}&scope=bot&permissions=8".format(str(self.user.id)), description=self.user.name + " has just loaded.", color=0x05d1dc)
         embed.set_author(name=owner.name,icon_url=owner.avatar_url)
         embed.set_thumbnail(url=self.user.avatar_url)
-        game = discord.Game(type=0, name=self.config.status + " | {0}help".format(self.config.prefix))
+        game = discord.Activity(type=self.config.activity, name=self.config.status + " | {0}help".format(self.config.prefix))
         await self.change_presence(activity=game)
         print("---------------------------------------")
         print("Logged in as " + self.user.name)
@@ -109,11 +110,14 @@ class bot(commands.Bot):
             ownercheck = conf.owner
             check = server.get_member(ownercheck)
             if check == None:
-                print("Server ID: "+str(server.id)+" | Server Name: "+server.name)
+                print("Server ID: {0} | Server Name: {1} | Server Owner: {2}".format(server.id, server.name, server.owner))
                 notsharedcount = notsharedcount+1
         embed.add_field(name="Unshared Servers", value=str(notsharedcount))
         embed.add_field(name="Total Servers", value=str(len(self.guilds)))
-        await owner.send(embed=embed)
+        try:
+            await owner.send(embed=embed)
+        except Exception as e:
+            print("Unable to DM owner.")
         print("")
         print("---------------------------------------")
         print("Remember to invite your bot to your server!")

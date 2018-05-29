@@ -113,9 +113,7 @@ class Commands(Cog):
             status = "Do Not Disturb"
         elif str(user.status) == "do_not_disturb": # This is a catch, as a 'Just in case'
             status = "Do Not Disturb"
-        if user.activity == None:
-            activity = "None"
-        elif user.activity.type == 0:
+        if user.activity.type == 0:
             activity = "Playing **{}**".format(user.activity.name)
         elif user.activity.type == 1:
             activity = "Streaming **{}**".format(user.activity.name)
@@ -149,9 +147,11 @@ class Commands(Cog):
         embed.add_field(name="Joined Server", value=user.joined_at.strftime("%b %d, %Y; %I:%M %p"), inline=False)
         embed.add_field(name="Account Created", value=user.created_at.strftime("%b %d, %Y; %I:%M %p"), inline=False)
         embed.add_field(name="Status", value=status, inline=False)
-        embed.add_field(name="Activity", value=activity, inline=False)
-        embed.add_field(name="Highest Role", value=user.top_role, inline=False)
-        embed.add_field(name="Roles", value=rolecount, inline=False)
+        if user.activity != None:
+            embed.add_field(name="Activity", value=activity, inline=False)
+        if rolecount > 0
+            embed.add_field(name="Highest Role", value=user.top_role, inline=False)
+            embed.add_field(name="Roles", value=rolecount, inline=False)
         if user.voice:
             embed.add_field(name="Voice Channel", value=user.voice.channel, inline=False)
             if user.voice.deaf == True and user.voice.mute == True:

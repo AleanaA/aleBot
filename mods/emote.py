@@ -1,9 +1,13 @@
 import asyncio
+import os
 import discord
 import inspect
 import aiohttp
 import utils
 import requests
+import re
+import time
+import subprocess
 from discord import Game
 from discord.ext import commands
 from discord.ext.commands import Bot
@@ -68,6 +72,26 @@ class Emote(Cog):
             emb.description = "Successfully removed {} emotes with the name {}.".format(emote_length, name)
         emb.colour = 0x00ff00
         await ctx.message.channel.send(embed=emb)
+
+
+    @emote.command(name='list',
+                description="List all emotes available for the bot to use!")
+    @checks.is_owner()
+    async def emotelist(self, ctx):
+        emote = ""
+        for server in self.bot.guilds:
+            for emoji in server.emojis:
+                emote += "::{}::\n".format(emoji.name)
+        if emote == "":
+            await ctx.message.channel.send('No available emotes!')
+        elif len(emote) >= 2000:
+            f = open("emotes.txt","w+")
+            f.write(emote)
+            f.close()
+            await ctx.message.channel.send("Too many emotes to list!", file=discord.File('emotes.txt'))
+            os.remove('emotes.txt')
+        else:
+            await ctx.message.channel.send(emote)
 
     #this will get cleaned up at some point, but it works for now
     async def on_message(self, msg:discord.Message):

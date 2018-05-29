@@ -92,11 +92,11 @@ class Commands(Cog):
             await ctx.message.delete()
             await ctx.message.channel.send(embed=discord.Embed(colour=discord.Colour(0x00ff2c), description=emotes.Done + " Log Added"))
 
-    @commands.command(name='profile',
-                description="Show a users profile!",
-                brief="Show a profile!",
+    @commands.command(name='user',
+                description="Show a users info!",
+                brief="Show user info!",
                 aliases=[])
-    async def profile(self, ctx, *user: discord.Member):
+    async def user(self, ctx, *user: discord.Member):
         self.config = Config('config/config.ini')
         owner = await self.bot.get_user_info(self.config.owner)
         if not user:
@@ -222,15 +222,25 @@ class Commands(Cog):
         embed.set_thumbnail(url=server.icon_url)
         embed.add_field(name="Owner", value=server.owner, inline=False)
         embed.add_field(name="ID", value=server.id, inline=False)
-        embed.add_field(name="Account Created", value=server.created_at.strftime("%b %d, %Y; %I:%M %p"), inline=False)
+        embed.add_field(name="Server Created", value=server.created_at.strftime("%b %d, %Y; %I:%M %p"), inline=False)
         embed.add_field(name="Members", value=server.member_count, inline=False)
-        embed.add_field(name="Highest Role", value=roles[0], inline=False)
-        embed.add_field(name="Roles", value=rolecount, inline=False)
-        embed.add_field(name="Categories",value=len(server.categories), inline=False)
-        embed.add_field(name="Channels",value=channelcount, inline=False)
+        if rolecount != 0:
+            embed.add_field(name="Highest Role", value=roles[0], inline=False)
+            embed.add_field(name="Roles", value=rolecount, inline=False)
+        if len(server.categories) != 0:
+            embed.add_field(name="Categories",value=len(server.categories), inline=False)
+        if channelcount != 0:
+            embed.add_field(name="Channels",value=channelcount, inline=False)
         embed.set_footer(text="Requested by {0}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
         embed.timestamp = ctx.message.created_at
         await ctx.message.channel.send(embed=embed)
+
+    @commands.command(name='fact',
+                description="Get a fact!",
+                brief="Get a fact!",
+                aliases=['Fact', 'Fact!'])
+    async def fact(self, ctx):
+        await ctx.message.channel.send(ctx.message.author.mention + " " + emotes.Done)
 
 def setup(bot):
     bot.add_cog(Commands(bot))

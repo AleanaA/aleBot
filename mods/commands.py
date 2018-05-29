@@ -139,12 +139,11 @@ class Commands(Cog):
         roles = [role.name for role in user.roles]
         del roles[0]
         rolecount = len(roles)
-        if title == "":
-            title = "None"
         embed=discord.Embed(color=user.color)
         embed.set_author(name="User info for " + str(user),icon_url=user.avatar_url)
         embed.set_thumbnail(url=user.avatar_url)
-        embed.add_field(name="Titles", value=title, inline=False)
+        if title != "":
+            embed.add_field(name="Titles", value=title, inline=False)
         embed.add_field(name="Nickname", value=user.display_name, inline=False)
         embed.add_field(name="ID", value=user.id, inline=False)
         embed.add_field(name="Joined Server", value=user.joined_at.strftime("%b %d, %Y; %I:%M %p"), inline=False)

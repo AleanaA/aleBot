@@ -103,6 +103,7 @@ class Commands(Cog):
             user = ctx.message.author
         else:
             user = user[0]
+
         if str(user.status) == "online":
             status = "Online"
         elif str(user.status) == "offline":
@@ -197,5 +198,39 @@ class Commands(Cog):
         else:
             embed=discord.Embed(title="Spotify Error", description="{} is not listening to spotify, tell them to listen to some music!".format(user.mention), color=0xff0000)
             await ctx.message.channel.send(embed=embed)
+
+    @commands.command(name='server',
+                description="Show information on a server!",
+                brief="Show a server!",
+                aliases=[])
+    async def server(self, ctx, *server):
+        if not server:
+            server = ctx.message.guild
+        else:
+            server = self.bot.get_guild(int(server[0]))
+        
+        if server == None:
+            await ctx.message.channel.send(embed=discord.Embed(title="Unknown server", description="The bot probably isn't in that server!", color=0xff0000))
+            return
+
+        roles = [role.name for role in server.role_hierarchy]
+        del roles[-1]
+        rolecount = len(roles)
+        channelcount = len(server.text_channels)+len(server.voice_channels)
+        embed=discord.Embed(color=0x00aaff)
+        embed.set_author(name="Server info for " + str(server.name),icon_url=server.icon_url)
+        embed.set_thumbnail(url=server.icon_url)
+        embed.add_field(name="Owner", value=server.owner, inline=False)
+        embed.add_field(name="ID", value=server.id, inline=False)
+        embed.add_field(name="Account Created", value=server.created_at.strftime("%b %d, %Y; %I:%M %p"), inline=False)
+        embed.add_field(name="Members", value=server.member_count, inline=False)
+        embed.add_field(name="Highest Role", value=roles[0], inline=False)
+        embed.add_field(name="Roles", value=rolecount, inline=False)
+        embed.add_field(name="Categories",value=len(server.categories), inline=False)
+        embed.add_field(name="Channels",value=channelcount, inline=False)
+        embed.set_footer(text="Requested by {0}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        embed.timestamp = ctx.message.created_at
+        await ctx.message.channel.send(embed=embed)
+
 def setup(bot):
     bot.add_cog(Commands(bot))

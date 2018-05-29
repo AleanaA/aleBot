@@ -83,6 +83,9 @@ class bot(commands.Bot):
             print("User " + str(ctx.message.author) + " lacked permission! - Command - " + ctx.message.content)
             await ctx.message.channel.send(embed=emb)
 
+    async def on_connect(self):
+        loading = discord.Activity(type=3, name="Loading Bars...")
+        await self.change_presence(status=discord.Status.dnd, activity=loading)
 
     async def on_ready(self):
         await self.wait_until_ready()

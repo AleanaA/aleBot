@@ -69,6 +69,17 @@ class Emote(Cog):
         emb.colour = 0x00ff00
         await ctx.message.channel.send(embed=emb)
 
+    #this will get cleaned up at some point, but it works for now
+    async def on_message(self, msg:discord.Message):
+        if msg.author.id == self.bot.user.id:
+            return
+        emotes = ""
+        for server in self.bot.guilds:
+            for emoji in server.emojis:
+                if "::{}::".format(emoji.name) in msg.content:
+                    emotes += "{} ".format(emoji)
+        if emotes != "":
+            await msg.channel.send(emotes)
 
 def setup(bot):
     bot.add_cog(Emote(bot))

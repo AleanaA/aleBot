@@ -28,6 +28,7 @@ class MPD(Cog):
             emb.title = ":musical_note: MPD Client " + emotes.Warn
             emb.colour = 0xffff00
             emb.description = "Please issue a valid subcommand!\nAvailable options are:"
+            emb.add_field(name="Server", value="Sets the server to connect to. Defaults to localhost", inline=False)
             emb.add_field(name="Play", value="Starts playing what's in the queue.", inline=False)
             emb.add_field(name="Pause", value="Pauses the currently playing song.", inline=False)
             emb.add_field(name="Skip", value="Skips the currently playing song.", inline=False)
@@ -38,6 +39,7 @@ class MPD(Cog):
             emb.add_field(name="NP", value="Shows the song currently playing.", inline=False)
             emb.add_field(name="Playlists", value="List all available playlists.", inline=False)
             emb.add_field(name="Playlist", value="Add a playlist to the current queue.", inline=False)
+            emb.add_field(name="Vol", value="Changes the volume of the mpd server.", inline=False)
             await ctx.message.channel.send(embed=emb)
     
     @mpd.command(name='server',
@@ -204,7 +206,10 @@ class MPD(Cog):
         emb.colour = 0x00aaff
         emb.description = "Set the volume to {0}/100".format(volume)
         player.connect(self.ip, int(self.port))
-        player.setvol(volume)
+        try:
+            player.setvol(volume)
+        except Exception as e:
+            emb.description = "Error setting volume.\n```{}```".format(e)
         await ctx.message.channel.send(embed=emb)
         player.close()
         player.disconnect()

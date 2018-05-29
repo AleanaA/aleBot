@@ -81,7 +81,7 @@ class Emote(Cog):
         emote = ""
         for server in self.bot.guilds:
             for emoji in server.emojis:
-                emote += "::{}::\n".format(emoji.name)
+                emote += "{0} - {1}\n".format(emoji.name, emoji)
         if emote == "":
             await ctx.message.channel.send('No available emotes!')
         elif len(emote) >= 2000:

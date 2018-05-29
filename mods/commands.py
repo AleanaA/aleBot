@@ -125,7 +125,7 @@ class Commands(Cog):
             activity = "Watching **{}**".format(user.activity.name)
 
         title = ""
-        if user.id == self.bot.id:
+        if user.id == self.bot.user.id:
             title += "[Me!]\n"
         if user.id == 168118999337402368:
             title += "[Developer]\n"

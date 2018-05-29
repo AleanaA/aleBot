@@ -149,7 +149,7 @@ class Commands(Cog):
         embed.add_field(name="Status", value=status, inline=False)
         if user.activity != None:
             embed.add_field(name="Activity", value=activity, inline=False)
-        if rolecount > 0
+        if rolecount > 0:
             embed.add_field(name="Highest Role", value=user.top_role, inline=False)
             embed.add_field(name="Roles", value=rolecount, inline=False)
         if user.voice:

@@ -55,9 +55,9 @@ class Profile(Cog):
                 brief="")
     @checks.is_owner()
     async def mrep(self, ctx):
-        config.read('data/{}.ini'.format(ctx.message.author.id))
+        config.read('data/profiles/{}.ini'.format(ctx.message.author.id))
         config['PROFILE']['Rep'] = str(int(config['PROFILE']['Rep']) - 1)
-        with open('data/{}.ini'.format(ctx.message.author.id), 'w') as configfile:
+        with open('data/profiles/{}.ini'.format(ctx.message.author.id), 'w') as configfile:
             config.write(configfile)
         await ctx.message.channel.send("w.i.p")
 

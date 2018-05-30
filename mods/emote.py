@@ -101,7 +101,7 @@ class Emote(Cog):
         for server in self.bot.guilds:
             for emoji in server.emojis:
                 if "::{}::".format(emoji.name) in msg.content:
-                    if emoji not in emotes:
+                    if emoji.name not in emotes:
                         emotes += "{} ".format(emoji)
         if emotes != "":
             await msg.channel.send(emotes)

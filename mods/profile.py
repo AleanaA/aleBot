@@ -3,12 +3,8 @@ import configparser
 import logging
 import asyncio
 import inspect
-import time
 import discord
-import aiohttp
-import utils
-import re
-import subprocess
+import time
 from discord import Game
 from discord.ext import commands
 from discord.ext.commands import Bot
@@ -29,7 +25,7 @@ class Profile(Cog):
         if os.path.exists('data/profiles/{}.ini'.format(ctx.message.author.id)):
             config.read('data/profiles/{}.ini'.format(ctx.message.author.id))
             embed = discord.Embed(color=0x00aaff)
-            embed.set_author(name="Profile for " + str(ctx.message.author),icon_url=user.avatar_url)
+            embed.set_author(name="Profile for " + str(ctx.message.author),icon_url=ctx.message.author.avatar_url)
             embed.set_thumbnail(url=ctx.message.author.avatar_url)
             embed.add_field(name="Name", value=config['PROFILE']['Name'], inline=False)
             embed.add_field(name="Description", value=config['PROFILE']['Description'], inline=False)

@@ -7,6 +7,7 @@ import os
 import re
 import time
 import subprocess
+import psutil
 from discord import Game
 from discord.ext import commands
 from discord.ext.commands import Bot
@@ -149,6 +150,17 @@ class BotOptions(Cog):
         if len(out.decode('utf8')) >=500:
             await ctx.message.channel.send(file=discord.File('output.txt'))
         os.remove('output.txt')
-
+    @manbot.command(name='stats')
+    async def stats(self, ctx):
+        embed=discord.Embed()
+        embed.title = "Bot stats"
+        embed.set_thumbnail(url=self.bot.user.avatar_url)
+        embed.add_field(name="Severs", value=len(self.bot.guilds))
+        embed.add_field(name="Users", value=len(self.bot.users))
+        pid = os.getpid()
+        py = psutil.Process(pid)
+        embed.add_field(name="CPU Usage", value=py.cpu_percent())
+        embed.add_field(name="Memory Usage (MB)", value=round(py.memory_info()[0]/1024/1024, 2))
+        await ctx.message.channel.send(embed=embed)
 def setup(bot):
     bot.add_cog(BotOptions(bot))

@@ -166,8 +166,12 @@ class BotOptions(Cog):
     @manbot.command(name='neo')
     async def neo(self, ctx):
         await ctx.message.channel.send("```{}```".format(re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]').sub('', subprocess.check_output(["neofetch"]).decode('utf8'))))
-    @manbot.command(name='pm2')
+    @manbot.group(name='pm2')
     async def pm2(self, ctx):
-        await ctx.message.channel.send("```{}```".format(re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]').sub('', subprocess.check_output(["pm2", "list"]).decode('utf8'))))
+        if ctx.invoked_subcommand is None:
+            await ctx.message.channel.send("```{}```".format(re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]').sub('', subprocess.check_output(["pm2", "list"]).decode('utf8'))))
+    @pm2.command(name='restart')
+    async def pm2restart(self, ctx, pm2app):
+        await ctx.message.channel.send("```{}```".format(re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]').sub('', subprocess.check_output(["pm2", "restart", pm2app]).decode('utf8'))))
 def setup(bot):
     bot.add_cog(BotOptions(bot))

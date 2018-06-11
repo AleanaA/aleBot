@@ -23,23 +23,6 @@ If you need assistance setting up the bot, or adding to it, come join [the suppo
 It should be noted that emotes will probably be displayed incorrectly, as you won't have the emotes in `emotes.py`
 To fix this, just replace those emote IDs with ones from a server the bot is in, corresponding to the emote.
 
-### Commands
-
-All commands can be listed using the help command, but role required commands are:
-
-- cog - Owner
-- bot - Owner
-- unshared - Owner
-- emote - Supervisor
-- ban - Mod
-- banid - Mod
-- softban - Mod
-- unban - Mod
-- kick - Apprentice
-- log - Apprentice
-- say - Event
-- announce - Event
-
 ### Roles
 
 The role permissions work as follows:

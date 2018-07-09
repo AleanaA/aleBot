@@ -8,7 +8,7 @@ As long as your PR adds strictly mods and doesn't add them to `config.example.py
 
 ### Support
 
-~~If you need assistance setting up the bot, or adding to it, come join the support server!~~
+[If you need assistance setting up the bot, or adding to it, come join the support server!](https://discord.gg/eJhG4Tq)
 
 ### Setup
 

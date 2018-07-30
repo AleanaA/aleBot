@@ -34,9 +34,10 @@ class Config:
         self.prefix = config.get('Bot', 'Prefix', fallback=None)
         self.status = config.get('Bot', 'Status', fallback=None)
         self.activity = config.get('Bot', 'Activity', fallback=0)
-        # [IDs]
-        self.owner = int(config.get('IDs', 'Owner', fallback=None))
-        self.log = int(config.get('IDs', 'LogChannel', fallback=None))
+        # [Extras]
+        self.owner = int(config.get('Extras', 'Owner', fallback=None))
+        self.log = int(config.get('Extras', 'LogChannel', fallback=None))
+        self.stream = config.get('Extras', 'Stream', fallback='http://aleana.mynetgear.com/stream')
 
         self.validate()
 

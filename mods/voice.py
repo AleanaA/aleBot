@@ -14,18 +14,17 @@ from utils.config import Config
 from utils.cog import Cog
 
 class Voice(Cog):
-    def __init__(self, *args, **kwargs):
-        self.config = Config('config/config.ini')
 
     @commands.command(name='play')
     @checks.is_event()
     async def play(self, ctx):
+        config = Config('config/config.ini')
         bot = ctx.message.guild.get_member(self.bot.user.id)
         owner = ctx.message.author
         state = bot.voice
         if not state:
             voice = await owner.voice.channel.connect(timeout=120.0, reconnect=True)
-            source = discord.FFmpegPCMAudio(self.config.stream)
+            source = discord.FFmpegPCMAudio(config.stream)
             voice.play(source)
             await ctx.message.channel.send("Playback started!")
         else:

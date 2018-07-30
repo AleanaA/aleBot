@@ -13,4 +13,5 @@ Modules = [
     'mods.emote',
     'mods.unshared',
     'mods.manbot'
+    'mods.voice'
 ]

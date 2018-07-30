@@ -12,6 +12,6 @@ Modules = [
     'mods.cogloader',
     'mods.emote',
     'mods.unshared',
-    'mods.manbot'
+    'mods.manbot',
     'mods.voice'
 ]

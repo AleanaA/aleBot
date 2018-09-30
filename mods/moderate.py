@@ -148,9 +148,10 @@ class Moderation(Cog):
         await ctx.message.channel.send(embed=discord.Embed(description=emotes.Done + " {0} was successfully softbanned!".format(str(userName))))
         await AUDDIT.send(embed=embed)
 
-    @checks.is_admin
+    
     @commands.command(name='serverimage',
                 description="Adds an emote to the current server!")
+    @checks.is_admin()
     async def emoteadd(self, ctx, url):
         emb = discord.Embed()
         try:

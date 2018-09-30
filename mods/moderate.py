@@ -1,5 +1,6 @@
 import asyncio
 import discord
+import requests
 from discord import Game
 from discord.ext import commands
 from discord.ext.commands import Bot
@@ -147,6 +148,25 @@ class Moderation(Cog):
         await ctx.message.channel.send(embed=discord.Embed(description=emotes.Done + " {0} was successfully softbanned!".format(str(userName))))
         await AUDDIT.send(embed=embed)
 
+    @checks.is_admin
+    @commands.command(name='serverimage',
+                description="Adds an emote to the current server!")
+    async def emoteadd(self, ctx, url):
+        emb = discord.Embed()
+        try:
+            response = requests.get(url)
+        except (requests.exceptions.MissingSchema, requests.exceptions.InvalidURL, requests.exceptions.InvalidSchema, requests.exceptions.ConnectionError):
+            emb.colour = 0xff0000
+            emb.description = "An error occured. Unable to get image from url."
+            return await ctx.message.channel.send(embed=emb)
+        if response.status_code == 404:
+            emb.colour = 0xff0000
+            emb.description = "404 error occured."
+            return await ctx.message.channel.send(embed=emb)
+        await ctx.message.guild.edit(icon=response.content)
+        emb.colour = 0x00ff00
+        emb.description = "Successfully changed the server image!"
+        await ctx.message.channel.send(embed=emb)
 
 def setup(bot):
     bot.add_cog(Moderation(bot))

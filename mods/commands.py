@@ -4,6 +4,8 @@ import inspect
 import datetime
 import aiohttp
 import utils
+import json
+import requests
 from discord import Game
 from discord.ext import commands
 from discord.ext.commands import Bot
@@ -14,6 +16,9 @@ from utils.config import Config
 from utils.cog import Cog
 
 class Commands(Cog):
+    def __init__(self, *args, **kwargs):
+        self.config = Config('config/config.ini')
+        
     @commands.command(name='ping',
                 description="Ping!",
                 brief="Ping!",
@@ -72,7 +77,6 @@ class Commands(Cog):
     @checks.is_appr()
     async def log(self, ctx, *content):
         emb = discord.Embed()
-        self.config = Config('config/config.ini')
         msg = ' '.join(content)
         auth = ctx.message.author
         authmen = auth.mention
@@ -97,7 +101,6 @@ class Commands(Cog):
                 brief="Show user info!",
                 aliases=[])
     async def user(self, ctx, *user: discord.Member):
-        self.config = Config('config/config.ini')
         owner = await self.bot.get_user_info(self.config.owner)
         if not user:
             user = ctx.message.author
@@ -178,7 +181,6 @@ class Commands(Cog):
                 brief="Show a profile!",
                 aliases=[])
     async def spotify(self, ctx, *user: discord.Member):
-        self.config = Config('config/config.ini')
         if not user:
             user = ctx.message.author
         else:
@@ -241,6 +243,36 @@ class Commands(Cog):
                 aliases=['Fact', 'Fact!'])
     async def fact(self, ctx):
         await ctx.message.channel.send(ctx.message.author.mention + " " + emotes.Done)
+    
+    @commands.command(name='cat',
+                description="Kitty!")
+    async def cat(self, ctx):
+        isVideo = True
+        while isVideo:
+            r = requests.get('http://aws.random.cat/meow')
+            parsed_json = r.json()
+            if parsed_json['file'].endswith('.mp4'):
+                pass
+            else:
+                isVideo = False
+        embed = discord.Embed()
+        embed.set_image(url=parsed_json['file'])
+        await ctx.message.channel.send(embed=embed)
+
+    @commands.command(name='dog',
+                description="Puppo!")
+    async def dog(self, ctx):
+        isVideo = True
+        while isVideo:
+            r = requests.get('https://random.dog/woof.json')
+            parsed_json = r.json()
+            if parsed_json['url'].endswith('.mp4'):
+                pass
+            else:
+                isVideo = False
+        embed = discord.Embed()
+        embed.set_image(url=parsed_json['url'])
+        await ctx.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(Commands(bot))

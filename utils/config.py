@@ -47,13 +47,13 @@ class Config:
         """
         critical = False
         if not self.token:
-            log.critical('You must provide a token in the config.ini')
+            print('You must provide a token in the config.ini')
             critical = True
         if not self.status:
-            log.critical('No Status provided!')
+            print('No Status provided!')
         if not self.owner:
-            log.critical('No Owner ID provided!')
+            print('No Owner ID provided!')
         if not self.log:
-            log.critical('No Log ID provided!')
+            print('No Log ID provided!')
         if critical:
             raise Shutdown()

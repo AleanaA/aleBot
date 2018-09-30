@@ -152,7 +152,7 @@ class Moderation(Cog):
     @commands.command(name='serverimage',
                 description="Adds an emote to the current server!")
     @checks.is_admin()
-    async def emoteadd(self, ctx, url):
+    async def serverimage(self, ctx, url):
         emb = discord.Embed()
         try:
             response = requests.get(url)

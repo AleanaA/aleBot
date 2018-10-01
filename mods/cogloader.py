@@ -89,7 +89,7 @@ class CogLoader(Cog):
         emb.title = "Loaded Cogs"
         emb.colour = 0x00ffff
         emb.description = '\n'.join(list(self.bot.cogs.keys()))
-        await ctx.message.channel.send(emb)
+        await ctx.message.channel.send(embed=emb)
 
 def setup(bot):
     bot.add_cog(CogLoader(bot))

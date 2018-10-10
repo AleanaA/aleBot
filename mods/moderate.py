@@ -165,9 +165,10 @@ class Moderation(Cog):
             for emoji in server.emojis:
                 if emote == emoji.name:
                     reaction=emoji
-                else:
-                    await ctx.message.channel.send("Emote not found.")
-                    return
+        
+        if reaction == None:
+            await ctx.message.channel.send("Emote not found.")
+            return
 
         async for message in self.bot.logs_from(ctx.message.channel, before=ctx.message, limit=5000):
             if message.id == id:

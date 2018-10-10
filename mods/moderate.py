@@ -169,8 +169,10 @@ class Moderation(Cog):
         if reaction == None:
             await ctx.message.channel.send("Emote not found.")
             return
-
-        message = await ctx.message.channel.history().get(id=int(mid))
+        for channel in ctx.message.guild.channels:
+            messageid = await channel.history().get(id=int(mid))
+            if messageid != None:
+                message = await channel.history().get(id=int(mid))
         try:
             await message.add_reaction(reaction)
         except:

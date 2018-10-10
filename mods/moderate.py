@@ -171,13 +171,13 @@ class Moderation(Cog):
             await ctx.message.channel.send("Emote not found.")
             return
 
-        async for message in self.bot.logs_from(ctx.message.channel, before=ctx.message, limit=5000):
+        async for message in ctx.message.channel.history():
             if message.id == id:
                 await message.add_reaction(reaction)
 
     @reactions.command(name='remove')
     async def reactionrem(self, ctx, id):
-        async for message in self.bot.logs_from(ctx.message.channel, before=ctx.message, limit=5000):
+        async for message in ctx.message.channel.history():
             if message.id == id:
                 try:
                     await message.clear_reactions()

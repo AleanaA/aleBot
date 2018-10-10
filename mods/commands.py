@@ -16,8 +16,8 @@ from utils.config import Config
 from utils.cog import Cog
 
 class Commands(Cog):
-    def __init__(self, *args, **kwargs):
-        self.config = Config('config/config.ini')
+#    def __init__(self, *args, **kwargs):
+#        self.config = Config('config/config.ini')
         
     @commands.command(name='ping',
                 description="Ping!",

@@ -161,6 +161,7 @@ class Moderation(Cog):
     
     @reactions.command(name='add')
     async def reactionadd(self, ctx, id, emote):
+        reaction = None
         for server in self.bot.guilds:
             for emoji in server.emojis:
                 if emote == emoji.name:

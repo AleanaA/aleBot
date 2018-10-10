@@ -16,9 +16,6 @@ from utils.config import Config
 from utils.cog import Cog
 
 class Commands(Cog):
-    def __init__(self, *args, **kwargs):
-        self.config = Config('config/config.ini')
-        
     @commands.command(name='ping',
                 description="Ping!",
                 brief="Ping!",
@@ -74,8 +71,9 @@ class Commands(Cog):
                 description="Allows select users to make a log entry!",
                 brief="Creates a log entry!",
                 aliases=['LOG', 'Log'])
-    @checks.is_appr()
+    @checks.owner()
     async def log(self, ctx, *content):
+        self.config = Config('config/config.ini')
         emb = discord.Embed()
         msg = ' '.join(content)
         auth = ctx.message.author
@@ -101,6 +99,7 @@ class Commands(Cog):
                 brief="Show user info!",
                 aliases=[])
     async def user(self, ctx, *user: discord.Member):
+        self.config = Config('config/config.ini')
         owner = await self.bot.get_user_info(self.config.owner)
         if not user:
             user = ctx.message.author

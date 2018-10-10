@@ -103,9 +103,6 @@ class Moderation(Cog):
         auth = ctx.message.author
         rsn = " ".join(reason)
         banned = await self.bot.get_user_info(userName)
-        if ctx.message.author.top_role <= banned.top_role:
-            await ctx.message.channel.send(embed=discord.Embed(title="Permission Error", description="You don't have permission to kick that user!", color=0xff0000))
-            return
         action = "Banned"
         if rsn == "":
             rsn = "No Reason Specified"
@@ -148,7 +145,26 @@ class Moderation(Cog):
         await ctx.message.channel.send(embed=discord.Embed(description=emotes.Done + " {0} was successfully softbanned!".format(str(userName))))
         await AUDDIT.send(embed=embed)
 
-    
+#    @commands.group(name='reactions',
+#                description="Manage reactions!",
+#                brief="Manage Reactions!")
+#    @checks.is_mod()
+#    async def reactions(self, ctx):
+#        if ctx.invoked_subcommand is None:
+#            emb = discord.Embed()
+#            emb.title = "Reaction Manager " + emotes.Warn
+#            emb.colour = 0xffff00
+#            emb.description = "Please issue a valid subcommand!\nAvailable options are:"
+#            emb.add_field(name="Add", value="Add an available reaction to a message.", inline=False)
+#            emb.add_field(name="Remove", value="Remove a reaction, or all reactions from a message.", inline=False)
+#            await ctx.message.channel.send(embed=emb)
+#    
+#    @reactions.command(name='add')
+#    async def reactionadd(self, ctx, id, emote):
+#
+#    @reactions.command(name='remove')
+#    async def reactionadd(self, ctx, id, emote='all'):
+
     @commands.command(name='serverimage',
                 description="Changes the server image!")
     @checks.is_admin()

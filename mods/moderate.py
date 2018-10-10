@@ -160,25 +160,23 @@ class Moderation(Cog):
             await ctx.message.channel.send(embed=emb)
     
     @reactions.command(name='add')
-    async def reactionadd(self, ctx, id, emote):
+    async def reactionadd(self, ctx, mid, emote):
         reaction = None
         for server in self.bot.guilds:
             for emoji in server.emojis:
                 if emote == emoji.name:
                     reaction=emoji
-        
         if reaction == None:
             await ctx.message.channel.send("Emote not found.")
             return
 
-        async for message in ctx.message.channel.history():
-            foundmsg=0
-            if message.id == id:
-                await message.add_reaction(reaction)
-                foundmsg=1
-                return
-        if foundmsg == 0:
-            await ctx.message.channel.send("Unable to find message")
+        message = await ctx.message.channel.history().get(id=int(mid))
+        try:
+            await message.add_reaction(reaction)
+        except:
+            await ctx.message.channel.send("Unable to add reaction.")
+        else:
+            await ctx.message.channel.send("Reaction added")
 
     @reactions.command(name='remove')
     async def reactionrem(self, ctx, mid):

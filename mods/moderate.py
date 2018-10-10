@@ -185,7 +185,7 @@ class Moderation(Cog):
         async for message in ctx.message.channel.history():
             foundmsg=0
             if message.id == id:
-                foundmsg == 1
+                foundmsg=1
                 try:
                     await message.clear_reactions()
                 except:
@@ -194,7 +194,7 @@ class Moderation(Cog):
                 else:
                     await ctx.message.channel.send("Reactions cleared.")
                     return
-        if foundmsg=0:
+        if foundmsg == 0:
             await ctx.message.channel.send("Unable to find message")
 
     @commands.command(name='serverimage',

@@ -174,6 +174,8 @@ class Moderation(Cog):
         async for message in ctx.message.channel.history():
             if message.id == id:
                 await message.add_reaction(reaction)
+            else:
+                await ctx.message.channel.send("Unable to find message")
 
     @reactions.command(name='remove')
     async def reactionrem(self, ctx, id):
@@ -185,6 +187,8 @@ class Moderation(Cog):
                     await ctx.message.channel.send("Unable to clear reactions.")
                 else:
                     await ctx.message.channel.send("Reactions cleared.")
+            else:
+                await ctx.message.channel.send("Unable to find message")
 
     @commands.command(name='serverimage',
                 description="Changes the server image!")

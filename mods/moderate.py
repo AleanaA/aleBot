@@ -182,7 +182,7 @@ class Moderation(Cog):
 
     @reactions.command(name='remove')
     async def reactionrem(self, ctx, mid):
-        message = await ctx.message.channel.history().get(id=mid)
+        message = await ctx.message.channel.history().get(id=int(mid))
         try:
             await message.clear_reactions()
         except Exception as e:

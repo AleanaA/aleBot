@@ -181,22 +181,17 @@ class Moderation(Cog):
             await ctx.message.channel.send("Unable to find message")
 
     @reactions.command(name='remove')
-    async def reactionrem(self, ctx, id):
-        async for message in ctx.message.channel.history():
-            foundmsg=0
-            if message.id == id:
-                foundmsg=1
-                try:
-                    await message.clear_reactions()
-                except:
-                    await ctx.message.channel.send("Unable to clear reactions.")
-                    return
-                else:
-                    await ctx.message.channel.send("Reactions cleared.")
-                    return
-        if foundmsg == 0:
-            await ctx.message.channel.send("Unable to find message")
-
+    async def reactionrem(self, ctx, mid):
+        message = await ctx.message.channel.history().get(id=mid)
+        try:
+            await message.clear_reactions()
+        except:
+            await ctx.message.channel.send("Unable to clear reactions.")
+            return
+        else:
+            await ctx.message.channel.send("Reactions cleared.")
+            return
+    
     @commands.command(name='serverimage',
                 description="Changes the server image!")
     @checks.is_admin()

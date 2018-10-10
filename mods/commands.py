@@ -71,7 +71,7 @@ class Commands(Cog):
                 description="Allows select users to make a log entry!",
                 brief="Creates a log entry!",
                 aliases=['LOG', 'Log'])
-    @checks.owner()
+    @checks.is_owner()
     async def log(self, ctx, *content):
         self.config = Config('config/config.ini')
         emb = discord.Embed()

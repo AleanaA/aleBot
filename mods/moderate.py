@@ -185,8 +185,9 @@ class Moderation(Cog):
         message = await ctx.message.channel.history().get(id=mid)
         try:
             await message.clear_reactions()
-        except:
+        except Exception as e:
             await ctx.message.channel.send("Unable to clear reactions.")
+            await ctx.message.channel.send(e)
             return
         else:
             await ctx.message.channel.send("Reactions cleared.")

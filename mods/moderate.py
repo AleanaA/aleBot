@@ -145,25 +145,44 @@ class Moderation(Cog):
         await ctx.message.channel.send(embed=discord.Embed(description=emotes.Done + " {0} was successfully softbanned!".format(str(userName))))
         await AUDDIT.send(embed=embed)
 
-#    @commands.group(name='reactions',
-#                description="Manage reactions!",
-#                brief="Manage Reactions!")
-#    @checks.is_mod()
-#    async def reactions(self, ctx):
-#        if ctx.invoked_subcommand is None:
-#            emb = discord.Embed()
-#            emb.title = "Reaction Manager " + emotes.Warn
-#            emb.colour = 0xffff00
-#            emb.description = "Please issue a valid subcommand!\nAvailable options are:"
-#            emb.add_field(name="Add", value="Add an available reaction to a message.", inline=False)
-#            emb.add_field(name="Remove", value="Remove a reaction, or all reactions from a message.", inline=False)
-#            await ctx.message.channel.send(embed=emb)
-#    
-#    @reactions.command(name='add')
-#    async def reactionadd(self, ctx, id, emote):
-#
-#    @reactions.command(name='remove')
-#    async def reactionadd(self, ctx, id, emote='all'):
+    @commands.group(name='reactions',
+                description="Manage reactions!",
+                brief="Manage Reactions!")
+    @checks.is_mod()
+    async def reactions(self, ctx):
+        if ctx.invoked_subcommand is None:
+            emb = discord.Embed()
+            emb.title = "Reaction Manager " + emotes.Warn
+            emb.colour = 0xffff00
+            emb.description = "Please issue a valid subcommand!\nAvailable options are:"
+            emb.add_field(name="Add", value="Add an available reaction to a message.", inline=False)
+            emb.add_field(name="Remove", value="Remove a reaction, or all reactions from a message.", inline=False)
+            await ctx.message.channel.send(embed=emb)
+    
+    @reactions.command(name='add')
+    async def reactionadd(self, ctx, id, emote):
+        for server in self.bot.guilds:
+            for emoji in server.emojis:
+                if emote == emoji.name:
+                    reaction=emoji
+                else:
+                    await ctx.message.channel.send("Emote not found.")
+                    return
+
+        async for message in self.bot.logs_from(ctx.message.channel, before=ctx.message, limit=5000):
+            if message.id == id:
+                await message.add_reaction(reaction)
+
+    @reactions.command(name='remove')
+    async def reactionrem(self, ctx, id):
+        async for message in self.bot.logs_from(ctx.message.channel, before=ctx.message, limit=5000):
+            if message.id == id:
+                try:
+                    await message.clear_reactions()
+                except:
+                    await ctx.message.channel.send("Unable to clear reactions.")
+                else:
+                    await ctx.message.channel.send("Reactions cleared.")
 
     @commands.command(name='serverimage',
                 description="Changes the server image!")

@@ -169,6 +169,7 @@ class Moderation(Cog):
         if reaction == None:
             await ctx.message.channel.send("Emote not found.")
             return
+            
         for channel in ctx.message.guild.text_channels:
             messageid = await channel.history().get(id=int(mid))
             if messageid != None:
@@ -182,7 +183,11 @@ class Moderation(Cog):
 
     @reactions.command(name='remove')
     async def reactionrem(self, ctx, mid):
-        message = await ctx.message.channel.history().get(id=int(mid))
+
+        for channel in ctx.message.guild.text_channels:
+            messageid = await channel.history().get(id=int(mid))
+            if messageid != None:
+                message = await channel.history().get(id=int(mid))
         try:
             await message.clear_reactions()
         except Exception as e:

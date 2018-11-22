@@ -41,6 +41,7 @@ class bot(commands.Bot):
         self.own_task = None
         self.last_message = None
         self.command_messages = {}
+        self.messages_seen = 0
 
     def __del__(self):
         self.loop.set_exception_handler(lambda *args, **kwargs: None)

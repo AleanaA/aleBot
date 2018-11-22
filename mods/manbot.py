@@ -151,8 +151,8 @@ class BotOptions(Cog):
         if len(out.decode('utf8')) >=500:
             await ctx.message.channel.send(file=discord.File('output.txt'))
         os.remove('output.txt')
-    @manbot.command(name='stats')
 
+    @manbot.command(name='stats')
     async def on_message(self, msg:discord.Message):
         messages_seen += 1
 
@@ -165,7 +165,7 @@ class BotOptions(Cog):
         info = discord.__version__
         servers = len(self.servers)
         messages = len(list(self.bot.messages))
-        messages_seen = str(self..bot.messages_seen)
+        messages_seen = str(self.bot.messages_seen)
         members = 0
         bots = 0
         channels = 0

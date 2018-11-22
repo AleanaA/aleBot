@@ -152,16 +152,80 @@ class BotOptions(Cog):
             await ctx.message.channel.send(file=discord.File('output.txt'))
         os.remove('output.txt')
     @manbot.command(name='stats')
+
+    async def on_message(self, msg:discord.Message):
+        messages_seen += 1
+
     async def stats(self, ctx):
+        time_then = time.monotonic()
+
+        ping = self.bot.latency
+        prefix = self.config.command_prefix
+        owner = self._get_owner()
+        info = discord.__version__
+        servers = len(self.servers)
+        messages = len(list(self.bot.messages))
+        messages_seen = str(self..bot.messages_seen)
+        members = 0
+        bots = 0
+        channels = 0
+        roles = 0
+        online = 0
+        dnd = 0
+        offline = 0
+        idle = 0
+        second = time.time() - self.start_time
+        minute, second = divmod(second, 60)
+        hour, minute = divmod(minute, 60)
+        day, hour = divmod(hour, 24)
+        week, day = divmod(day, 7)
+    
+        for guild in self.bot.guilds:
+            for member in guild.members:
+                if member.status == discord.Status.dnd or member.status == discord.Status.do_not_disturb:
+                    dnd += 1
+                elif member.status == discord.Status.online:
+                    online += 1
+                elif member.status ==  discord.Status.offline:
+                    offline += 1
+                elif member.status == discord.Status.idle:
+                    idle += 1
+                if not member.bot:
+                    members += 1
+                else:
+                    bots +=  1
+            for channel in guild.channels:
+                channels += 1
+            for role in guild.roles:
+                roles += 1
+
+
+
         embed=discord.Embed()
         embed.title = "Bot stats"
         embed.set_thumbnail(url=self.bot.user.avatar_url)
-        embed.add_field(name="Severs", value=len(self.bot.guilds))
-        embed.add_field(name="Users", value=len(self.bot.users))
         pid = os.getpid()
         py = psutil.Process(pid)
         embed.add_field(name="CPU Usage", value=py.cpu_percent())
         embed.add_field(name="Memory Usage (MB)", value=round(py.memory_info()[0]/1024/1024, 2))
+        embed.set_footer(text='{}'.format(message.author.name), icon_url=message.author.avatar_url if message.author.avatar else message.author.default_avatar_url)
+        embed.add_field(name='Owner', value=owner, inline=True)
+        embed.add_field(name='Ping', value=ping, inline=True)
+        embed.add_field(name='Bot version', value='{}'.format(BOTVERSION), inline=True)
+        embed.add_field(name='Discord.py version', value=info, inline=True)
+        embed.add_field(name='Bot prefix', value=prefix, inline=True)
+        embed.add_field(name='Servers', value=servers, inline=True)
+        embed.add_field(name='Messages seen', value=messages_seen, inline=True)
+        embed.add_field(name='Humans 🙋', value=members, inline=True)
+        embed.add_field(name='Bots 🤖', value=bots, inline=True)
+        embed.add_field(name='Channels', value=channels, inline=True)
+        embed.add_field(name="Roles", value=roles, inline=True)
+        embed.add_field(name="Online", value=online, inline=True)
+        embed.add_field(name="Do not disturb", value=dnd, inline=True)
+        embed.add_field(name="Idle", value=idle, inline=True)
+        embed.add_field(name="Offline", value=offline, inline=True)
+        embed.add_field(name="Uptime since last boot",value="**%d** weeks, **%d** days, **%d** hours, **%d** minutes, **%d** seconds" % (week, day, hour, minute, second), inline=True)
+
         await ctx.message.channel.send(embed=embed)
 def setup(bot):
     bot.add_cog(BotOptions(bot))

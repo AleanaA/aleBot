@@ -13,6 +13,7 @@ from discord.ext import commands
 from discord.ext.commands import Bot
 from config import emotes
 from config import config
+from utils.embed import Embeds
 from utils import checks
 from utils.config import Config
 from utils.cog import Cog

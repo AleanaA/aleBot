@@ -201,7 +201,7 @@ class BotOptions(Cog):
 
         pid = os.getpid()
         py = psutil.Process(pid)
-        embed=Embeds.create_embed(ctx, "Bot stats", None, None, 
+        embed=Embeds.create_embed(self, ctx, "Bot stats", None, None, 
         CPU=["CPU Usage", py.cpu_percent(), True],
         Memory=["Memory Usage (MB)", round(py.memory_info()[0]/1024/1024, 2), True],
         Owner=["Owner", owner, True],

@@ -1,7 +1,8 @@
 import asyncio
 import discord
+
 class Embeds:
-    def create_embed(ctx, title, color, message, **field):
+    def create_embed(self, ctx, title, color, message, **field):
         emb = discord.Embed()
         if title:
             emb.title = title
@@ -11,5 +12,5 @@ class Embeds:
             emb.color = color
         for value in field:
             emb.add_field(name=field[value][0], value=field[value][1], inline=field[value][2])
-        emb.set_footer(text="Requested by {}".format())
+        emb.set_footer(text="Requested by {}".format(ctx.author.name), icon_url=ctx.author.avatar_url)
         return emb

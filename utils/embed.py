@@ -8,5 +8,5 @@ class Embeds:
         emb.description = message
         emb.color = color
         for value in field:
-            emb.add_field(name=value, value=field[value])
+            emb.add_field(name=value[0], value=value[1], inline=value[2])
         return emb

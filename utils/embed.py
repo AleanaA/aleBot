@@ -4,11 +4,11 @@ class Embeds:
 
     def create_embed(self, title, color, message, **field):
         emb = discord.Embed()
-        if title not '':
+        if title:
             emb.title = title
-        if message not '':
+        if message:
             emb.description = message
-        if color not '':
+        if color:
             emb.color = color
         for value in field:
             emb.add_field(name=field[value][0], value=field[value][1], inline=field[value][2])

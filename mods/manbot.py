@@ -199,11 +199,9 @@ class BotOptions(Cog):
             for role in guild.roles:
                 roles += 1
 
-
-
         pid = os.getpid()
         py = psutil.Process(pid)
-        embed=Embeds.create_embed(self, "Bot stats", '', '', 
+        embed=Embeds.create_embed(self, "Bot stats", None, None, 
         CPU=["CPU Usage", py.cpu_percent(), True],
         Memory=["Memory Usage (MB)", round(py.memory_info()[0]/1024/1024, 2), True],
         Owner=["Owner", owner, True],

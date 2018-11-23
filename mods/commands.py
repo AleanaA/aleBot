@@ -1,5 +1,6 @@
 import asyncio
 import discord
+import math
 import inspect
 import datetime
 import aiohttp
@@ -21,7 +22,14 @@ class Commands(Cog):
                 brief="Ping!",
                 aliases=['Ping', 'Ping!'])
     async def ping(self, ctx):
-        await ctx.message.channel.send(ctx.message.author.mention + " " + emotes.Done)
+        if math.ceil(self.bot.latency * 1000) <= 30:
+            emote = emotes.Done
+        elif math.ceil(self.bot.latency * 1000) <= 60:
+            emote = emotes.Warn
+        else:
+            emote = emotes.Error
+            
+        await ctx.message.channel.send(ctx.message.author.mention + " " + str(math.ceil(self.bot.latency * 1000)) + " ms " + emote)
 
     @commands.command(name='say',
                 description="Text Command",

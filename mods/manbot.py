@@ -4,6 +4,7 @@ import inspect
 import aiohttp
 import utils
 import os
+import math
 import re
 import time
 import subprocess
@@ -19,7 +20,6 @@ from utils.config import Config
 from utils.cog import Cog
 
 class BotOptions(Cog):
-    
     @commands.group(name='bot',
                     description="Manage settings for the bot.",
                     brief="Manage settings for the bot.")
@@ -152,19 +152,19 @@ class BotOptions(Cog):
             await ctx.message.channel.send(file=discord.File('output.txt'))
         os.remove('output.txt')
 
-    @manbot.command(name='stats')
     async def on_message(self, msg:discord.Message):
-        messages_seen += 1
+        self.bot.messages_seen += 1
 
+    @manbot.command(name='stats')
     async def stats(self, ctx):
         time_then = time.monotonic()
-
-        ping = self.bot.latency
-        prefix = self.config.command_prefix
-        owner = self._get_owner()
+    
+        ping = math.floor(self.bot.latency * 1000)
+        prefix = self.bot.config.prefix
+        owner = await self.bot.get_user_info(self.bot.config.owner)
         info = discord.__version__
-        servers = len(self.servers)
-        messages = len(list(self.bot.messages))
+        servers = len(self.bot.guilds)
+#        messages = len(list(self.bot.messages))
         messages_seen = str(self.bot.messages_seen)
         members = 0
         bots = 0
@@ -174,7 +174,7 @@ class BotOptions(Cog):
         dnd = 0
         offline = 0
         idle = 0
-        second = time.time() - self.start_time
+        second = time.time() - self.bot.start_time
         minute, second = divmod(second, 60)
         hour, minute = divmod(minute, 60)
         day, hour = divmod(hour, 24)
@@ -208,23 +208,23 @@ class BotOptions(Cog):
         py = psutil.Process(pid)
         embed.add_field(name="CPU Usage", value=py.cpu_percent())
         embed.add_field(name="Memory Usage (MB)", value=round(py.memory_info()[0]/1024/1024, 2))
-        embed.set_footer(text='{}'.format(message.author.name), icon_url=message.author.avatar_url if message.author.avatar else message.author.default_avatar_url)
+        embed.set_footer(text='{}'.format(ctx.message.author.name), icon_url=ctx.message.author.avatar_url if ctx.message.author.avatar else ctx.message.author.default_avatar_url)
         embed.add_field(name='Owner', value=owner, inline=True)
-        embed.add_field(name='Ping', value=ping, inline=True)
-        embed.add_field(name='Bot version', value='{}'.format(BOTVERSION), inline=True)
+        embed.add_field(name='Ping', value=str(ping)+' ms', inline=True)
+#        embed.add_field(name='Bot version', value='{}'.format(BOTVERSION), inline=True)
         embed.add_field(name='Discord.py version', value=info, inline=True)
         embed.add_field(name='Bot prefix', value=prefix, inline=True)
         embed.add_field(name='Servers', value=servers, inline=True)
         embed.add_field(name='Messages seen', value=messages_seen, inline=True)
-        embed.add_field(name='Humans 🙋', value=members, inline=True)
-        embed.add_field(name='Bots 🤖', value=bots, inline=True)
+        embed.add_field(name='Users', value=members, inline=True)
+        embed.add_field(name='Bots', value=bots, inline=True)
         embed.add_field(name='Channels', value=channels, inline=True)
         embed.add_field(name="Roles", value=roles, inline=True)
         embed.add_field(name="Online", value=online, inline=True)
         embed.add_field(name="Do not disturb", value=dnd, inline=True)
         embed.add_field(name="Idle", value=idle, inline=True)
         embed.add_field(name="Offline", value=offline, inline=True)
-        embed.add_field(name="Uptime since last boot",value="**%d** weeks, **%d** days, **%d** hours, **%d** minutes, **%d** seconds" % (week, day, hour, minute, second), inline=True)
+        embed.add_field(name="Uptime",value="**%d** weeks, **%d** days, **%d** hours, **%d** minutes, **%d** seconds" % (week, day, hour, minute, second), inline=True)
 
         await ctx.message.channel.send(embed=embed)
 def setup(bot):

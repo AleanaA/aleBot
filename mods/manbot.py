@@ -201,30 +201,28 @@ class BotOptions(Cog):
 
 
 
-        embed=discord.Embed()
-        embed.title = "Bot stats"
-        embed.set_thumbnail(url=self.bot.user.avatar_url)
         pid = os.getpid()
         py = psutil.Process(pid)
-        embed.add_field(name="CPU Usage", value=py.cpu_percent())
-        embed.add_field(name="Memory Usage (MB)", value=round(py.memory_info()[0]/1024/1024, 2))
-        embed.set_footer(text='{}'.format(ctx.message.author.name), icon_url=ctx.message.author.avatar_url if ctx.message.author.avatar else ctx.message.author.default_avatar_url)
-        embed.add_field(name='Owner', value=owner, inline=True)
-        embed.add_field(name='Ping', value=str(ping)+' ms', inline=True)
-#        embed.add_field(name='Bot version', value='{}'.format(BOTVERSION), inline=True)
-        embed.add_field(name='Discord.py version', value=info, inline=True)
-        embed.add_field(name='Bot prefix', value=prefix, inline=True)
-        embed.add_field(name='Servers', value=servers, inline=True)
-        embed.add_field(name='Messages seen', value=messages_seen, inline=True)
-        embed.add_field(name='Users', value=members, inline=True)
-        embed.add_field(name='Bots', value=bots, inline=True)
-        embed.add_field(name='Channels', value=channels, inline=True)
-        embed.add_field(name="Roles", value=roles, inline=True)
-        embed.add_field(name="Online", value=online, inline=True)
-        embed.add_field(name="Do not disturb", value=dnd, inline=True)
-        embed.add_field(name="Idle", value=idle, inline=True)
-        embed.add_field(name="Offline", value=offline, inline=True)
-        embed.add_field(name="Uptime",value="**%d** weeks, **%d** days, **%d** hours, **%d** minutes, **%d** seconds" % (week, day, hour, minute, second), inline=True)
+        embed=Embeds.create_embed(self, "Bot stats", '', '', 
+        CPU=["CPU Usage", py.cpu_percent(), True],
+        Memory=["Memory Usage (MB)", round(py.memory_info()[0]/1024/1024, 2), True],
+        Owner=["Owner", owner, True],
+        Ping=["Ping", str(ping) + ' ms', True],
+        DPyVer=["Discord.py version", info, True],
+        Prefix=["Bot prefix", prefix, True],
+        Servers=["Servers", servers, True],
+        Messages=["Messages seen", messages_seen, True],
+        Users=["Users", members, True],
+        Bots=["Bots", bots, True],
+        Channels=["Channels", channels, True],
+        Roles=["Roles", roles, True],
+        Online=["Online", online, True],
+        DND=["Do not disturb", dnd, True],
+        Idle=["Idle", idle, True],
+        Offline=["Offline", offline, True],
+        Uptime=["Uptime", "**%d** weeks, **%d** days, **%d** hours, **%d** minutes, **%d** seconds" % (week, day, hour, minute, second), True])
+#       Version=["Bot version", BOTVERSION, True]
+        embed.set_thumbnail(url=self.bot.user.avatar_url)
 
         await ctx.message.channel.send(embed=embed)
 def setup(bot):

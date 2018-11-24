@@ -77,7 +77,7 @@ class Unshared(Cog):
             botuser = server.get_member(self.bot.user.id)
             if check == None:
                 servers = "**ID:** {0}\n**Owner:** {1}\n**Owner ID:** {2}\n**Members:** {3}\n**Join Date:** {4}".format(str(server.id), server.owner, server.owner.id, str(server.member_count),botuser.joined_at.strftime("%b %d, %Y; %I:%M %p"))
-                embed.add_field(name="Server Name: {0}".format(server.name), value=servers)        
+                embed.add_field(name="Server Name: {0}".format(server.name), value=servers, inline=False)        
         await owneruser.send(embed=embed)
         await ctx.message.add_reaction(Done)
 

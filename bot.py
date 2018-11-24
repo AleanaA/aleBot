@@ -12,19 +12,6 @@ from config import config
 from utils import checks
 from utils.config import Config
 
-if config.LogLevel == 'debug':
-    logging.basicConfig(level=logging.DEBUG)
-elif config.LogLevel == 'info':
-    logging.basicConfig(level=logging.INFO)
-elif config.LogLevel == 'warn':
-    logging.basicConfig(level=logging.WARNING)
-elif config.LogLevel == 'error':
-    logging.basicConfig(level=logging.ERROR)
-elif config.LogLevel == 'critical':
-    logging.basicConfig(level=logging.CRITICAL)
-else:
-    print("A log level was not specified, so nothing will be logged to console!")
-
 class Object(object):
     pass
 

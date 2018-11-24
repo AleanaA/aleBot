@@ -13,4 +13,5 @@ class Embeds:
         for value in field:
             emb.add_field(name=field[value][0], value=field[value][1], inline=field[value][2])
         emb.set_footer(text=ctx.author.name, icon_url=ctx.author.avatar_url)
+        embed.timestamp = ctx.message.created_at
         return emb

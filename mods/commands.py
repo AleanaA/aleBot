@@ -13,6 +13,7 @@ from discord.ext.commands import Bot
 from config import emotes
 from config import config
 from utils import checks
+from utils.embed import Embeds
 from utils.config import Config
 from utils.cog import Cog
 
@@ -135,31 +136,26 @@ class Commands(Cog):
         elif user.activity.type == 3: # Users shouldn't have this type yet, however it's here to catch it for Bots and SelfBot users.
             activity = "Watching **{}**".format(user.activity.name)
 
-        title = ""
-        if user.id == self.bot.user.id:
-            title += "[Me!]\n"
-        if user.id == 168118999337402368:
-            title += "[Developer]\n"
-        if user.id == owner.id:
-            title += "[Bot Owner]\n"
-        if user.bot == True:
-            title += "[Bot]\n"
-        if user.id == ctx.message.guild.owner_id:
-            title += "[Server Owner]\n"
-        
         roles = [role.name for role in user.roles]
         del roles[0]
         rolecount = len(roles)
-        embed=discord.Embed(color=user.color)
+
+        embed = Embeds.create_embed(self, ctx, None, user.color, None,
+        nick=["Nickname", user.display_name, False],
+        ID=["ID", user.id, False],
+        join=["Joined Server", user.joined_at.strftime("%b %d, %Y; %I:%M %p"), False],
+        created=["Account Created", user.created_at.strftime("%b %d, %Y; %I:%M %p"), False],
+        status=["Status", status, False])
+
         embed.set_author(name="User info for " + str(user),icon_url=user.avatar_url)
         embed.set_thumbnail(url=user.avatar_url)
-        if title != "":
-            embed.add_field(name="Titles", value=title, inline=False)
+
         embed.add_field(name="Nickname", value=user.display_name, inline=False)
         embed.add_field(name="ID", value=user.id, inline=False)
         embed.add_field(name="Joined Server", value=user.joined_at.strftime("%b %d, %Y; %I:%M %p"), inline=False)
         embed.add_field(name="Account Created", value=user.created_at.strftime("%b %d, %Y; %I:%M %p"), inline=False)
         embed.add_field(name="Status", value=status, inline=False)
+
         if activity != None:
             embed.add_field(name="Activity", value=activity, inline=False)
         if rolecount > 0:
@@ -179,8 +175,6 @@ class Commands(Cog):
                 embed.add_field(name="Voice State", value="Muted", inline=False)
             else:
                 embed.add_field(name="Voice State", value="Open", inline=False)
-        embed.set_footer(text="Requested by {0}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
-        embed.timestamp = ctx.message.created_at
         await ctx.message.channel.send(embed=embed)
 
     @commands.command(name='spotify',
@@ -192,20 +186,24 @@ class Commands(Cog):
             user = ctx.message.author
         else:
             user = user[0]
-        if user.activity.name == "Spotify":
-            embed=discord.Embed(color=user.activity.color)
-            embed.set_author(name="Spotify info for " + str(user),icon_url=user.avatar_url)
-            embed.set_image(url=user.activity.album_cover_url)
-            embed.add_field(name="Artists", value=user.activity.artist)
-            embed.add_field(name="Title", value=user.activity.title)
-            embed.add_field(name="Album", value=user.activity.album, inline=False)
-            embed.add_field(name="Duration", value=str(datetime.timedelta(seconds=round(float(str(user.activity.duration.total_seconds()))))), inline=False)
-            embed.add_field(name="Track URL", value="https://open.spotify.com/track/{}".format(user.activity.track_id), inline=False)
-            embed.set_footer(text="Requested by {0}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
-            embed.timestamp = ctx.message.created_at
-            await ctx.message.channel.send(embed=embed)
+        if user.activity:
+            if user.activity.name == "Spotify":
+                embed = Embeds.create_embed(self, ctx, None, user.color, None,
+                artist=["Artists",user.activity.artist,True],
+                title=["Title",user.activity.title,True],
+                album=["Album",user.activity.album,False],
+                duration=["Duration",str(datetime.timedelta(seconds=round(float(str(user.activity.duration.total_seconds()))))),False],
+                url=["Track URL","https://open.spotify.com/track/{}".format(user.activity.track_id),False])
+
+                embed.set_author(name="Spotify info for " + str(user),icon_url=user.avatar_url)
+                embed.set_image(url=user.activity.album_cover_url)
+
+                await ctx.message.channel.send(embed=embed)
+            else:
+                embed=Embeds.create_embed(ctx, "Spotify Error", 0xff0000, "{} is not listening to spotify, tell them to listen to some music!".format(user.mention))
+                await ctx.message.channel.send(embed=embed)
         else:
-            embed=discord.Embed(title="Spotify Error", description="{} is not listening to spotify, tell them to listen to some music!".format(user.mention), color=0xff0000)
+            embed=Embeds.create_embed(ctx, "Spotify Error", 0xff0000, "{} is not listening to spotify, tell them to listen to some music!".format(user.mention))
             await ctx.message.channel.send(embed=embed)
 
     @commands.command(name='server',
@@ -244,13 +242,6 @@ class Commands(Cog):
         embed.timestamp = ctx.message.created_at
         await ctx.message.channel.send(embed=embed)
 
-    @commands.command(name='fact',
-                description="Get a fact!",
-                brief="Get a fact!",
-                aliases=['Fact', 'Fact!'])
-    async def fact(self, ctx):
-        await ctx.message.channel.send(ctx.message.author.mention + " " + emotes.Done)
-    
     @commands.command(name='cat',
                 description="Kitty!")
     async def cat(self, ctx):

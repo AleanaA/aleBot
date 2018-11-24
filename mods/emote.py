@@ -13,6 +13,7 @@ from discord.ext import commands
 from discord.ext.commands import Bot
 from config import emotes
 from config import config
+from utils.embed import Embeds
 from utils import checks
 from utils.config import Config
 from utils.cog import Cog
@@ -25,19 +26,19 @@ class Emote(Cog):
     @checks.is_super()
     async def emote(self, ctx):
         if ctx.invoked_subcommand is None:
-            emb = discord.Embed()
-            emb.title = "Emote Manager " + emotes.Warn
-            emb.colour = 0xffff00
-            emb.description = "Please issue a valid subcommand!\nAvailable options are:"
-            emb.add_field(name="Add", value="Adds an emote to the current server!", inline=False)
-            emb.add_field(name="Del", value="Removes an emote from the current server!", inline=False)
+            emb = Embeds.create_embed(self, ctx,
+            "Emote Manager " + emotes.Warn,
+            0xffff00,
+            "Please issue a valid subcommand!\nAvailable options are:",
+            Com1 = ["Add", "Adds an emote to the current server!", False],
+            Com2 = ["Del", "Removes an emote from the current server!", False],
+            Com3 = ["List", "Lists all emotes available to the bot!", False])
             await ctx.message.channel.send(embed=emb)
 
     @emote.command(name='add',
                 description="Adds an emote to the current server!")
     async def emoteadd(self, ctx, name, url):
-        emb = discord.Embed()
-        emb.title = "Emote Manager"
+        emb = Embeds.create_embed(self, ctx, "Emote Manager", None, None)
         try:
             response = requests.get(url)
         except (requests.exceptions.MissingSchema, requests.exceptions.InvalidURL, requests.exceptions.InvalidSchema, requests.exceptions.ConnectionError):
@@ -56,8 +57,7 @@ class Emote(Cog):
     @emote.command(name='del',
                 description="Removes an emote from the current server!")
     async def emotedel(self, ctx, name):
-        emb = discord.Embed()
-        emb.title = "Emote Manager"
+        emb = Embeds.create_embed(self, ctx, "Emote Manager", None, None)
         emotelist = [x for x in ctx.guild.emojis if x.name == name]
         emote_length = len(emotelist)
         if not emotes:
@@ -76,7 +76,6 @@ class Emote(Cog):
 
     @emote.command(name='list',
                 description="List all emotes available for the bot to use!")
-    @checks.is_owner()
     async def emotelist(self, ctx):
         emote = ""
         for server in self.bot.guilds:

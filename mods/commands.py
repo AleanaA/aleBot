@@ -188,9 +188,9 @@ class Commands(Cog):
             user = user[0]
         if user.activity:
             if user.activity.name == "Spotify":
-                embed = Embeds.create_embed(self, ctx, None, user.color, None,
+                embed=Embeds.create_embed(self, ctx, None, user.color, None,
                 artist=["Artists",user.activity.artist,True],
-                title=["Title",user.activity.title,True],
+                songtitle=["Title",user.activity.title,True],
                 album=["Album",user.activity.album,False],
                 duration=["Duration",str(datetime.timedelta(seconds=round(float(str(user.activity.duration.total_seconds()))))),False],
                 url=["Track URL","https://open.spotify.com/track/{}".format(user.activity.track_id),False])
@@ -200,10 +200,10 @@ class Commands(Cog):
 
                 await ctx.message.channel.send(embed=embed)
             else:
-                embed=Embeds.create_embed(ctx, "Spotify Error", 0xff0000, "{} is not listening to spotify, tell them to listen to some music!".format(user.mention))
+                embed=Embeds.create_embed(self, ctx, "Spotify Error", 0xff0000, "{} is not listening to spotify, tell them to listen to some music!".format(user.mention))
                 await ctx.message.channel.send(embed=embed)
         else:
-            embed=Embeds.create_embed(ctx, "Spotify Error", 0xff0000, "{} is not listening to spotify, tell them to listen to some music!".format(user.mention))
+            embed=Embeds.create_embed(self, ctx, "Spotify Error", 0xff0000, "{} is not listening to spotify, tell them to listen to some music!".format(user.mention))
             await ctx.message.channel.send(embed=embed)
 
     @commands.command(name='server',

@@ -71,13 +71,12 @@ class Unshared(Cog):
         config = Config('config/config.ini')
         owneruser = await self.bot.get_user_info(config.owner)
         owner = config.owner
-        servers = ""
         Done = emotes.Done.strip("<").strip(">")
         for server in self.bot.guilds:
             check = server.get_member(owner)
             botuser = server.get_member(self.bot.user.id)
             if check == None:
-                servers += "**ID:** {0}\n**Owner:** {1}\n**Owner ID:** {2}\n**Members:** {3}\n**Join Date:** {4}".format(str(server.id), server.owner, server.owner.id, str(server.member_count),botuser.joined_at.strftime("%b %d, %Y; %I:%M %p"))
+                servers = "**ID:** {0}\n**Owner:** {1}\n**Owner ID:** {2}\n**Members:** {3}\n**Join Date:** {4}".format(str(server.id), server.owner, server.owner.id, str(server.member_count),botuser.joined_at.strftime("%b %d, %Y; %I:%M %p"))
                 embed.add_field(name="Server Name: {0}".format(server.name), value=servers)
                 await owneruser.send(embed=embed)
                 await ctx.message.add_reaction(Done)

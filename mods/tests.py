@@ -10,7 +10,10 @@ class Tests(Cog):
     async def getmsg(self, ctx, mid):
         await ctx.send(mid)
         for channel in ctx.guild.text_channels:
-            message = await channel.get_message(int(mid))
+            try:
+                message = await channel.get_message(int(mid))
+            except:
+                pass
         await ctx.send(message.content)
 
 def setup(bot):

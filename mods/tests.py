@@ -8,6 +8,7 @@ from utils.cog import Cog
 class Tests(Cog):
     @commands.command(name="getmsg")
     async def getmsg(self, ctx, mid):
+        await ctx.send(mid)
         for channel in ctx.guild.text_channels:
             message = await channel.get_message(int(mid))
         await ctx.send(message.content)

@@ -218,7 +218,9 @@ class BotOptions(Cog):
         DND=["Do not disturb", dnd, True],
         Idle=["Idle", idle, True],
         Offline=["Offline", offline, True],
-        Uptime=["Uptime", "**%d** weeks, **%d** days, **%d** hours, **%d** minutes, **%d** seconds" % (week, day, hour, minute, second), True])
+        Uptime=["Uptime", "**%d** weeks, **%d** days, **%d** hours, **%d** minutes, **%d** seconds" % (week, day, hour, minute, second), True],
+        Source=["Source Code", "https://github.com/AleanaA/aleBot", True],
+        Creator=["Developer", "Aleana Azure", True])
 #       Version=["Bot version", BOTVERSION, True]
         embed.set_thumbnail(url=self.bot.user.avatar_url)
 

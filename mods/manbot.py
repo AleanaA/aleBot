@@ -124,6 +124,33 @@ class BotOptions(Cog):
 
     async def on_message(self, msg:discord.Message):
         self.bot.messages_seen += 1
+    
+    @commands.command(name='eval',
+                description="Owner Only!",
+                brief="Owner Only!",
+                aliases=['debug', 'Eval', 'Debug'])
+    @checks.is_owner()
+    async def debug(self, ctx, *, code : str):
+        code = code.strip('` ')
+        python = '```py\n{}\n```'
+        result = None
+        env = {
+            'self': self,
+            'bot': self.bot,
+            'ctx': ctx,
+            'message': ctx.message,
+            'channel': ctx.message.channel,
+            'author': ctx.message.author
+        }
+        env.update(globals())
+        try:
+            result = eval(code, env)
+            if inspect.isawaitable(result):
+                result = await result
+        except Exception as e:
+            await ctx.message.channel.send(embed=discord.Embed(colour=discord.Colour(0xff0000), title=emotes.Terminal+" Python Eval", description=python.format(type(e).__name__ + ': ' + str(e))))
+            return
+        await ctx.message.channel.send(embed=discord.Embed(colour=discord.Colour(0x0094ff), title=emotes.Terminal+" Python Eval", description=python.format(result)))
 
 def setup(bot):
     bot.add_cog(BotOptions(bot))

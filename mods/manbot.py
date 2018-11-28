@@ -37,36 +37,6 @@ class BotOptions(Cog):
             emb.add_field(name="Die", value="Shuts down the bot, or restarts it while under pm2.", inline=False)
             await ctx.message.channel.send(embed=emb)
 
-    @manbot.command(name='eval',
-                description="Owner Only!",
-                brief="Owner Only!",
-                aliases=['debug', 'Eval', 'Debug'])
-    async def debug(self, ctx, *, code : str):
-        code = code.strip('` ')
-        python = '```py\n{}\n```'
-        result = None
-
-        env = {
-            'self': self,
-            'bot': self.bot,
-            'ctx': ctx,
-            'message': ctx.message,
-            'channel': ctx.message.channel,
-            'author': ctx.message.author
-        }
-
-        env.update(globals())
-        try:
-            result = eval(code, env)
-            if inspect.isawaitable(result):
-                result = await result
-        except Exception as e:
-            await ctx.message.channel.send(embed=discord.Embed(colour=discord.Colour(0xff0000), title=emotes.Terminal+" Python Eval", description=python.format(type(e).__name__ + ': ' + str(e))))
-            return
-
-        await ctx.message.channel.send(embed=discord.Embed(colour=discord.Colour(0x0094ff), title=emotes.Terminal+" Python Eval", description=python.format(result)))
-
-
     @manbot.command(name='invite',
                 description="Gets the bots invite url!",
                 brief="Gets the bots invite url!",
@@ -155,74 +125,5 @@ class BotOptions(Cog):
     async def on_message(self, msg:discord.Message):
         self.bot.messages_seen += 1
 
-    @manbot.command(name='stats')
-    async def stats(self, ctx):
-        time_then = time.monotonic()
-    
-        ping = math.floor(self.bot.latency * 1000)
-        prefix = self.bot.config.prefix
-        owner = await self.bot.get_user_info(self.bot.config.owner)
-        info = discord.__version__
-        servers = len(self.bot.guilds)
-#        messages = len(list(self.bot.messages))
-        messages_seen = str(self.bot.messages_seen)
-        members = 0
-        bots = 0
-        channels = 0
-        roles = 0
-        online = 0
-        dnd = 0
-        offline = 0
-        idle = 0
-        second = time.time() - self.bot.start_time
-        minute, second = divmod(second, 60)
-        hour, minute = divmod(minute, 60)
-        day, hour = divmod(hour, 24)
-        week, day = divmod(day, 7)
-    
-        for guild in self.bot.guilds:
-            for member in guild.members:
-                if member.status == discord.Status.dnd or member.status == discord.Status.do_not_disturb:
-                    dnd += 1
-                elif member.status == discord.Status.online:
-                    online += 1
-                elif member.status ==  discord.Status.offline:
-                    offline += 1
-                elif member.status == discord.Status.idle:
-                    idle += 1
-                if not member.bot:
-                    members += 1
-                else:
-                    bots +=  1
-            for channel in guild.channels:
-                channels += 1
-            for role in guild.roles:
-                roles += 1
-
-        pid = os.getpid()
-        py = psutil.Process(pid)
-        embed=Embeds.create_embed(self, ctx, "Bot stats", None, None, 
-        CPU=["CPU Usage", py.cpu_percent(), True],
-        Memory=["Memory Usage (MB)", round(py.memory_info()[0]/1024/1024, 2), True],
-        Owner=["Owner", owner, True],
-        Ping=["Ping", str(ping) + ' ms', True],
-        DPyVer=["Discord.py version", info, True],
-        Prefix=["Bot prefix", prefix, True],
-        Servers=["Servers", servers, True],
-        Messages=["Messages seen", messages_seen, True],
-        Users=["Users", members, True],
-        Bots=["Bots", bots, True],
-        Channels=["Channels", channels, True],
-        Roles=["Roles", roles, True],
-        Online=["Online", online, True],
-        DND=["Do not disturb", dnd, True],
-        Idle=["Idle", idle, True],
-        Offline=["Offline", offline, True],
-        Uptime=["Uptime", "**%d** weeks, **%d** days, **%d** hours, **%d** minutes, **%d** seconds" % (week, day, hour, minute, second), True],
-        Source=["Source Code", "https://github.com/AleanaA/aleBot - Created by Aleana#2643", True])
-#       Version=["Bot version", BOTVERSION, True]
-        embed.set_thumbnail(url=self.bot.user.avatar_url)
-
-        await ctx.message.channel.send(embed=embed)
 def setup(bot):
     bot.add_cog(BotOptions(bot))

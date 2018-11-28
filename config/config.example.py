@@ -7,11 +7,11 @@ LogLevel = 'warn'
 # This is here for those that would like to make additions and customize their bot,
 # but can easily prevent you from using commands if you delete the existing modules.
 Modules = [
-    'mods.moderate',
-    'mods.commands',
     'mods.cogloader',
-    'mods.emote',
-    'mods.unshared',
     'mods.manbot',
-    'mods.voice'
+    'mods.unshared',
+    'mods.commands',
+    'mods.moderate',
+    'mods.emote',
+    'mods.info'
 ]

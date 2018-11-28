@@ -219,8 +219,7 @@ class BotOptions(Cog):
         Idle=["Idle", idle, True],
         Offline=["Offline", offline, True],
         Uptime=["Uptime", "**%d** weeks, **%d** days, **%d** hours, **%d** minutes, **%d** seconds" % (week, day, hour, minute, second), True],
-        Source=["Source Code", "https://github.com/AleanaA/aleBot", True],
-        Creator=["Developer", "Aleana Azure", True])
+        Source=["Source Code", "https://github.com/AleanaA/aleBot - Created by Aleana#2643", True])
 #       Version=["Bot version", BOTVERSION, True]
         embed.set_thumbnail(url=self.bot.user.avatar_url)
 

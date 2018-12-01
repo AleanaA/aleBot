@@ -12,9 +12,9 @@ from chatterbot.trainers import UbuntuCorpusTrainer
 class Chatbot(Cog):
     def __init__(self, *args, **kwargs):
         self.chatbot = ChatBot('aleBot')
-        self.trainer = UbuntuCorpusTrainer(self.chatbot)
-        self.trainer.train()
-        
+        self.chatbot.set_trainer(UbuntuCorpusTrainer(self.chatbot))
+        self.chatbot.train()
+
     async def on_message(self, ctx):
         if ctx.message.author.id == 168118999337402368:
             response = self.chatbot.get_response(ctx.message.content)

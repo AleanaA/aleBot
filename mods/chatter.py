@@ -12,7 +12,7 @@ from chatterbot.trainers import UbuntuCorpusTrainer
 class Chatbot(Cog):
     def __init__(self, *args, **kwargs):
         self.chatbot = ChatBot('aleBot')
-        self.chatbot.set_trainer(UbuntuCorpusTrainer(self.chatbot))
+        self.chatbot.set_trainer(UbuntuCorpusTrainer)
         self.chatbot.train()
 
     async def on_message(self, ctx):

@@ -5,3 +5,4 @@ config/config.py
 config/config.ini
 config/emotes.py
 .vscode/*
+mods/testmods/*

@@ -82,7 +82,8 @@ class Info(Cog):
         Idle=["Idle", idle, True],
         Offline=["Offline", offline, True],
         Uptime=["Uptime", "**%d** weeks, **%d** days, **%d** hours, **%d** minutes, **%d** seconds" % (week, day, hour, minute, second), True],
-        Source=["Source Code", "https://github.com/AleanaA/aleBot - Created by Aleana#2643", True])
+        Source=["Source Code", "https://github.com/AleanaA/aleBot - Created by Aleana#2643", False],
+        Support=["Support Server", "https://discord.gg/eJhG4Tq", False])
         embed.set_thumbnail(url=self.bot.user.avatar_url)
 
         await ctx.message.channel.send(embed=embed)

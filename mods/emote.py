@@ -34,27 +34,6 @@ class Emote(Cog):
             Com2 = ["Del", "Removes an emote from the current server!", False],
             Com3 = ["List", "Lists all emotes available to the bot!", False])
             await ctx.message.channel.send(embed=emb)
-    
-    @emote.command(name='steal',
-                    description="Steal a custom emote and add it the the current server!")
-    async def emotesteal(self, ctx, emote:discord.Emoji):
-        emb = Embeds.create_embed(self, ctx, "Emote Manage", None, None)
-        url = emote.url
-        try:
-            response = requests.get(url)
-        except (requests.exceptions.MissingSchema, requests.exceptions.InvalidURL, requests.exceptions.InvalidSchema, requests.exceptions.ConnectionError):
-            emb.colour = 0xff0000
-            emb.description = "An error occured. Unable to get emote."
-            return await ctx.message.channel.send(embed=emb)
-        if response.status_code == 404:
-            emb.colour = 0xff0000
-            emb.description = "404 error occured."
-            return await ctx.message.channel.send(embed=emb)
-        emote = await ctx.guild.create_custom_emoji(name=emote.name, image=response.content)
-        emb.colour = 0x00ff00
-        emb.description = "Successfully added the emote {0.name} <{1}:{0.name}:{0.id}>!".format(emote, "a" if emote.animated else "")
-        await ctx.message.channel.send(embed=emb)
-
 
     @emote.command(name='add',
                 description="Adds an emote to the current server!")

@@ -1,8 +1,7 @@
 __pycache__/
 *.pyc
-data/*
 config/config.py
 config/config.ini
 config/emotes.py
-.vscode/*
-mods/testmods/*
+.vscode/
+mods/testmods/

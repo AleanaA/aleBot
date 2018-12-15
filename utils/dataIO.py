@@ -1,3 +1,7 @@
+'''
+Script used for data storage, all credit for this script goes to RedBot
+https://github.com/Cog-Creators/Red-DiscordBot/blob/develop/cogs/utils/dataIO.py
+'''
 import json
 import os
 import logging

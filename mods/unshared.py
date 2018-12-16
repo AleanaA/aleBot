@@ -12,28 +12,28 @@ from config import config
 from utils import checks
 from utils.config import Config
 from utils.cog import Cog
+from utils.embed import Embeds
 
 class Unshared(Cog):
-
     @commands.group(name='unshared',
                 description="Manage servers the bot does not share with owner.",
                 brief="Manage servers the bot does not share with owner.")
     @checks.is_owner()
     async def unshared(self, ctx):
         if ctx.invoked_subcommand is None:
-            emb = discord.Embed()
-            emb.title = "Unshared Servers " + emotes.Warn
-            emb.colour = 0xffff00
-            emb.description = "Please issue a valid subcommand!\nAvailable options are:"
-            emb.add_field(name="Leave", value="Leaves all servers the bot does not share with owner.", inline=False)
-            emb.add_field(name="List", value="Lists all servers the bot does not share with owner.", inline=False)
+            emb = Embeds.create_embed(self, ctx,
+            "Unshared Servers " + emotes.Warn,
+            0xffff00,
+            "Please issue a valid subcommand!\nAvailable options are:",
+            Com1 = ["leave", "Leaves all servers the bot does not share with the owner.", False],
+            Com2 = ["list", "Lists all servers the bot does not share with the owner.", False])
             await ctx.message.channel.send(embed=emb)
 
     @unshared.command(name='leave')
     async def leaveunshared(self, ctx):
-        embed = discord.Embed()
-        embed.title = "Bot left unshared servers"
-        embed.color = 0x00ffff
+        embed = Embeds.create_embed(self, ctx,
+        "Bot left unshared servers",
+        0x00ffff)
         config = Config('config/config.ini')
         owneruser = await self.bot.get_user_info(config.owner)
         owner = config.owner

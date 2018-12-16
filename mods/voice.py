@@ -14,7 +14,6 @@ from utils.config import Config
 from utils.cog import Cog
 
 class Voice(Cog):
-
     @commands.command(name='play')
     @checks.is_event()
     async def play(self, ctx):

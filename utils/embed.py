@@ -2,7 +2,7 @@ import asyncio
 import discord
 
 class Embeds:
-    def create_embed(self, ctx, title, color, message, **field):
+    def create_embed(self, ctx, title, color=None, message=None, **field):
         emb = discord.Embed()
         if title:
             emb.title = title

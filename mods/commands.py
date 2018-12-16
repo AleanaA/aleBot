@@ -18,6 +18,13 @@ from utils.config import Config
 from utils.cog import Cog
 
 class Commands(Cog):
+    @commands.command(name='testhelp',
+                hidden=True)
+    async def testhelp(self, ctx):
+        emb = Embeds.create_embed(self, ctx, "Help")
+        for command in commands:
+            embed.add_field(name=command, value="!")
+
     @commands.command(name='ping',
                 description="Ping!",
                 brief="Ping!",

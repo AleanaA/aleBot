@@ -47,13 +47,17 @@ class RemindMe:
         fileIO("data/reminders.json", "save", self.reminders)
 
     @commands.command(pass_context=True)
-    async def forgetme(self, ctx):
+    async def unremind(self, ctx, who:discord.User=None):
         """Removes all your upcoming notifications"""
         author = ctx.message.author
         to_remove = []
         for reminder in self.reminders:
-            if reminder["ID"] == author.id:
-                to_remove.append(reminder)
+            if who == None:
+                if reminder["ID"] == author.id:
+                    to_remove.append(reminder)
+            else:
+                if reminder ["ID"] == who.id:
+                    to_remove.append(reminder)
 
         if not to_remove == []:
             for reminder in to_remove:

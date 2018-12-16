@@ -9,6 +9,7 @@ from config import emotes
 from utils import checks
 from utils.config import Config
 from utils.cog import Cog
+from utils.embed import Embeds
 
 class CogLoader(Cog):
     @commands.group(name='cog',
@@ -17,14 +18,14 @@ class CogLoader(Cog):
     @checks.is_owner()
     async def cog(self, ctx):
         if ctx.invoked_subcommand is None:
-            emb = discord.Embed()
-            emb.title = "Cog Loader " + emotes.Warn
-            emb.colour = 0xffff00
-            emb.description = "Please issue a subcommand!\nAvailable options are:"
-            emb.add_field(name="Load", value="Load a module.", inline=False)
-            emb.add_field(name="Reload", value="Reload a module.", inline=False)
-            emb.add_field(name="Unload", value="Unload a module that you've manually loaded.\nModules in `config.py` will stay loaded.", inline=False)
-            emb.add_field(name="List", value="List all loaded cogs.", inline=False)
+            emb = Embeds.create_embed(self, ctx,
+            "Cog Loader " + emotes.Warn,
+            0xffff00,
+            "Please issue a valid subcommand!\nAvailable options are:",
+            Com1 = ["load", "Loads a cog into the bot.", False],
+            Com2 = ["unload", "Unloads a cog loaded into the bot.", False],
+            Com3 = ["reload", "Reloads a cog loaded into the bot.", False],
+            Com4 = ["list", "Lists all cogs loaded into the bot."])
             await ctx.message.channel.send(embed=emb)
 
     @cog.command(name='load',

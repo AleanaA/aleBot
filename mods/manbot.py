@@ -26,15 +26,15 @@ class BotOptions(Cog):
     @checks.is_owner()
     async def manbot(self, ctx):
         if ctx.invoked_subcommand is None:
-            emb = discord.Embed()
-            emb.title = "Bot Manager " + emotes.Warn
-            emb.colour = 0xffff00
-            emb.description = "Please issue a valid subcommand!\nAvailable options are:"
-            emb.add_field(name="Eval", value="Runs debug code, do not use if you don't know what you're doing!", inline=False)
-            emb.add_field(name="Invite", value="Gets an invite url for the bot!", inline=False)
-            emb.add_field(name="Avatar", value="Changes the bots avatar!", inline=False)
-            emb.add_field(name="Username", value="Changes the bots username!", inline=False)
-            emb.add_field(name="Die", value="Shuts down the bot, or restarts it while under pm2.", inline=False)
+            emb = Embeds.create_embed(self, ctx,
+            "Bot Manager " + emotes.Warn,
+            0xffff00,
+            "Please issue a valid subcommand!\nAvailable options are:",
+            Com1 = ["invite", "Gets the invite URL for the bot.", False],
+            Com2 = ["avatar", "Changes the bots Avatar.", False],
+            Com3 = ["username", "Changes the bots Username.", False],
+            Com4 = ["die", "Shutdown the bot. Running under PM2 will restart the bot instead.", False],
+            Com5 = ["update", "Updates the bot. If the bot was not installed using Git, this will just reload all cogs in config.py.", False])
             await ctx.message.channel.send(embed=emb)
 
     @manbot.command(name='invite',
@@ -108,9 +108,9 @@ class BotOptions(Cog):
         emb.description = "Bot has updated to the latest commit in repository.\nAll mods in `config.py` have attempted to be reloaded.\nIt is advised that you restart if anything outside the mods folder was updated."
         emb.add_field(name="Cog Loader", value="```diff\n{}```".format(msg), inline=False)
         if len(out.decode('utf8')) <= 500:
-            emb.add_field(name=emotes.Terminal+" Update Output", value="```http\n{}```".format(out.decode('utf8')), inline=False)
+            emb.add_field(name="Update Output", value="```http\n{}```".format(out.decode('utf8')), inline=False)
         else:
-            emb.add_field(name=emotes.Terminal+" Update Output", value="```md\n#Output longer than 500 chars, see text file for output.```", inline=False)
+            emb.add_field(name="Update Output", value="```md\n#Output longer than 500 chars, see text file for output.```", inline=False)
         print("Bot has updated to the latest commit in repository.\nAll mods in `config.py` have attempted to be reloaded.\nIt is advised that you restart if anything outside the mods folder was updated.")
         print(msg)
         print(out.decode('utf8'))

@@ -15,7 +15,7 @@ class RemindMe:
 
     def __init__(self, bot):
         self.bot = bot
-        self.reminders = fileIO("data/remindme/reminders.json", "load")
+        self.reminders = fileIO("data/reminders.json", "load")
         self.units = {"second" : 1,"minute": 60, "hour": 3600, "day": 86400, "week": 604800, "month": 2592000, "year": 31104000}
 
     @commands.command(pass_context=True)
@@ -43,8 +43,8 @@ class RemindMe:
         future = int(time.time()+seconds)
         self.reminders.append({"ID" : author.id, "FUTURE" : future, "TEXT" : text})
         logger.info("{} ({}) set a reminder.".format(author.name, author.id))
-        await ctx.send("I will remind you that in {} {}.".format(str(quantity), time_unit + s))
-        fileIO("data/remindme/reminders.json", "save", self.reminders)
+        await ctx.send("I will remind you of that in {} {}.".format(str(quantity), time_unit + s))
+        fileIO("data/reminders.json", "save", self.reminders)
 
     @commands.command(pass_context=True)
     async def forgetme(self, ctx):
@@ -58,7 +58,7 @@ class RemindMe:
         if not to_remove == []:
             for reminder in to_remove:
                 self.reminders.remove(reminder)
-            fileIO("data/remindme/reminders.json", "save", self.reminders)
+            fileIO("data/reminders.json", "save", self.reminders)
             await ctx.send("All your notifications have been removed.")
         else:
             await ctx.send("You don't have any upcoming notification.")
@@ -80,16 +80,16 @@ class RemindMe:
             for reminder in to_remove:
                 self.reminders.remove(reminder)
             if to_remove:
-                fileIO("data/remindme/reminders.json", "save", self.reminders)
+                fileIO("data/reminders.json", "save", self.reminders)
             await asyncio.sleep(5)
 
 def check_folders():
-    if not os.path.exists("data/remindme"):
-        print("Creating data/remindme folder...")
-        os.makedirs("data/remindme")
+    if not os.path.exists("data"):
+        print("Creating data folder...")
+        os.makedirs("data")
 
 def check_files():
-    f = "data/remindme/reminders.json"
+    f = "data/reminders.json"
     if not fileIO(f, "check"):
         print("Creating empty reminders.json...")
         fileIO(f, "save", [])
@@ -101,7 +101,7 @@ def setup(bot):
     logger = logging.getLogger("remindme")
     if logger.level == 0: # Prevents the logger from being loaded again in case of module reload
         logger.setLevel(logging.INFO)
-        handler = logging.FileHandler(filename='data/remindme/reminders.log', encoding='utf-8', mode='a')
+        handler = logging.FileHandler(filename='data/reminders.log', encoding='utf-8', mode='a')
         handler.setFormatter(logging.Formatter('%(asctime)s %(message)s', datefmt="[%d/%m/%Y %H:%M]"))
         logger.addHandler(handler)
     n = RemindMe(bot)

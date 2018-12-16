@@ -30,6 +30,7 @@ class Tags:
                     else:
                         men = None
                     await ctx.send(men, embed=embed)
+                    await ctx.message.delete()
                     return
                 else:
                     foundtag = False

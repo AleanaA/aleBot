@@ -3,6 +3,7 @@ from discord.ext import commands
 from utils.dataIO import fileIO
 from utils.cog import Cog
 from utils.embed import Embeds as emb
+from utils import checks
 import os
 import asyncio
 import time
@@ -36,6 +37,7 @@ class Tags:
             await ctx.send("Unable to find tag `{}`".format(name))
 
     @commands.command(name="+tag")
+    @checks.is_appr()
     async def mktag(self, ctx, name : str, *, content : str):
         Guild = ctx.message.guild
         Author = ctx.message.author
@@ -56,6 +58,7 @@ class Tags:
         fileIO("data/tags.json", "save", self.tags)
 
     @commands.command(name="-tag")
+    @checks.is_appr()
     async def rmtag(self, ctx, name:str):
         to_remove = []
         for tag in self.tags:

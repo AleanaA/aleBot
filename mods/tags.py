@@ -8,8 +8,7 @@ import asyncio
 import time
 
 class Tags(Cog):
-    def __init__(self, bot):
-        self.bot = bot
+    def __init__(self):
         self.tags = fileIO("data/tags.json", "load")
 
     @commands.group(name="tag")

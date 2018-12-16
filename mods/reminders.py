@@ -19,7 +19,7 @@ class RemindMe:
         self.units = {"second" : 1,"minute": 60, "hour": 3600, "day": 86400, "week": 604800, "month": 2592000, "year": 31104000}
 
     @commands.command(pass_context=True)
-    async def remindme(self, ctx,  quantity : int, time_unit : str, *, text : str):
+    async def remind(self, ctx, who : discord.User, quantity : int, time_unit : str, *, text : str):
         """Sends you <text> when the time is up
         Accepts: minutes, hours, days, weeks, month
         Example:
@@ -41,9 +41,9 @@ class RemindMe:
             return
         seconds = self.units[time_unit] * quantity
         future = int(time.time()+seconds)
-        self.reminders.append({"ID" : author.id, "FUTURE" : future, "TEXT" : text})
-        logger.info("{} ({}) set a reminder.".format(author.name, author.id))
-        await ctx.send("I will remind you of that in {} {}.".format(str(quantity), time_unit + s))
+        self.reminders.append({"ID" : who.id, "AUTHOR" : author.id, "FUTURE" : future, "TEXT" : text})
+        logger.info("{} ({}) set a reminder for {} ({}).".format(author.name, author.id, who.name, who.id))
+        await ctx.send("I will remind {} of that in {} {}.".format(who.name, str(quantity), time_unit + s))
         fileIO("data/reminders.json", "save", self.reminders)
 
     @commands.command(pass_context=True)
@@ -70,7 +70,11 @@ class RemindMe:
                 if reminder["FUTURE"] <= int(time.time()):
                     try:
                         user = await self.bot.get_user_info(reminder["ID"])
-                        await user.send("You asked me to remind you this:\n{}".format(reminder["TEXT"]))
+                        author = await self.bot.get_user_info(reminder["AUTHOR"])
+                        if reminder["ID"] == reminder["AUTHOR"]:
+                            await user.send("You asked me to remind you of this:\n{}".format(reminder["TEXT"]))
+                        else:
+                            await user.send("{} asked me to remind you of this:\n{}".format(author.name, reminder["TEXT"]))
                     except (discord.errors.Forbidden, discord.errors.NotFound):
                         to_remove.append(reminder)
                     except discord.errors.HTTPException:

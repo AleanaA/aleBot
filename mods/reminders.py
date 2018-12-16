@@ -16,7 +16,7 @@ class RemindMe:
     def __init__(self, bot):
         self.bot = bot
         self.reminders = fileIO("data/remindme/reminders.json", "load")
-        self.units = {"minute" : 60, "hour" : 3600, "day" : 86400, "week": 604800, "month": 2592000}
+        self.units = {"second" : 1,"minute": 60, "hour": 3600, "day": 86400, "week": 604800, "month": 2592000, "year": 31104000}
 
     @commands.command(pass_context=True)
     async def remindme(self, ctx,  quantity : int, time_unit : str, *, text : str):
@@ -31,7 +31,7 @@ class RemindMe:
             time_unit = time_unit[:-1]
             s = "s"
         if not time_unit in self.units:
-            await ctx.send("Invalid time unit. Choose minutes/hours/days/weeks/month")
+            await ctx.send("Invalid time unit. Choose seconds/minutes/hours/days/weeks/months/years")
             return
         if quantity < 1:
             await ctx.send("Quantity must not be 0 or negative.")

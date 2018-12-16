@@ -22,7 +22,7 @@ class Commands(Cog):
                 hidden=True)
     async def testhelp(self, ctx):
         emb = Embeds.create_embed(self, ctx, "Help")
-        for command in list(Bot.commands):
+        for command in list(self.bot.commands):
             emb.add_field(name=command, value="!")
         await ctx.send(embed=emb)
 

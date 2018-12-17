@@ -99,7 +99,6 @@ class Profiles:
                 await ctx.send("Temp Confirm Msg")
             if str(reaction.emoji) == '❎':
                 await ctx.send("Request has been denied. Better luck next time, {}!".format(ctx.message.author.name))
-            await ctx.send("The above two never happened!")
 
 
     @commands.command(name="divorce")

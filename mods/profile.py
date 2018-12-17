@@ -58,7 +58,45 @@ class Profiles:
     
     @commands.command(name="marry")
     async def marry(self, ctx, user:discord.User):
-        pass
+        if ctx.message.author == user:
+            await ctx.send("You can't marry yourself!")
+            return
+        authid = str(ctx.message.author.id)
+        userid = str(user.id)
+        # Check if specified user has a profile already, if they don't, make one
+        if authid not in self.profiles:
+            self.profiles[authid] = {}
+            self.profiles[authid]["Description"] = None
+            self.profiles[authid]["Title"] = None
+            self.profiles[authid]["Married"] = None
+            self.profiles[authid]["Kudos"] = 0
+            dataIO.save_json(self.profilepath, self.profiles)
+        if userid not in self.profiles:
+            self.profiles[userid] = {}
+            self.profiles[userid]["Description"] = None
+            self.profiles[userid]["Title"] = None
+            self.profiles[userid]["Married"] = None
+            self.profiles[userid]["Kudos"] = 0
+            dataIO.save_json(self.profilepath, self.profiles)
+
+        authprofile = self.profiles[authid]
+        userprofile = self.profiles[userid]
+
+        msg = await ctx.send("Do you, {}, take {}'s hand in marriage?".format(user.name, ctx.message.author.name))
+
+        def check(reaction, reactor):
+            return reactor == user and str(reaction.emoji) == ':white_check_mark:' and reaction.message == msg or reactor == user and str(reaction.emoji) == ':negative_squared_cross_mark:' and reaction.message == msg
+        
+        try:
+            reaction, user = await self.bot.wait_for('reaction_add', timeout=60.0, check=check)
+        except asyncio.TimeoutError:
+            await ctx.send("Reaction timed out.")
+        else:
+            if str(reaction.emoji) == ':white_check_mark:':
+                pass
+            if str(reaction.emoji) == ':negative_squared_cross_mark:':
+                await ctx.send("Request has been denied. Better luck next time, {}!".format(ctx.message.author.name))
+
 
     @commands.command(name="divorce")
     async def divorce(self, ctx):
@@ -148,7 +186,6 @@ class Profiles:
                 self.profiles[userid] = profile
                 dataIO.save_json(self.profilepath, self.profiles)
                 await ctx.send("Added {} Kudos to {}'s profile!".format(split[1], user.name))
-
 
 def check_folders():
     if not os.path.exists("data"):

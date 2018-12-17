@@ -30,6 +30,7 @@ class Profiles:
             self.profiles[userid]["Description"] = None
             self.profiles[userid]["Title"] = None
             self.profiles[userid]["Married"] = None
+            self.profiles[userid]["Kudos"] = 0
             dataIO.save_json(self.profilepath, self.profiles)
 
         profile = self.profiles[userid]
@@ -43,8 +44,11 @@ class Profiles:
         else:
             emb.description = "This user hasn't set a description yet!"
 
+
         if profile["Title"] != None:
             emb.add_field(name="Title", value="[{}]".format(profile["Title"]), inline=False)
+
+        emb.add_field(name="Kudos", value=str(profile["Kudos"]))
 
         if profile["Married"] != None:
             marriedto = await self.bot.get_user_info(profile["Married"])
@@ -64,19 +68,49 @@ class Profiles:
     async def setdesc(self, ctx, *, content : str):
         user = ctx.message.author
         userid = str(user.id)
-
         # Check if specified user has a profile already, if they don't, make one
         if userid not in self.profiles:
             self.profiles[userid] = {}
             self.profiles[userid]["Description"] = content
             self.profiles[userid]["Title"] = None
             self.profiles[userid]["Married"] = None
+            self.profiles[userid]["Kudos"] = 0
             dataIO.save_json(self.profilepath, self.profiles)
         else:
             profile = self.profiles[userid]
             profile["Description"] = content
             self.profiles[userid] = profile
             dataIO.save_json(self.profilepath, self.profiles)
+        await ctx.send("Description set to {}".format(content))
+
+    @commands.command(name="setattrib")
+    @checks.is_owner()
+    async def setattrib(self, ctx, user:discord.User, attrib, *, content:str):
+        userid = str(user.id)
+        # Check if specified user has a profile already, if they don't, make one
+        if userid not in self.profiles:
+            self.profiles[userid] = {}
+            self.profiles[userid]["Description"] = None
+            self.profiles[userid]["Title"] = None
+            self.profiles[userid]["Married"] = None
+            self.profiles[userid]["Kudos"] = 0
+            dataIO.save_json(self.profilepath, self.profiles)
+
+        profile = self.profiles[userid]
+    
+        if attrib == "Description":
+            profile["Description"] = content
+            self.profiles[userid] = profile
+            dataIO.save_json(self.profilepath, self.profiles)
+            await ctx.send("User {}'s description set to {}".format(user.name, content))
+
+        if attrib == "Title":
+            profile["Title"] = content
+            self.profiles[userid] = profile
+            dataIO.save_json(self.profilepath, self.profiles)
+            await ctx.send("User {}'s title was set to {}".format(user.name, content))
+        
+        
 
 def check_folders():
     if not os.path.exists("data"):

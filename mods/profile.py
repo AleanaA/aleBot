@@ -141,11 +141,13 @@ class Profiles:
                 profile["Kudos"] = profile["Kudos"] - int(split[1])
                 self.profiles[userid] = profile
                 dataIO.save_json(self.profilepath, self.profiles)
+                await ctx.send("Removed {} Kudos from {}'s profile!".format(split[1], user.name))
             if split[0] == "add":
                 profile = self.profiles[userid]
                 profile["Kudos"] = profile["Kudos"] + int(split[1])
                 self.profiles[userid] = profile
                 dataIO.save_json(self.profilepath, self.profiles)
+                await ctx.send("Added {} Kudos to {}'s profile!".format(split[1], user.name))
 
 
 def check_folders():

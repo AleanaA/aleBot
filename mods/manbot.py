@@ -153,5 +153,32 @@ class BotOptions(Cog):
             return
         await ctx.message.channel.send(embed=discord.Embed(colour=discord.Colour(0x0094ff), title=emotes.Terminal+" Python Eval", description=python.format(result)))
 
+    @commands.command(name='exec',
+                description="Owner Only!",
+                brief="Owner Only!")
+    @checks.is_owner()
+    async def exec(self, ctx, *, code : str):
+        code = code.strip('` ')
+        python = '```py\n{}\n```'
+        result = None
+        env = {
+            'self': self,
+            'bot': self.bot,
+            'ctx': ctx,
+            'message': ctx.message,
+            'channel': ctx.message.channel,
+            'author': ctx.message.author,
+            'return': code
+        }
+        env.update(globals())
+        try:
+            result = exec(code, env)
+            if inspect.isawaitable(result):
+                result = await result
+        except Exception as e:
+            await ctx.message.channel.send(embed=discord.Embed(colour=discord.Colour(0xff0000), title=emotes.Terminal+" Python Exec", description=python.format(type(e).__name__ + ': ' + str(e))))
+            return
+        await ctx.message.channel.send(embed=discord.Embed(colour=discord.Colour(0x0094ff), title=emotes.Terminal+" Python Exec", description=python.format(result)))
+
 def setup(bot):
     bot.add_cog(BotOptions(bot))

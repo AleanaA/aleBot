@@ -60,7 +60,7 @@ class Profiles:
     async def marry(self, ctx, user:discord.User):
         if ctx.message.author == user:
             await ctx.send("You can't marry yourself!")
-#            return
+            return
         authid = str(ctx.message.author.id)
         userid = str(user.id)
         # Check if specified user has a profile already, if they don't, make one
@@ -87,7 +87,7 @@ class Profiles:
         await msg.add_reaction("❎")
 
         def check(reaction, reactor):
-            return reactor == user and str(reaction.emoji) == '✅' or reactor == user and str(reaction.emoji) == '❎' and reaction.message.id == msg.id
+            return reactor == user and str(reaction.emoji) == '✅' and reaction.message.id == msg.id or reactor == user and str(reaction.emoji) == '❎' and reaction.message.id == msg.id
 
         try:
             reaction, user = await self.bot.wait_for('reaction_add', timeout=60.0, check=check)
@@ -96,14 +96,42 @@ class Profiles:
             await msg.delete()
         else:
             if str(reaction.emoji) == '✅':
-                await ctx.send("Temp Confirm Msg")
+                authprofile["Married"] = ctx.message.author.id
+                userprofile["Married"] = user.id
+                self.profiles[authid] = authprofile
+                self.profiles[userid] = userprofile
+                dataIO.save_json(self.profilepath, self.profiles)
+                await ctx.send("Congratulations {}, you and {} are now married!".format(ctx.message.author.name, user.name))
+                await msg.delete()
             if str(reaction.emoji) == '❎':
                 await ctx.send("Request has been denied. Better luck next time, {}!".format(ctx.message.author.name))
+                await msg.delete()
 
 
     @commands.command(name="divorce")
     async def divorce(self, ctx):
-        pass
+        userid = str(ctx.message.author.id)
+        if userid not in self.profiles:
+            self.profiles[userid] = {}
+            self.profiles[userid]["Description"] = None
+            self.profiles[userid]["Title"] = None
+            self.profiles[userid]["Married"] = None
+            self.profiles[userid]["Kudos"] = 0
+            dataIO.save_json(self.profilepath, self.profiles)
+        authprofile = self.profiles[userid]
+        if authprofile["Married"] is None:
+            await ctx.send("You aren't married, {}!".format(ctx.message.author.name))
+            return
+        
+        marriedto = await self.bot.get_user_info(authprofile["Married"])
+        userprofile = self.profiles[str(authprofile["Married"])]
+    
+        authprofile["Married"] = None
+        userprofile["Married"] = None
+        self.profiles[userid] = authprofile
+        self.profiles[str(authprofile["Married"])] = userprofile
+        dataIO.save_json(self.profilepath, self.profiles)
+        await ctx.send("{}, {} divorced you!".format(marriedto.mention, ctx.message.author.name))
 
     @commands.command(name="givekudos")
     async def givekudos(self, ctx, user: discord.User):

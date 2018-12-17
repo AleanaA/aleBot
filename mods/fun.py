@@ -174,163 +174,163 @@ class Fun(Cog):
         await ctx.send(embed=emb)
 
     @commands.command(name="lick")
-    async def lickcmd(self, ctx, user: discord.User=None):
+    async def lickcmd(self, ctx, user=None):
         result = random.choice(self.lick)
         if user:
             pass
         else:
-            user = ctx.message.author
-        emb = Embeds.create_embed(self, ctx, "Licking {}".format(user.name), 0x00aaff)
+            user = ctx.message.author.name
+        emb = Embeds.create_embed(self, ctx, "Licking {}".format(user), 0x00aaff)
         emb.set_image(url=result)
         await ctx.send(embed=emb)
 
     @commands.command(name="hug")
-    async def hugcmd(self, ctx, user: discord.User=None):
+    async def hugcmd(self, ctx, user=None):
         result = random.choice(self.hug)
         if user:
             pass
         else:
-            user = ctx.message.author
-        emb = Embeds.create_embed(self, ctx, "Hugging {}".format(user.name), 0x00aaff)
+            user = ctx.message.author.name
+        emb = Embeds.create_embed(self, ctx, "Hugging {}".format(user), 0x00aaff)
         emb.set_image(url=result)
         await ctx.send(embed=emb)
 
     @commands.command(name="bite")
-    async def bitecmd(self, ctx, user: discord.User=None):
+    async def bitecmd(self, ctx, user=None):
         result = random.choice(self.bite)
         if user:
             pass
         else:
-            user = ctx.message.author
-        emb = Embeds.create_embed(self, ctx, "Biting {}".format(user.name), 0x00aaff)
+            user = ctx.message.author.name
+        emb = Embeds.create_embed(self, ctx, "Biting {}".format(user), 0x00aaff)
         emb.set_image(url=result)
         await ctx.send(embed=emb)
 
     @commands.command(name="kiss")
-    async def kisscmd(self, ctx, user: discord.User=None):
+    async def kisscmd(self, ctx, user=None):
         result = random.choice(self.kiss)
         if user:
             pass
         else:
-            user = ctx.message.author
-        emb = Embeds.create_embed(self, ctx, "Kissing {}".format(user.name), 0x00aaff)
+            user = ctx.message.author.name
+        emb = Embeds.create_embed(self, ctx, "Kissing {}".format(user), 0x00aaff)
         emb.set_image(url=result)
         await ctx.send(embed=emb)
 
     @commands.command(name="ckiss")
-    async def ckisscmd(self, ctx, user: discord.User=None):
+    async def ckisscmd(self, ctx, user=None):
         result = random.choice(self.ckiss)
         if user:
             pass
         else:
-            user = ctx.message.author
-        emb = Embeds.create_embed(self, ctx, "Kissing {} on the cheek".format(user.name), 0x00aaff)
+            user = ctx.message.author.name
+        emb = Embeds.create_embed(self, ctx, "Kissing {} on the cheek".format(user), 0x00aaff)
         emb.set_image(url=result)
         await ctx.send(embed=emb)
 
     @commands.command(name="cuddle")
-    async def cuddlecmd(self, ctx, user: discord.User=None):
+    async def cuddlecmd(self, ctx, user=None):
         result = random.choice(self.cuddle)
         if user:
             pass
         else:
-            user = ctx.message.author
-        emb = Embeds.create_embed(self, ctx, "Cuddling with {}".format(user.name), 0x00aaff)
+            user = ctx.message.author.name
+        emb = Embeds.create_embed(self, ctx, "Cuddling with {}".format(user), 0x00aaff)
         emb.set_image(url=result)
         await ctx.send(embed=emb)
 
     @commands.command(name="snuggle")
-    async def snugglecmd(self, ctx, user: discord.User=None):
+    async def snugglecmd(self, ctx, user=None):
         result = random.choice(self.snuggle)
         if user:
             pass
         else:
-            user = ctx.message.author
-        emb = Embeds.create_embed(self, ctx, "Snuggled up with {}".format(user.name), 0x00aaff)
+            user = ctx.message.author.name
+        emb = Embeds.create_embed(self, ctx, "Snuggled up with {}".format(user), 0x00aaff)
         emb.set_image(url=result)
         await ctx.send(embed=emb)
 
     @commands.command(name="slap")
-    async def slapcmd(self, ctx, user: discord.User=None):
+    async def slapcmd(self, ctx, user=None):
         result = random.choice(self.slap)
         if user:
             pass
         else:
-            user = ctx.message.author
-        emb = Embeds.create_embed(self, ctx, "Slapping {}".format(user.name), 0x00aaff)
+            user = ctx.message.author.name
+        emb = Embeds.create_embed(self, ctx, "Slapping {}".format(user), 0x00aaff)
         emb.set_image(url=result)
         await ctx.send(embed=emb)
 
     @commands.command(name="lewd")
-    async def lewdcmd(self, ctx, user: discord.User=None):
+    async def lewdcmd(self, ctx, user=None):
         result = random.choice(self.lewd)
         if user:
             pass
         else:
-            user = ctx.message.author
-        emb = Embeds.create_embed(self, ctx, "Lewding {}".format(user.name), 0x00aaff)
+            user = ctx.message.author.name
+        emb = Embeds.create_embed(self, ctx, "Lewding {}".format(user), 0x00aaff)
         emb.set_image(url=result)
         await ctx.send(embed=emb)
 
     @commands.command(name="punch")
-    async def punchcmd(self, ctx, user: discord.User=None):
+    async def punchcmd(self, ctx, user=None):
         result = random.choice(self.punch)
         if user:
             pass
         else:
-            user = ctx.message.author
-        emb = Embeds.create_embed(self, ctx, "Punching {}".format(user.name), 0x00aaff)
+            user = ctx.message.author.name
+        emb = Embeds.create_embed(self, ctx, "Punching {}".format(user), 0x00aaff)
         emb.set_image(url=result)
         await ctx.send(embed=emb)
 
     @commands.command(name="poke")
-    async def pokecmd(self, ctx, user: discord.User=None):
+    async def pokecmd(self, ctx, user=None):
         result = random.choice(self.poke)
         if user:
             pass
         else:
-            user = ctx.message.author
-        emb = Embeds.create_embed(self, ctx, "Poking {}".format(user.name), 0x00aaff)
+            user = ctx.message.author.name
+        emb = Embeds.create_embed(self, ctx, "Poking {}".format(user), 0x00aaff)
         emb.set_image(url=result)
         await ctx.send(embed=emb)
 
     @commands.command(name="pat")
-    async def patcmd(self, ctx, user: discord.User=None):
+    async def patcmd(self, ctx, user=None):
         result = random.choice(self.pat)
         if user:
             pass
         else:
-            user = ctx.message.author
-        emb = Embeds.create_embed(self, ctx, "Patting {}".format(user.name), 0x00aaff)
+            user = ctx.message.author.name
+        emb = Embeds.create_embed(self, ctx, "Patting {}".format(user), 0x00aaff)
         emb.set_image(url=result)
         await ctx.send(embed=emb)
 
     @commands.command(name="flirt")
-    async def flirtcmd(self, ctx, user: discord.User=None):
+    async def flirtcmd(self, ctx, user=None):
         result = random.choice(self.pickupline)
         if user:
             pass
         else:
-            user = ctx.message.author
-        emb = Embeds.create_embed(self, ctx, "Flirting with {}".format(user.name), result)
+            user = ctx.message.author.name
+        emb = Embeds.create_embed(self, ctx, "Flirting with {}".format(user), result)
         await ctx.send(emed=emb)
 
     @commands.command(name="sob")
-    async def sobcmd(self, ctx, user: discord.User=None):
+    async def sobcmd(self, ctx, user=None):
         result = random.choice(self.sob)
         if user:
             pass
         else:
-            user = ctx.message.author
-        emb = Embeds.create_embed(self, ctx, "Sobbing because of {}".format(user.name), 0x00aaff)
+            user = ctx.message.author.name
+        emb = Embeds.create_embed(self, ctx, "Sobbing because of {}".format(user), 0x00aaff)
         emb.set_image(url=result)
         await ctx.send(embed=emb)
 
     @commands.command(name="rate")
-    async def ratecmd(self, ctx, user: discord.User):
+    async def ratecmd(self, ctx, user):
         numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
         rating = random.choice(numbers)
-        emb = Embeds.create_embed(self, ctx, "Waifu Rating", 0xaaff, "{}\n{}/10".format(user.name, rating))
+        emb = Embeds.create_embed(self, ctx, "Waifu Rating", 0xaaff, "{}\n{}/10".format(user, rating))
         await ctx.send(embed=emb)
 
 def setup(bot):

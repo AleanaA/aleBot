@@ -249,7 +249,7 @@ class Fun:
             if user[0:2] == "<@" and user[-1] == ">":
                 user = int(re.sub("[^0-9]", "", user))
                 user = await self.bot.get_user_info(user)
-                user = user.name
+                user = user.mention
             else:
                 pass
         else:

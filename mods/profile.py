@@ -21,17 +21,18 @@ class Profiles:
         if user is None:
             user = ctx.message.author
 
-#        # Check if specified user has a profile already, if they don't, make one
-#        if user.id in self.profiles:
-#            pass
-#        else:
-#            self.profiles[user.id] = {}
-#            self.profiles[user.id]["Description"] = None
-#            self.profiles[user.id]["Title"] = None
-#            self.profiles[user.id]["Married"] = None
-#            dataIO.save_json(self.profilepath, self.profiles)
+        userid = str(user.id)
+        # Check if specified user has a profile already, if they don't, make one
+        if userid in self.profiles:
+            pass
+        else:
+            self.profiles[userid] = {}
+            self.profiles[userid]["Description"] = None
+            self.profiles[userid]["Title"] = None
+            self.profiles[userid]["Married"] = None
+            dataIO.save_json(self.profilepath, self.profiles)
 
-        profile = self.profiles[user.id]
+        profile = self.profiles[userid]
 
         emb = Embeds.create_embed(self, ctx, user.name, 0x00aaff)
 

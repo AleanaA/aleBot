@@ -188,7 +188,10 @@ class Fun(Cog):
     async def lickcmd(self, ctx, *, user:str=None):
         result = random.choice(self.lick)
         if user:
-            pass
+            if user[0:2] == "<@!" and user[-1] == ">":
+                user.replace("!", "")
+            else:
+                pass
         else:
             user = ctx.message.author.name
         emb = Embeds.create_embed(self, ctx, "Licking {}".format(user), 0x00aaff)
@@ -199,7 +202,10 @@ class Fun(Cog):
     async def hugcmd(self, ctx, *, user:str=None):
         result = random.choice(self.hug)
         if user:
-            pass
+            if user[0:2] == "<@!" and user[-1] == ">":
+                user.replace("!", "")
+            else:
+                pass
         else:
             user = ctx.message.author.name
         emb = Embeds.create_embed(self, ctx, "Hugging {}".format(user), 0x00aaff)
@@ -210,7 +216,10 @@ class Fun(Cog):
     async def bitecmd(self, ctx, *, user:str=None):
         result = random.choice(self.bite)
         if user:
-            pass
+            if user[0:2] == "<@!" and user[-1] == ">":
+                user.replace("!", "")
+            else:
+                pass
         else:
             user = ctx.message.author.name
         emb = Embeds.create_embed(self, ctx, "Biting {}".format(user), 0x00aaff)
@@ -221,7 +230,10 @@ class Fun(Cog):
     async def kisscmd(self, ctx, *, user:str=None):
         result = random.choice(self.kiss)
         if user:
-            pass
+            if user[0:2] == "<@!" and user[-1] == ">":
+                user.replace("!", "")
+            else:
+                pass
         else:
             user = ctx.message.author.name
         emb = Embeds.create_embed(self, ctx, "Kissing {}".format(user), 0x00aaff)
@@ -232,7 +244,10 @@ class Fun(Cog):
     async def ckisscmd(self, ctx, *, user:str=None):
         result = random.choice(self.ckiss)
         if user:
-            pass
+            if user[0:2] == "<@!" and user[-1] == ">":
+                user.replace("!", "")
+            else:
+                pass
         else:
             user = ctx.message.author.name
         emb = Embeds.create_embed(self, ctx, "Kissing {} on the cheek".format(user), 0x00aaff)
@@ -243,7 +258,10 @@ class Fun(Cog):
     async def cuddlecmd(self, ctx, *, user:str=None):
         result = random.choice(self.cuddle)
         if user:
-            pass
+            if user[0:2] == "<@!" and user[-1] == ">":
+                user.replace("!", "")
+            else:
+                pass
         else:
             user = ctx.message.author.name
         emb = Embeds.create_embed(self, ctx, "Cuddling with {}".format(user), 0x00aaff)
@@ -254,7 +272,10 @@ class Fun(Cog):
     async def snugglecmd(self, ctx, *, user:str=None):
         result = random.choice(self.snuggle)
         if user:
-            pass
+            if user[0:2] == "<@!" and user[-1] == ">":
+                user.replace("!", "")
+            else:
+                pass
         else:
             user = ctx.message.author.name
         emb = Embeds.create_embed(self, ctx, "Snuggled up with {}".format(user), 0x00aaff)
@@ -265,7 +286,10 @@ class Fun(Cog):
     async def slapcmd(self, ctx, *, user:str=None):
         result = random.choice(self.slap)
         if user:
-            pass
+            if user[0:2] == "<@!" and user[-1] == ">":
+                user.replace("!", "")
+            else:
+                pass
         else:
             user = ctx.message.author.name
         emb = Embeds.create_embed(self, ctx, "Slapping {}".format(user), 0x00aaff)
@@ -276,7 +300,10 @@ class Fun(Cog):
     async def lewdcmd(self, ctx, *, user:str=None):
         result = random.choice(self.lewd)
         if user:
-            pass
+            if user[0:2] == "<@!" and user[-1] == ">":
+                user.replace("!", "")
+            else:
+                pass
         else:
             user = ctx.message.author.name
         emb = Embeds.create_embed(self, ctx, "Lewding {}".format(user), 0x00aaff)
@@ -287,7 +314,10 @@ class Fun(Cog):
     async def punchcmd(self, ctx, *, user:str=None):
         result = random.choice(self.punch)
         if user:
-            pass
+            if user[0:2] == "<@!" and user[-1] == ">":
+                user.replace("!", "")
+            else:
+                pass
         else:
             user = ctx.message.author.name
         emb = Embeds.create_embed(self, ctx, "Punching {}".format(user), 0x00aaff)
@@ -298,7 +328,10 @@ class Fun(Cog):
     async def pokecmd(self, ctx, *, user:str=None):
         result = random.choice(self.poke)
         if user:
-            pass
+            if user[0:2] == "<@!" and user[-1] == ">":
+                user.replace("!", "")
+            else:
+                pass
         else:
             user = ctx.message.author.name
         emb = Embeds.create_embed(self, ctx, "Poking {}".format(user), 0x00aaff)
@@ -309,7 +342,10 @@ class Fun(Cog):
     async def patcmd(self, ctx, *, user:str=None):
         result = random.choice(self.pat)
         if user:
-            pass
+            if user[0:2] == "<@!" and user[-1] == ">":
+                user.replace("!", "")
+            else:
+                pass
         else:
             user = ctx.message.author.name
         emb = Embeds.create_embed(self, ctx, "Patting {}".format(user), 0x00aaff)
@@ -320,7 +356,10 @@ class Fun(Cog):
     async def flirtcmd(self, ctx, *, user:str=None):
         result = random.choice(self.pickupline)
         if user:
-            pass
+            if user[0:2] == "<@!" and user[-1] == ">":
+                user.replace("!", "")
+            else:
+                pass
         else:
             user = ctx.message.author.name
         emb = Embeds.create_embed(self, ctx, "Flirting with {}".format(user), result)
@@ -330,7 +369,10 @@ class Fun(Cog):
     async def sobcmd(self, ctx, *, user:str=None):
         result = random.choice(self.sob)
         if user:
-            pass
+            if user[0:2] == "<@!" and user[-1] == ">":
+                user.replace("!", "")
+            else:
+                pass
         else:
             user = ctx.message.author.name
         emb = Embeds.create_embed(self, ctx, "Sobbing because of {}".format(user), 0x00aaff)

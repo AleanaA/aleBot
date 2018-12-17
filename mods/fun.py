@@ -11,8 +11,9 @@ import asyncio
 import time
 from datetime import datetime
 
-class Fun(Cog):
-    def __init__(self, *args, **kwargs):
+class Fun:
+    def __init__(self, bot):
+        self.bot = bot
         #
         self.lick = ['https://media.giphy.com/media/12MEJ2ArZc23cY/giphy.gif', 'https://media.giphy.com/media/x4P8TaYhGn4FW/giphy.gif', 'https://media.giphy.com/media/JUrjTvzTbTUME/giphy.gif', 
 		'http://img0.joyreactor.com/pics/post/anime-gif-anime-lick-ice-cream-1107069.gif', 'http://media.giphy.com/media/8GiREm7aqMwN2/giphy.gif', 'https://media.tenor.co/images/1925e468ff1ac9efc2100a3d092c54ff/raw', 

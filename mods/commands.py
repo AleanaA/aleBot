@@ -23,7 +23,13 @@ class Commands(Cog):
     async def testhelp(self, ctx):
         emb = Embeds.create_embed(self, ctx, "Help")
         for command in list(self.bot.commands):
-            emb.add_field(name=command, value=command.description)
+            if command.description == None:
+                desc = "No description!"
+            else:
+                desc = command.description
+
+            if command.hidden != True:
+                emb.add_field(name=command, value=desc)
         await ctx.send(embed=emb)
 
     @commands.command(name='ping',

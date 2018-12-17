@@ -38,6 +38,7 @@ class Info(Cog):
         dnd = 0
         offline = 0
         idle = 0
+        onmobile = 0
         second = time.time() - self.bot.start_time
         minute, second = divmod(second, 60)
         hour, minute = divmod(minute, 60)
@@ -57,6 +58,8 @@ class Info(Cog):
                     members += 1
                 else:
                     bots +=  1
+                if member.is_on_mobile():
+                    onmobile += 1
             for channel in guild.channels:
                 channels += 1
             for role in guild.roles:
@@ -81,6 +84,7 @@ class Info(Cog):
         DND=["Do not disturb", dnd, True],
         Idle=["Idle", idle, True],
         Offline=["Offline", offline, True],
+        Mobile=["On Mobile", onmobile, True],
         Commands=["Commands", len(self.bot.commands), True],
         Uptime=["Uptime", "**%d** weeks, **%d** days, **%d** hours, **%d** minutes, **%d** seconds" % (week, day, hour, minute, second), True],
         Source=["Source Code", "https://github.com/AleanaA/aleBot - Created by Aleana#2643", False],

@@ -61,6 +61,9 @@ class Profiles:
         if ctx.message.author == user:
             await ctx.send("You can't marry yourself!")
             return
+        if user.id == self.bot.user:
+            await ctx.send("I'm a robot silly, I can't marry anyone!")
+            return
         authid = str(ctx.message.author.id)
         userid = str(user.id)
         # Check if specified user has a profile already, if they don't, make one

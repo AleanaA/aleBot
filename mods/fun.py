@@ -174,7 +174,7 @@ class Fun(Cog):
         await ctx.send(embed=emb)
 
     @commands.command(name="lick")
-    async def lickcmd(self, ctx, user=None):
+    async def lickcmd(self, ctx, *, user:str=None):
         result = random.choice(self.lick)
         if user:
             pass
@@ -185,7 +185,7 @@ class Fun(Cog):
         await ctx.send(embed=emb)
 
     @commands.command(name="hug")
-    async def hugcmd(self, ctx, user=None):
+    async def hugcmd(self, ctx, *, user:str=None):
         result = random.choice(self.hug)
         if user:
             pass
@@ -196,7 +196,7 @@ class Fun(Cog):
         await ctx.send(embed=emb)
 
     @commands.command(name="bite")
-    async def bitecmd(self, ctx, user=None):
+    async def bitecmd(self, ctx, *, user:str=None):
         result = random.choice(self.bite)
         if user:
             pass
@@ -207,7 +207,7 @@ class Fun(Cog):
         await ctx.send(embed=emb)
 
     @commands.command(name="kiss")
-    async def kisscmd(self, ctx, user=None):
+    async def kisscmd(self, ctx, *, user:str=None):
         result = random.choice(self.kiss)
         if user:
             pass
@@ -218,7 +218,7 @@ class Fun(Cog):
         await ctx.send(embed=emb)
 
     @commands.command(name="ckiss")
-    async def ckisscmd(self, ctx, user=None):
+    async def ckisscmd(self, ctx, *, user:str=None):
         result = random.choice(self.ckiss)
         if user:
             pass
@@ -229,7 +229,7 @@ class Fun(Cog):
         await ctx.send(embed=emb)
 
     @commands.command(name="cuddle")
-    async def cuddlecmd(self, ctx, user=None):
+    async def cuddlecmd(self, ctx, *, user:str=None):
         result = random.choice(self.cuddle)
         if user:
             pass
@@ -240,7 +240,7 @@ class Fun(Cog):
         await ctx.send(embed=emb)
 
     @commands.command(name="snuggle")
-    async def snugglecmd(self, ctx, user=None):
+    async def snugglecmd(self, ctx, *, user:str=None):
         result = random.choice(self.snuggle)
         if user:
             pass
@@ -251,7 +251,7 @@ class Fun(Cog):
         await ctx.send(embed=emb)
 
     @commands.command(name="slap")
-    async def slapcmd(self, ctx, user=None):
+    async def slapcmd(self, ctx, *, user:str=None):
         result = random.choice(self.slap)
         if user:
             pass
@@ -262,7 +262,7 @@ class Fun(Cog):
         await ctx.send(embed=emb)
 
     @commands.command(name="lewd")
-    async def lewdcmd(self, ctx, user=None):
+    async def lewdcmd(self, ctx, *, user:str=None):
         result = random.choice(self.lewd)
         if user:
             pass
@@ -273,7 +273,7 @@ class Fun(Cog):
         await ctx.send(embed=emb)
 
     @commands.command(name="punch")
-    async def punchcmd(self, ctx, user=None):
+    async def punchcmd(self, ctx, *, user:str=None):
         result = random.choice(self.punch)
         if user:
             pass
@@ -284,7 +284,7 @@ class Fun(Cog):
         await ctx.send(embed=emb)
 
     @commands.command(name="poke")
-    async def pokecmd(self, ctx, user=None):
+    async def pokecmd(self, ctx, *, user:str=None):
         result = random.choice(self.poke)
         if user:
             pass
@@ -295,7 +295,7 @@ class Fun(Cog):
         await ctx.send(embed=emb)
 
     @commands.command(name="pat")
-    async def patcmd(self, ctx, user=None):
+    async def patcmd(self, ctx, *, user:str=None):
         result = random.choice(self.pat)
         if user:
             pass
@@ -306,7 +306,7 @@ class Fun(Cog):
         await ctx.send(embed=emb)
 
     @commands.command(name="flirt")
-    async def flirtcmd(self, ctx, user=None):
+    async def flirtcmd(self, ctx, *, user:str=None):
         result = random.choice(self.pickupline)
         if user:
             pass
@@ -316,7 +316,7 @@ class Fun(Cog):
         await ctx.send(emed=emb)
 
     @commands.command(name="sob")
-    async def sobcmd(self, ctx, user=None):
+    async def sobcmd(self, ctx, *, user:str=None):
         result = random.choice(self.sob)
         if user:
             pass
@@ -327,7 +327,7 @@ class Fun(Cog):
         await ctx.send(embed=emb)
 
     @commands.command(name="rate")
-    async def ratecmd(self, ctx, user):
+    async def ratecmd(self, ctx, *, user:str):
         numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
         rating = random.choice(numbers)
         emb = Embeds.create_embed(self, ctx, "Waifu Rating", 0xaaff, "{}\n{}/10".format(user, rating))

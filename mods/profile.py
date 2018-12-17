@@ -85,6 +85,10 @@ class Profiles:
         authprofile = self.profiles[authid]
         userprofile = self.profiles[userid]
 
+        if userprofile["Married"] != None:
+            await ctx.send("This user is already married!")
+            return
+
         msg = await ctx.send("Do you, {}, take {}'s hand in marriage?".format(user.name, ctx.message.author.name))
         await msg.add_reaction("✅")
         await msg.add_reaction("❎")
@@ -99,8 +103,8 @@ class Profiles:
             await msg.delete()
         else:
             if str(reaction.emoji) == '✅':
-                authprofile["Married"] = ctx.message.author.id
-                userprofile["Married"] = user.id
+                authprofile["Married"] = user.id
+                userprofile["Married"] = ctx.message.author.id
                 self.profiles[authid] = authprofile
                 self.profiles[userid] = userprofile
                 dataIO.save_json(self.profilepath, self.profiles)

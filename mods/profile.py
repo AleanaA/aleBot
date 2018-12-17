@@ -63,9 +63,32 @@ class Profiles:
     @commands.command(name="divorce")
     async def divorce(self, ctx):
         pass
-    
+
+    @commands.command(name="givekudos")
+    async def givekudos(self, ctx, user: discord.User):
+        if ctx.message.author == user:
+            await ctx.send("You can't give yourself Kudos!")
+            return
+        userid = str(user.id)
+        # Check if specified user has a profile already, if they don't, make one
+        if userid not in self.profiles:
+            self.profiles[userid] = {}
+            self.profiles[userid]["Description"] = None
+            self.profiles[userid]["Title"] = None
+            self.profiles[userid]["Married"] = None
+            self.profiles[userid]["Kudos"] = 1
+            dataIO.save_json(self.profilepath, self.profiles)
+        else:
+            profile = self.profiles[userid]
+            profile["Kudos"] = profile["Kudos"] + 1
+            self.profiles[userid] = profile
+            dataIO.save_json(self.profilepath, self.profiles)
+        await ctx.send("You gave kudos to {}!".format(user.mention))
+
     @commands.command(name="setdesc")
     async def setdesc(self, ctx, *, content : str):
+        if len(content) > 25:
+            await ctx.send("Descriptions have a character limit of 25 characters!")
         user = ctx.message.author
         userid = str(user.id)
         # Check if specified user has a profile already, if they don't, make one
@@ -109,6 +132,10 @@ class Profiles:
             self.profiles[userid] = profile
             dataIO.save_json(self.profilepath, self.profiles)
             await ctx.send("User {}'s title was set to {}".format(user.name, content))
+        
+        if attrib == "Kudos":
+            await ctx.send(content[0])
+
         
         
 

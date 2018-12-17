@@ -20,6 +20,10 @@ from utils.config import Config
 from utils.cog import Cog
 
 class BotOptions(Cog):
+
+    def sendmsg(self, ctx, msg):
+        await ctx.send(msg)
+
     @commands.group(name='bot',
                     description="Manage settings for the bot.",
                     brief="Manage settings for the bot.")
@@ -177,6 +181,7 @@ class BotOptions(Cog):
             await ctx.message.channel.send(embed=discord.Embed(colour=discord.Colour(0xff0000), title=emotes.Terminal+" Python Exec", description=python.format(type(e).__name__ + ': ' + str(e))))
             return
         await ctx.message.channel.send(embed=discord.Embed(colour=discord.Colour(0x0094ff), title=emotes.Terminal+" Python Exec", description=python.format(result)))
+    
 
 def setup(bot):
     bot.add_cog(BotOptions(bot))

@@ -121,19 +121,19 @@ class Profiles:
 
         profile = self.profiles[userid]
     
-        if attrib == "Description":
+        if attrib.lower() == "description":
             profile["Description"] = content
             self.profiles[userid] = profile
             dataIO.save_json(self.profilepath, self.profiles)
             await ctx.send("User {}'s description set to {}".format(user.name, content))
 
-        if attrib == "Title":
+        if attrib.lower() == "title":
             profile["Title"] = content
             self.profiles[userid] = profile
             dataIO.save_json(self.profilepath, self.profiles)
             await ctx.send("User {}'s title was set to {}".format(user.name, content))
         
-        if attrib == "Kudos":
+        if attrib.lower() == "kudos":
             await ctx.send(content[0])
 
         

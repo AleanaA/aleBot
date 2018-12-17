@@ -286,6 +286,7 @@ class Fun(Cog):
     async def slapcmd(self, ctx, *, user:str=None):
         result = random.choice(self.slap)
         if user:
+            await ctx.send(user[0:2] + user[-1])
             if user[0:2] == "<@!" and user[-1] == ">":
                 user = user.replace("<@!", "")
                 user = user.replace(">", "")

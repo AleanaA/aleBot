@@ -330,7 +330,7 @@ class Fun(Cog):
     async def ratecmd(self, ctx, user: discord.User):
         numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
         rating = random.choice(numbers)
-        emb = Embeds.create_embed(self, ctx, "Waifu Rating", 0xaaff, "{} - {}".format(user.name, rating))
+        emb = Embeds.create_embed(self, ctx, "Waifu Rating", 0xaaff, "{}\n{}/10".format(user.name, rating))
         await ctx.send(embed=emb)
 
 def setup(bot):

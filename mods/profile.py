@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 from utils.dataIO import fileIO
 from utils.cog import Cog
-from utils.embed import Embeds as emb
+from utils.embed import Embeds
 from utils import checks
 import os
 import asyncio
@@ -16,10 +16,33 @@ class Profiles(Cog):
 
     @commands.command(name="profile")
     async def getprofile(self, ctx, user:discord.User=None):
-        if user:
-            self.tags.append({"User": Guild.id, "Married": None, "Creation": Creation, "Name": name, "Content": content})
+        # Check if a user is specified
+        if user == None:
+            user = ctx.message.author
+        # Check if specified user has a profile already, if they don't, make one
+        if user.id in self.profiles:
+            profile = self.profiles[user.id]
         else:
-            pass
+            self.profiles.append({"User": user.id, "Married": None, "Description": None, "Title": None})
+            fileIO("data/profiles.json", "save", self.profiles)
+            profile = self.profiles[user.id]
+        # Check for description
+        if profile["Description"] != None:
+            profiledesc = profile["Description"]
+        else:
+            profiledesc = "This user hasn't set a description yet!"
+
+        emb = Embeds.create_embed(self, ctx, user.name, 0x00aaff, profiledesc)
+        # Check for title        
+        if profile["Title"] != None:
+            emb.add_field(name="Title", value=profile["Title"], inline=False)
+        # Check for marriage
+        if profile["Married"] != None:
+            marriedto = await self.bot.get_user_info(profile["Married"])
+            emb.add_field(name="Married To", value=marriedto.name, inline=False)
+        else:
+            emb.add_field(name="Married To", value="This user isn't married!")
+        await ctx.send(embed=emb)   
     
     @commands.command(name="marry")
     async def marry(self, ctx, user:discord.User):

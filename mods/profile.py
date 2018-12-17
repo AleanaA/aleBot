@@ -87,7 +87,7 @@ class Profiles:
         await msg.add_reaction("❎")
 
         def check(reaction, reactor):
-            return reactor == user and str(reaction.emoji) == '✅' or reactor == user and str(reaction.emoji) == '❎'
+            return reactor == user and str(reaction.emoji) == '✅' or reactor == user and str(reaction.emoji) == '❎' and reaction.message == msg
 
         try:
             reaction, user = await self.bot.wait_for('reaction_add', timeout=60.0, check=check)

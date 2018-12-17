@@ -87,16 +87,17 @@ class Profiles:
         await msg.add_reaction("❎")
 
         def check(reaction, reactor):
-            return reactor == user and str(reaction.emoji) == ':white_check_mark:' and reaction.message == msg or reactor == user and str(reaction.emoji) == ':negative_squared_cross_mark:' and reaction.message == msg
+            return reactor == user and str(reaction.emoji) == '✅' and reaction.message == msg or reactor == user and str(reaction.emoji) == '❎' and reaction.message == msg
 
         try:
             reaction, user = await self.bot.wait_for('reaction_add', timeout=60.0, check=check)
         except asyncio.TimeoutError:
             await ctx.send("Reaction timed out.")
+            await msg.delete()
         else:
-            if str(reaction.emoji) == ':white_check_mark:':
-                pass
-            if str(reaction.emoji) == ':negative_squared_cross_mark:':
+            if str(reaction.emoji) == '✅':
+                await ctx.send("Temp Confirm Msg")
+            if str(reaction.emoji) == '❎':
                 await ctx.send("Request has been denied. Better luck next time, {}!".format(ctx.message.author.name))
 
 

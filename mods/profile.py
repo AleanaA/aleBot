@@ -63,24 +63,20 @@ class Profiles:
     @commands.command(name="setdesc")
     async def setdesc(self, ctx, *, content : str):
         user = ctx.message.author
+        userid = str(user.id)
 
         # Check if specified user has a profile already, if they don't, make one
-        if user.id not in self.profiles:
-            self.profiles[user.id] = {}
-            self.profiles[user.id]["Description"] = content
-            self.profiles[user.id]["Title"] = None
-            self.profiles[user.id]["Married"] = None
+        if userid not in self.profiles:
+            self.profiles[userid] = {}
+            self.profiles[userid]["Description"] = content
+            self.profiles[userid]["Title"] = None
+            self.profiles[userid]["Married"] = None
             dataIO.save_json(self.profilepath, self.profiles)
         else:
-            profile = self.profiles[user.id]
+            profile = self.profiles[userid]
             profile["Description"] = content
-            self.profiles[user.id] = profile
+            self.profiles[userid] = profile
             dataIO.save_json(self.profilepath, self.profiles)
-
-        
-        
-            
-
 
 def check_folders():
     if not os.path.exists("data"):

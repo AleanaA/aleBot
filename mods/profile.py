@@ -21,7 +21,9 @@ class Profiles:
         if user == None:
             user = ctx.message.author
         # Check if specified user has a profile already, if they don't, make one
-        if str(user.id) not in self.profiles:
+        if user.id in self.profiles:
+            pass
+        else:
             self.profiles[user.id] = {}
             self.profiles[user.id]["Description"] = None
             self.profiles[user.id]["Title"] = None

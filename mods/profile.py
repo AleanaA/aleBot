@@ -87,7 +87,7 @@ class Profiles:
         await msg.add_reaction("❎")
 
         def check(reaction, reactor):
-            return reactor == user and str(reaction.emoji) == '✅' and reaction.message == msg or reactor == user and str(reaction.emoji) == '❎' and reaction.message == msg
+            return reactor == user and str(reaction.emoji) == '✅' or reactor == user and str(reaction.emoji) == '❎'
 
         try:
             reaction, user = await self.bot.wait_for('reaction_add', timeout=60.0, check=check)
@@ -99,6 +99,7 @@ class Profiles:
                 await ctx.send("Temp Confirm Msg")
             if str(reaction.emoji) == '❎':
                 await ctx.send("Request has been denied. Better luck next time, {}!".format(ctx.message.author.name))
+            await ctx.send("The above two never happened!")
 
 
     @commands.command(name="divorce")

@@ -51,8 +51,8 @@ class Tags:
         if len(content) < 1:
             await ctx.send("Unable to create tag with empty string")
             return
-        if len(content) > 1000:
-            await ctx.send("Unable to create tag with character count over 1000")
+        if len(content) > 2000:
+            await ctx.send("Unable to create tag with character count over 2000")
             return
         self.tags.append({"Guild": Guild.id, "Creator": Author.id, "Creation": Creation, "Name": name, "Content": content})
         await ctx.send("Tag {0} was created with content:\n```{1}```".format(name, content))

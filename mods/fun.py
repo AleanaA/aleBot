@@ -47,7 +47,7 @@ class Fun(Cog):
             'Outlook not so good',
             'Very doubtful']
         result = random.choice(messages)
-        ctx.send(result)
+        await ctx.send(result)
 
     @commands.command(name="aesthtify")
     async def aesthtify(self, ctx):

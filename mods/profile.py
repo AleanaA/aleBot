@@ -9,7 +9,7 @@ import asyncio
 import time
 from datetime import datetime
 
-class Profiles(Cog):
+class Profiles:
     def __init__(self, bot):
         self.bot = bot
         self.profiles = fileIO("data/profiles.json", "load")

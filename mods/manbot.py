@@ -20,10 +20,6 @@ from utils.config import Config
 from utils.cog import Cog
 
 class BotOptions(Cog):
-
-    def sendmsg(self, ctx, msg):
-        await ctx.send(msg)
-
     @commands.group(name='bot',
                     description="Manage settings for the bot.",
                     brief="Manage settings for the bot.")

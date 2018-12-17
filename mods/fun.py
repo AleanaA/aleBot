@@ -160,15 +160,26 @@ class Fun(Cog):
 
     @commands.command(name="8ball")
     async def eightballcmd(self, ctx, *, question: str):
-        messages = ['It is certain',
-            'It is decidedly so',
-            'Yes definitely',
-            'Reply hazy, try again',
-            'Ask again later',
-            'Concentrate and ask again',
-            'My reply is no',
-            'Outlook not so good',
-            'Very doubtful']
+        messages = ['It is certain', 
+        'It is decidedly so', 
+        'Without a doubt', 
+        'Yes - definitely', 
+        'You may rely on it', 
+        'As I see it, yes', 
+        'Most likely', 
+        'Outlook good', 
+        'Yes', 
+        'Signs point to yes', 
+        'Reply hazy, try again', 
+        'Ask again later', 
+        'Better not tell you now', 
+        'Cannot predict now', 
+        'Concentrate and ask again', 
+        "Don't count on it", 
+        'My reply is no', 
+        'My sources say no', 
+        'Outlook not so good', 
+        'Very doubtful']
         result = random.choice(messages)
         emb = Embeds.create_embed(self, ctx, title=question, color=0x00aaff, message=result)
         await ctx.send(embed=emb)

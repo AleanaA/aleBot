@@ -88,7 +88,7 @@ class Profiles:
             return reactor == user and str(reaction.emoji) == ':white_check_mark:' and reaction.message == msg or reactor == user and str(reaction.emoji) == ':negative_squared_cross_mark:' and reaction.message == msg
         
         try:
-            reaction, user = await self.bot.client.wait_for('reaction_add', timeout=60.0, check=check)
+            reaction, user = await self.bot.wait_for('reaction_add', timeout=60.0, check=check)
         except asyncio.TimeoutError:
             await ctx.send("Reaction timed out.")
         else:

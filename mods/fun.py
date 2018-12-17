@@ -287,7 +287,11 @@ class Fun(Cog):
         result = random.choice(self.slap)
         if user:
             if user[0:2] == "<@!" and user[-1] == ">":
-                user.replace("!", "")
+                user = user.replace("<@!", "")
+                user = user.replace(">", "")
+                user = int(user)
+                user = await self.bot.get_user_info(user)
+                user = user.name
             else:
                 pass
         else:

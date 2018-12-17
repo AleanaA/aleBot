@@ -131,7 +131,6 @@ class Info(Cog):
                 aliases=[])
     async def user(self, ctx, *user: discord.Member):
         self.config = Config('config/config.ini')
-        owner = await self.bot.get_user_info(self.config.owner)
         if not user:
             user = ctx.message.author
         else:

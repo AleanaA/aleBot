@@ -12,12 +12,12 @@ from datetime import datetime
 class Profiles(Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.tags = fileIO("data/profiles.json", "load")
+        self.profiles = fileIO("data/profiles.json", "load")
 
     @commands.command(name="profile")
     async def getprofile(self, ctx, user:discord.User=None):
         if user:
-            pass
+            self.tags.append({"User": Guild.id, "Married": None, "Creation": Creation, "Name": name, "Content": content})
         else:
             pass
     
@@ -31,7 +31,24 @@ class Profiles(Cog):
     
     @commands.command(name="setprofile")
     async def setprofile(self, ctx, attrib, user:discord.User=None):
-        if ctx.message.author.id == self.bot.owner.id:
+        if ctx.message.author.id == self.bot.config.owner:
             pass
         else:
             pass
+
+
+def check_folders():
+    if not os.path.exists("data"):
+        print("Creating data folder...")
+        os.makedirs("data")
+
+def check_files():
+    f = "data/profiles.json"
+    if not fileIO(f, "check"):
+        print("Creating empty profiles.json...")
+        fileIO(f, "save", [])
+
+def setup(bot):
+    check_folders()
+    check_files()
+    bot.add_cog(Profiles(Cog))

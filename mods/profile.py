@@ -56,12 +56,26 @@ class Profiles:
     async def divorce(self, ctx):
         pass
     
-    @commands.command(name="setprofile")
-    async def setprofile(self, ctx, attrib, user:discord.User=None):
-        if ctx.message.author.id == self.bot.config.owner:
-            pass
+    @commands.command(name="setdesc")
+    async def setdesc(self, ctx, *, content : str):
+        user = ctx.message.author
+
+        # Check if specified user has a profile already, if they don't, make one
+        if user.id not in self.profiles:
+            self.profiles[user.id] = {}
+            self.profiles[user.id]["Description"] = content
+            self.profiles[user.id]["Title"] = None
+            self.profiles[user.id]["Married"] = None
+            dataIO.save_json(self.profilepath, self.profiles)
         else:
-            pass
+            profile = self.profiles[user.id]
+            profile["Description"] = content
+            self.profiles[user.id] = profile
+            dataIO.save_json(self.profilepath, self.profiles)
+
+        
+        
+            
 
 
 def check_folders():

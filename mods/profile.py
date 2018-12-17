@@ -18,7 +18,7 @@ class Profiles:
     @commands.command(name="profile")
     async def getprofile(self, ctx, user:discord.User=None):
         # Check if a user is specified
-        if user == None:
+        if user is None:
             user = ctx.message.author
         # Check if specified user has a profile already, if they don't, make one
         if user.id in self.profiles:

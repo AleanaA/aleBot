@@ -83,11 +83,12 @@ class Profiles:
         userprofile = self.profiles[userid]
 
         msg = await ctx.send("Do you, {}, take {}'s hand in marriage?".format(user.name, ctx.message.author.name))
+        msg.add_reaction(":white_check_mark:")
+        msg.add_reaction(":negative_squared_cross_mark:")
 
         def check(reaction, reactor):
             return reactor == user and str(reaction.emoji) == ':white_check_mark:' and reaction.message == msg or reactor == user and str(reaction.emoji) == ':negative_squared_cross_mark:' and reaction.message == msg
-        await ctx.send(str(self.bot))
-        await ctx.send(str(self))
+
         try:
             reaction, user = await self.bot.wait_for('reaction_add', timeout=60.0, check=check)
         except asyncio.TimeoutError:

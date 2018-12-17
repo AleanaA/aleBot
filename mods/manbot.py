@@ -140,7 +140,8 @@ class BotOptions(Cog):
             'ctx': ctx,
             'message': ctx.message,
             'channel': ctx.message.channel,
-            'author': ctx.message.author
+            'author': ctx.message.author,
+            'return': code
         }
         env.update(globals())
         try:

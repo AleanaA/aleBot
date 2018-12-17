@@ -60,7 +60,7 @@ class Profiles:
     async def marry(self, ctx, user:discord.User):
         if ctx.message.author == user:
             await ctx.send("You can't marry yourself!")
-            return
+#            return
         authid = str(ctx.message.author.id)
         userid = str(user.id)
         # Check if specified user has a profile already, if they don't, make one

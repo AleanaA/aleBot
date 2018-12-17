@@ -158,7 +158,7 @@ class BotOptions(Cog):
                 brief="Owner Only!")
     @checks.is_owner()
     async def exec(self, ctx, *, code : str):
-        code = code.strip('` ')
+        code = code.strip('`` ')
         python = '```py\n{}\n```'
         result = None
         env = {
@@ -173,8 +173,6 @@ class BotOptions(Cog):
         env.update(globals())
         try:
             result = exec(code, env)
-            if inspect.isawaitable(result):
-                result = await result
         except Exception as e:
             await ctx.message.channel.send(embed=discord.Embed(colour=discord.Colour(0xff0000), title=emotes.Terminal+" Python Exec", description=python.format(type(e).__name__ + ': ' + str(e))))
             return

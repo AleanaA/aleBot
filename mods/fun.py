@@ -6,6 +6,7 @@ from utils.cog import Cog
 from utils.embed import Embeds
 from utils import checks
 import os
+import re
 import asyncio
 import time
 from datetime import datetime
@@ -244,8 +245,10 @@ class Fun(Cog):
     async def ckisscmd(self, ctx, *, user:str=None):
         result = random.choice(self.ckiss)
         if user:
-            if user[0:2] == "<@!" and user[-1] == ">":
-                user.replace("!", "")
+            if user[0:2] == "<@" and user[-1] == ">":
+                user = int(re.sub("[^0-9]", "", user))
+                user = await self.bot.get_user_info(user)
+                user = user.name
             else:
                 pass
         else:

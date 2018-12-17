@@ -134,10 +134,19 @@ class Profiles:
             await ctx.send("User {}'s title was set to {}".format(user.name, content))
         
         if attrib.lower() == "kudos":
-            await ctx.send(content[0])
+            message = ''.join(content)
+            split = message.split(' ')
+            if split[0] == "remove":
+                profile = self.profiles[userid]
+                profile["Kudos"] = profile["Kudos"] - int(split[1])
+                self.profiles[userid] = profile
+                dataIO.save_json(self.profilepath, self.profiles)
+            if split[0] == "add":
+                profile = self.profiles[userid]
+                profile["Kudos"] = profile["Kudos"] + int(split[1])
+                self.profiles[userid] = profile
+                dataIO.save_json(self.profilepath, self.profiles)
 
-        
-        
 
 def check_folders():
     if not os.path.exists("data"):

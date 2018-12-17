@@ -76,20 +76,5 @@ class Commands(Cog):
         embed.set_image(url=parsed_json['url'])
         await ctx.send(embed=embed)
 
-    @commands.command(name='Command1', description="This is the first command!")
-    async def defname(self, ctx):
-        await ctx.send("This would send a normal message!")
-        emb = discord.Embed()
-        emb.title = "This is an embed!"
-        emb.description = "These are pretty nifty when you get the hand of them!"
-        emb.color = 0x00ffff # Setting colors is fun!
-        emb.set_thumbnail(url=self.bot.user.avatar_url) # Setting a thumbnail for the message uses url's!
-        await ctx.send("This would send a normal message *and* and embed!", embed=emb)
-        emb.add_field(name="This is a field!", value="They're pretty great!")
-        emb.add_field(name="This field isn't inline", value="Because inline is set to false!", inline=False)
-        emb.add_field(name="But these fields", value="Because inline is", inline=True)
-        emb.add_field(name="are inline!", value="set to true!", inline=True)
-        await ctx.send("This would send the new embed!", embed=emb)
-
 def setup(bot):
     bot.add_cog(Commands(bot))

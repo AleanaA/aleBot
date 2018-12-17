@@ -23,7 +23,7 @@ class Commands(Cog):
     async def testhelp(self, ctx):
         emb = Embeds.create_embed(self, ctx, "Help")
         for command in list(self.bot.commands):
-            if command.description == None:
+            if command.description == "":
                 desc = "No description!"
             else:
                 desc = command.description

@@ -1,7 +1,6 @@
 import discord
 from discord.ext import commands
 from utils.dataIO import dataIO
-from dataIO import load_json, save_json
 from utils.cog import Cog
 from utils.embed import Embeds
 from utils import checks
@@ -14,7 +13,7 @@ class Profiles:
     def __init__(self, bot):
         self.bot = bot
         self.profilepath = "data/profiles.json"
-        self.profiles = load_json(self.profilepath)
+        self.profiles = dataIO.load_json(self.profilepath)
 
     @commands.command(name="profile")
     async def getprofile(self, ctx, user:discord.User=None):
@@ -27,6 +26,7 @@ class Profiles:
             self.profiles[user.id]["Description"] = None
             self.profiles[user.id]["Title"] = None
             self.profiles[user.id]["Married"] = None
+            dataIO.save_json(self.profilepath, self.profiles)
     
         profile = self.profiles[user.id]
 
@@ -69,11 +69,12 @@ def check_folders():
         print("Creating data folder...")
         os.makedirs("data")
 
+
 def check_files():
     f = "data/profiles.json"
-    if not fileIO(f, "check"):
+    if not dataIO.is_valid_json(f):
         print("Creating empty profiles.json...")
-        fileIO(f, "save", [])
+        dataIO.save_json(f, {})
 
 def setup(bot):
     check_folders()

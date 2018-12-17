@@ -83,8 +83,8 @@ class Profiles:
         userprofile = self.profiles[userid]
 
         msg = await ctx.send("Do you, {}, take {}'s hand in marriage?".format(user.name, ctx.message.author.name))
-        await msg.add_reaction(":white_check_mark:")
-        await msg.add_reaction(":negative_squared_cross_mark:")
+        await msg.add_reaction("✅")
+        await msg.add_reaction("❎")
 
         def check(reaction, reactor):
             return reactor == user and str(reaction.emoji) == ':white_check_mark:' and reaction.message == msg or reactor == user and str(reaction.emoji) == ':negative_squared_cross_mark:' and reaction.message == msg

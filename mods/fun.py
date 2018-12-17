@@ -190,8 +190,10 @@ class Fun:
     async def lickcmd(self, ctx, *, user:str=None):
         result = random.choice(self.lick)
         if user:
-            if user[0:2] == "<@!" and user[-1] == ">":
-                user.replace("!", "")
+            if user[0:2] == "<@" and user[-1] == ">":
+                user = int(re.sub("[^0-9]", "", user))
+                user = await self.bot.get_user_info(user)
+                user = user.name
             else:
                 pass
         else:
@@ -204,8 +206,10 @@ class Fun:
     async def hugcmd(self, ctx, *, user:str=None):
         result = random.choice(self.hug)
         if user:
-            if user[0:2] == "<@!" and user[-1] == ">":
-                user.replace("!", "")
+            if user[0:2] == "<@" and user[-1] == ">":
+                user = int(re.sub("[^0-9]", "", user))
+                user = await self.bot.get_user_info(user)
+                user = user.name
             else:
                 pass
         else:
@@ -218,8 +222,10 @@ class Fun:
     async def bitecmd(self, ctx, *, user:str=None):
         result = random.choice(self.bite)
         if user:
-            if user[0:2] == "<@!" and user[-1] == ">":
-                user.replace("!", "")
+            if user[0:2] == "<@" and user[-1] == ">":
+                user = int(re.sub("[^0-9]", "", user))
+                user = await self.bot.get_user_info(user)
+                user = user.name
             else:
                 pass
         else:
@@ -232,8 +238,10 @@ class Fun:
     async def kisscmd(self, ctx, *, user:str=None):
         result = random.choice(self.kiss)
         if user:
-            if user[0:2] == "<@!" and user[-1] == ">":
-                user.replace("!", "")
+            if user[0:2] == "<@" and user[-1] == ">":
+                user = int(re.sub("[^0-9]", "", user))
+                user = await self.bot.get_user_info(user)
+                user = user.name
             else:
                 pass
         else:
@@ -249,7 +257,7 @@ class Fun:
             if user[0:2] == "<@" and user[-1] == ">":
                 user = int(re.sub("[^0-9]", "", user))
                 user = await self.bot.get_user_info(user)
-                user = user.mention
+                user = user.name
             else:
                 pass
         else:
@@ -262,8 +270,10 @@ class Fun:
     async def cuddlecmd(self, ctx, *, user:str=None):
         result = random.choice(self.cuddle)
         if user:
-            if user[0:2] == "<@!" and user[-1] == ">":
-                user.replace("!", "")
+            if user[0:2] == "<@" and user[-1] == ">":
+                user = int(re.sub("[^0-9]", "", user))
+                user = await self.bot.get_user_info(user)
+                user = user.name
             else:
                 pass
         else:
@@ -276,8 +286,10 @@ class Fun:
     async def snugglecmd(self, ctx, *, user:str=None):
         result = random.choice(self.snuggle)
         if user:
-            if user[0:2] == "<@!" and user[-1] == ">":
-                user.replace("!", "")
+            if user[0:2] == "<@" and user[-1] == ">":
+                user = int(re.sub("[^0-9]", "", user))
+                user = await self.bot.get_user_info(user)
+                user = user.name
             else:
                 pass
         else:
@@ -291,10 +303,8 @@ class Fun:
         result = random.choice(self.slap)
         if user:
             await ctx.send(user[0:2] + user[-1])
-            if user[0:2] == "<@!" and user[-1] == ">":
-                user = user.replace("<@!", "")
-                user = user.replace(">", "")
-                user = int(user)
+            if user[0:2] == "<@" and user[-1] == ">":
+                user = int(re.sub("[^0-9]", "", user))
                 user = await self.bot.get_user_info(user)
                 user = user.name
             else:
@@ -309,8 +319,10 @@ class Fun:
     async def lewdcmd(self, ctx, *, user:str=None):
         result = random.choice(self.lewd)
         if user:
-            if user[0:2] == "<@!" and user[-1] == ">":
-                user.replace("!", "")
+            if user[0:2] == "<@" and user[-1] == ">":
+                user = int(re.sub("[^0-9]", "", user))
+                user = await self.bot.get_user_info(user)
+                user = user.name
             else:
                 pass
         else:
@@ -323,8 +335,10 @@ class Fun:
     async def punchcmd(self, ctx, *, user:str=None):
         result = random.choice(self.punch)
         if user:
-            if user[0:2] == "<@!" and user[-1] == ">":
-                user.replace("!", "")
+            if user[0:2] == "<@" and user[-1] == ">":
+                user = int(re.sub("[^0-9]", "", user))
+                user = await self.bot.get_user_info(user)
+                user = user.name
             else:
                 pass
         else:
@@ -337,8 +351,10 @@ class Fun:
     async def pokecmd(self, ctx, *, user:str=None):
         result = random.choice(self.poke)
         if user:
-            if user[0:2] == "<@!" and user[-1] == ">":
-                user.replace("!", "")
+            if user[0:2] == "<@" and user[-1] == ">":
+                user = int(re.sub("[^0-9]", "", user))
+                user = await self.bot.get_user_info(user)
+                user = user.name
             else:
                 pass
         else:
@@ -351,8 +367,10 @@ class Fun:
     async def patcmd(self, ctx, *, user:str=None):
         result = random.choice(self.pat)
         if user:
-            if user[0:2] == "<@!" and user[-1] == ">":
-                user.replace("!", "")
+            if user[0:2] == "<@" and user[-1] == ">":
+                user = int(re.sub("[^0-9]", "", user))
+                user = await self.bot.get_user_info(user)
+                user = user.name
             else:
                 pass
         else:
@@ -365,8 +383,10 @@ class Fun:
     async def flirtcmd(self, ctx, *, user:str=None):
         result = random.choice(self.pickupline)
         if user:
-            if user[0:2] == "<@!" and user[-1] == ">":
-                user.replace("!", "")
+            if user[0:2] == "<@" and user[-1] == ">":
+                user = int(re.sub("[^0-9]", "", user))
+                user = await self.bot.get_user_info(user)
+                user = user.name
             else:
                 pass
         else:
@@ -378,8 +398,10 @@ class Fun:
     async def sobcmd(self, ctx, *, user:str=None):
         result = random.choice(self.sob)
         if user:
-            if user[0:2] == "<@!" and user[-1] == ">":
-                user.replace("!", "")
+            if user[0:2] == "<@" and user[-1] == ">":
+                user = int(re.sub("[^0-9]", "", user))
+                user = await self.bot.get_user_info(user)
+                user = user.name
             else:
                 pass
         else:

@@ -38,7 +38,7 @@ def check_folders():
 def check_files():
     f = "data/options.json"
     if not dataIO.is_valid_json(f):
-        print("Creating empty profiles.json...")
+        print("Creating empty options.json...")
         dataIO.save_json(f, {})
 
 def setup(bot):

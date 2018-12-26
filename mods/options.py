@@ -15,8 +15,11 @@ class Options:
         self.bot = bot
         self.profilepath = "data/options.json"
         self.profiles = dataIO.load_json(self.profilepath)
+    
+    def setup(self, server):
+        pass
 
-    @commands.command(name='options',
+    @commands.group(name='options',
                     description="Changes options for the current server",
                     brief="Changes server options.")
     async def servoptions(self, ctx):
@@ -25,10 +28,18 @@ class Options:
             "Server Manager " + emotes.Warn,
             0xffff00,
             "Please issue a valid subcommand!\nAvailable options are:",
-            Com1 = ["Placeholder", "Placeholder", False],
-            Com2 = ["Placeholder", "Placeholder", False])
+            Com1 = ["set", "Sets an options for the current server", False],
+            Com2 = ["default", "Resets an option to its default value for the current server", False])
             await ctx.message.channel.send(embed=emb)
             
+    @servoptions.command(name='set')
+    async def setoption(self, ctx, name, *value):
+        pass
+
+    @servoptions.command(name='default')
+    async def defaultoption(self, ctx, name='all'):
+        pass
+
 def check_folders():
     if not os.path.exists("data"):
         print("Creating data folder...")

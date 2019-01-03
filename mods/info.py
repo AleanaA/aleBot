@@ -186,31 +186,25 @@ class Info(Cog):
         embed.set_author(name="User info for " + str(user),icon_url=user.avatar_url)
         embed.set_thumbnail(url=user.avatar_url)
 
-        embed.add_field(name="Nickname", value=user.display_name, inline=False)
-        embed.add_field(name="ID", value=user.id, inline=False)
-        embed.add_field(name="Joined Server", value=user.joined_at.strftime("%b %d, %Y; %I:%M %p"), inline=False)
-        embed.add_field(name="Account Created", value=user.created_at.strftime("%b %d, %Y; %I:%M %p"), inline=False)
-        embed.add_field(name="Status", value=status, inline=False)
-
         if activity != None:
             embed.add_field(name="Activity", value=activity, inline=False)
         if rolecount > 0:
-            embed.add_field(name="Highest Role", value=user.top_role, inline=False)
-            embed.add_field(name="Roles", value=rolecount, inline=False)
+            embed.add_field(name="Highest Role", value=user.top_role, inline=True)
+            embed.add_field(name="Total Roles", value=rolecount, inline=True)
         if user.voice:
-            embed.add_field(name="Voice Channel", value=user.voice.channel, inline=False)
+            embed.add_field(name="Voice Channel", value=user.voice.channel, inline=True)
             if user.voice.deaf == True and user.voice.mute == True:
-                embed.add_field(name="Voice State", value="Server Muted and Deafened", inline=False)
+                embed.add_field(name="Voice State", value="Server Muted and Deafened", inline=True)
             elif user.voice.deaf == True:
-                embed.add_field(name="Voice State", value="Server Deafened", inline=False)
+                embed.add_field(name="Voice State", value="Server Deafened", inline=True)
             elif user.voice.mute == True:
-                embed.add_field(name="Voice State", value="Server Muted", inline=False)
+                embed.add_field(name="Voice State", value="Server Muted", inline=True)
             elif user.voice.self_deaf == True:
-                embed.add_field(name="Voice State", value="Deafened", inline=False)
+                embed.add_field(name="Voice State", value="Deafened", inline=True)
             elif user.voice.self_mute == True:
-                embed.add_field(name="Voice State", value="Muted", inline=False)
+                embed.add_field(name="Voice State", value="Muted", inline=True)
             else:
-                embed.add_field(name="Voice State", value="Open", inline=False)
+                embed.add_field(name="Voice State", value="Open", inline=True)
         await ctx.message.channel.send(embed=embed)
 
     @commands.command(name='spotify',

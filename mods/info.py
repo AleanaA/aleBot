@@ -44,13 +44,13 @@ class Info(Cog):
         hour, minute = divmod(minute, 60)
         day, hour = divmod(hour, 24)
         week, day = divmod(day, 7)
-        members = []
+        memberlist = []
         for guild in self.bot.guilds:
             for member in guild.members:
-                if str(member.id) in members:
+                if member in memberlist:
                     return
                 else:
-                    members.append(str(member))
+                    memberlist.append(member)
                 if member.status == discord.Status.dnd or member.status == discord.Status.do_not_disturb:
                     dnd += 1
                 elif member.status == discord.Status.online:

@@ -177,11 +177,11 @@ class Info(Cog):
 
         embed = Embeds.create_embed(self, ctx, None, user.color, None,
         nick=["Nickname", user.display_name, True],
-        mobile=["On mobile", mobile, True],
-        ID=["ID", user.id, False],
-        join=["Joined Server", user.joined_at.strftime("%b %d, %Y; %I:%M %p"), False],
-        created=["Account Created", user.created_at.strftime("%b %d, %Y; %I:%M %p"), False],
-        status=["Status", status, False])
+        ID=["ID", user.id, True],
+        join=["Joined Server", user.joined_at.strftime("%b %d, %Y; %I:%M %p"), True],
+        created=["Account Created", user.created_at.strftime("%b %d, %Y; %I:%M %p"), True],
+        status=["Status", status, True],
+        mobile=["On mobile", mobile, True])
 
         embed.set_author(name="User info for " + str(user),icon_url=user.avatar_url)
         embed.set_thumbnail(url=user.avatar_url)

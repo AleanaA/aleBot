@@ -146,11 +146,11 @@ class Info(Cog):
             user = user[0]
         client = ""
         if str(user.mobile_status) != "offline":
-            client += "Mobile - " + str(user.mobile_status) + "\n"
+            client += "Mobile\n"
         if str(user.web_status) != "offline":
-            client += "Web - " + str(user.web_status) + "\n"
+            client += "Web\n"
         if str(user.desktop_status) != "offline":
-            client += "Desktop - " + str(user.desktop_status) + "\n"
+            client += "Desktop\n"
 
         if str(user.status) == "online":
             status = "Online"
@@ -183,7 +183,7 @@ class Info(Cog):
         join=["Joined Server", user.joined_at.strftime("%b %d, %Y; %I:%M %p"), True],
         created=["Account Created", user.created_at.strftime("%b %d, %Y; %I:%M %p"), True],
         status=["Status", status, True],
-        client=["Client", client, True])
+        client=["Clients", client, True])
 
         embed.set_author(name="User info for " + str(user),icon_url=user.avatar_url)
         embed.set_thumbnail(url=user.avatar_url)

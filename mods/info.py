@@ -145,11 +145,11 @@ class Info(Cog):
         else:
             user = user[0]
         client = ""
-        if user.mobile_status != "offline":
+        if str(user.mobile_status) != "offline":
             client += "Mobile - " + str(user.mobile_status) + "\n"
-        if user.web_status != "offline":
+        if str(user.web_status) != "offline":
             client += "Web - " + str(user.web_status) + "\n"
-        if user.desktop_status != "offline":
+        if str(user.desktop_status) != "offline":
             client += "Desktop - " + str(user.desktop_status) + "\n"
 
         if str(user.status) == "online":

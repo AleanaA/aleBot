@@ -48,7 +48,7 @@ class Info(Cog):
         for guild in self.bot.guilds:
             for member in guild.members:
                 if member in memberlist:
-                    return
+                    break
                 else:
                     memberlist.append(member)
                 if member.status == discord.Status.dnd or member.status == discord.Status.do_not_disturb:

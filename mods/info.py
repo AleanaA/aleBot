@@ -145,6 +145,11 @@ class Info(Cog):
         else:
             user = user[0]
 
+        if user.is_on_mobile():
+            mobile = "Yes"
+        else:
+            mobile = "No"
+
         if str(user.status) == "online":
             status = "Online"
         elif str(user.status) == "offline":
@@ -172,6 +177,7 @@ class Info(Cog):
 
         embed = Embeds.create_embed(self, ctx, None, user.color, None,
         nick=["Nickname", user.display_name, False],
+        mobile=["On mobile", mobile, True],
         ID=["ID", user.id, False],
         join=["Joined Server", user.joined_at.strftime("%b %d, %Y; %I:%M %p"), False],
         created=["Account Created", user.created_at.strftime("%b %d, %Y; %I:%M %p"), False],

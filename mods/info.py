@@ -152,7 +152,7 @@ class Info(Cog):
         if user.desktop_status != "offline":
             client = "Desktop"
         if user.desktop_status != "offline" and user.mobile_status != "offline":
-            client = "Desktop and Mobile":
+            client = "Desktop and Mobile"
         if user.web_status != "offline" and user.mobile_status != "offline":
             client = "Web and Mobile":
         if user.desktop_status != "offline" and user.web_status != "offline":

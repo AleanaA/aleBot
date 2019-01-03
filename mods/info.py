@@ -47,10 +47,10 @@ class Info(Cog):
         members = []
         for guild in self.bot.guilds:
             for member in guild.members:
-                if member in members:
+                if str(member.id) in members:
                     return
                 else:
-                    members.append(member)
+                    members.append(str(member))
                 if member.status == discord.Status.dnd or member.status == discord.Status.do_not_disturb:
                     dnd += 1
                 elif member.status == discord.Status.online:

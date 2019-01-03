@@ -144,21 +144,13 @@ class Info(Cog):
             user = ctx.message.author
         else:
             user = user[0]
-
+        client = ""
         if user.mobile_status != "offline":
-            client = "Mobile"
+            client += "Mobile - " + user.mobile_status + "\n"
         if user.web_status != "offline":
-            client = "Web"
+            client += "Web - " + user.web_status + "\n"
         if user.desktop_status != "offline":
-            client = "Desktop"
-        if user.desktop_status != "offline" and user.mobile_status != "offline":
-            client = "Desktop and Mobile"
-        if user.web_status != "offline" and user.mobile_status != "offline":
-            client = "Web and Mobile"
-        if user.desktop_status != "offline" and user.web_status != "offline":
-            client = "Desktop and Web"
-        if user.desktop_status != "offline" and user.web_status != "offline" and user.mobile_status != "offline":
-            client = "Desktop, Web, and Mobile"
+            client += "Desktop - " + user.desktop_status + "\n"
 
         if str(user.status) == "online":
             status = "Online"

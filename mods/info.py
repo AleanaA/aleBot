@@ -176,7 +176,7 @@ class Info(Cog):
         rolecount = len(roles)
 
         embed = Embeds.create_embed(self, ctx, None, user.color, None,
-        nick=["Nickname", user.display_name, False],
+        nick=["Nickname", user.display_name, True],
         mobile=["On mobile", mobile, True],
         ID=["ID", user.id, False],
         join=["Joined Server", user.joined_at.strftime("%b %d, %Y; %I:%M %p"), False],

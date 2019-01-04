@@ -50,9 +50,14 @@ class CogLoader(Cog):
                 description="Unloads a cog",
                 brief="Unloads a cog")
     async def unload(self, ctx, mod):
-        cog = "mods." + mod
+        cog = "mods." + mod.lower()
         emb = discord.Embed()
         emb.title = "Cog Loader"
+        if mod.lower() == "cogloader":
+            emb.description = "Unable to unload Cog Loader."
+            emb.colour = 0xff0000
+            await ctx.message.channel.send(embed=emb)
+            return
         try:
             self.bot.unload_extension(cog)
             emb.description = "Unloaded cog `" + mod + "` successfully"

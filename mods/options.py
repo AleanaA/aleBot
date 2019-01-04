@@ -43,7 +43,7 @@ class Options:
     async def servoptions(self, ctx):
         if str(ctx.message.guild.id) not in self.server:
             self.defaultopts(str(ctx.message.guild.id))
-            await ctx.message.send("Server options have been setup!")
+            await ctx.send("Server options have been setup!")
 
         if ctx.invoked_subcommand is None:
             emb = Embeds.create_embed(self, ctx,
@@ -71,6 +71,14 @@ class Options:
     async def defaultoption(self, ctx, name='all'):
         self.defaultopts(str(ctx.message.guild.id), name)
         await ctx.send("Defaulted all options.")
+
+    @servoptions.command(name='list')
+    async def listoptions(self, ctx):
+        oplist = "```python\n"
+        for item in self.server[str(ctx.message.guild.id)]:
+            oplist += "{}: {}\n".format(item, self.server[str(ctx.message.guild.id)][item])
+        oplist += "```"
+        await ctx.send(oplist)
 
 def check_folders():
     if not os.path.exists("data"):

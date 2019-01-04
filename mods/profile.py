@@ -23,9 +23,7 @@ class Profiles:
 
         userid = str(user.id)
         # Check if specified user has a profile already, if they don't, make one
-        if userid in self.profiles:
-            pass
-        else:
+        if userid not in self.profiles:
             self.profiles[userid] = {}
             self.profiles[userid]["Description"] = None
             self.profiles[userid]["Title"] = None

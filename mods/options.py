@@ -13,16 +13,38 @@ from datetime import datetime
 class Options:
     def __init__(self, bot):
         self.bot = bot
-        self.profilepath = "data/options.json"
-        self.profiles = dataIO.load_json(self.profilepath)
+        self.serverpath = "data/servers.json"
+        self.server = dataIO.load_json(self.serverpath)
+        self.defaults = {
+            "RankMute": None,
+            "RankEvent": None,
+            "Rank1": None,
+            "Rank2": None,
+            "Rank3": None,
+            "Audit": None,
+            "Logging": None,
+            "Announcement": None,
+            "Use Embeds": True,
+            "Blacklist": []
+        }
     
-    def setup(self, server):
-        pass
+    def defaultopts(self, server, value='all'):
+        if value == "all":
+            self.server[server] = {}
+            for value in self.defaults:
+                self.server[server][value] = self.defaults[value]
+        elif value in self.defaults:
+            self.server[server][value] = self.defaults[value]
+        dataIO.save_json(self.serverpath, self.server)
 
     @commands.group(name='options',
                     description="Changes options for the current server",
                     brief="Changes server options.")
     async def servoptions(self, ctx):
+        if str(ctx.message.guild.id) not in self.server:
+            self.defaultopts(str(ctx.message.guild.id))
+            await ctx.message.send("Server options have been setup!")
+
         if ctx.invoked_subcommand is None:
             emb = Embeds.create_embed(self, ctx,
             "Server Manager " + emotes.Warn,
@@ -34,20 +56,29 @@ class Options:
             
     @servoptions.command(name='set')
     async def setoption(self, ctx, name, *value):
-        pass
+        if name in self.defaults:
+            if isinstance(self.server[str(ctx.message.guild.id)][name], list):
+                self.server[str(ctx.message.guild.id)][name].append(value)
+            else:
+                self.server[str(ctx.message.guild.id)][name] = value
+            dataIO.save_json(self.serverpath, self.server)
+        else:
+            await ctx.send("Not a valid option {}".format(name))
+            return
+        await ctx.send("Set {}".format(name))
 
     @servoptions.command(name='default')
     async def defaultoption(self, ctx, name='all'):
-        pass
+        self.defaultopts(str(ctx.message.guild.id), name)
+        await ctx.send("Defaulted all options.")
 
 def check_folders():
     if not os.path.exists("data"):
         print("Creating data folder...")
         os.makedirs("data")
 
-
 def check_files():
-    f = "data/options.json"
+    f = "data/servers.json"
     if not dataIO.is_valid_json(f):
         print("Creating empty options.json...")
         dataIO.save_json(f, {})

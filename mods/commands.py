@@ -89,7 +89,7 @@ class Commands(Cog):
             return
         if "$" not in amount:
             amount = "${}".format(amount)
-        emb.description = "{} paid {} to {}!".format(ctx.message.author.mention, amount, who.mention)
+        emb.description = "{} paid {} to {}!".format(ctx.message.author.name, amount, who.name)
         await ctx.send(embed=emb)
 def setup(bot):
     bot.add_cog(Commands(bot))

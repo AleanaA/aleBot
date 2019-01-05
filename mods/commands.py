@@ -75,6 +75,21 @@ class Commands(Cog):
         embed = discord.Embed()
         embed.set_image(url=parsed_json['url'])
         await ctx.send(embed=embed)
-
+    
+    @commands.command(name='pay')
+    async def payuser(self, ctx, who:discord.User=None, amount=None):
+        emb = Embeds.create_embed(self, ctx, title="Payment", color=0x00ffff)
+        if who == None:
+            emb.description = "No user!"
+            await ctx.send(embed=emb)
+            return
+        if amount == None:
+            emb.description = "Empty amount!"
+            await ctx.send(embed=emb)
+            return
+        if "$" not in amount:
+            amount = "${}".format(amount)
+        emb.description = "{} paid {} to {}!".format(ctx.message.author.mention, amount, who.mention)
+        await ctx.send(embed=emb)
 def setup(bot):
     bot.add_cog(Commands(bot))

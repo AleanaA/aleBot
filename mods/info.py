@@ -212,7 +212,7 @@ class Info(Cog):
                 embed.add_field(name="Voice State", value="Muted", inline=True)
             else:
                 embed.add_field(name="Voice State", value="Open", inline=True)
-        if activity != None:
+        if activitystr != None:
             embed.add_field(name="Activity", value=activitystr, inline=False)
         await ctx.message.channel.send(embed=embed)
 

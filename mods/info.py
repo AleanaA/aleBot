@@ -185,7 +185,7 @@ class Info(Cog):
         del roles[0]
         rolecount = len(roles)
 
-        if user.color == 0x000000:
+        if str(user.color) == "#000000":
             setcolor = "%06x" % random.randint(0, 0xFFFFFF)
         else:
             setcolor = user.color

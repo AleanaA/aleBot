@@ -190,7 +190,7 @@ class Info(Cog):
         else:
             setcolor = user.color
 
-        embed = Embeds.create_embed(self, ctx, None, int(setcolor), None,
+        embed = Embeds.create_embed(self, ctx, None, setcolor, None,
                                     nick=["Nickname", user.display_name, True],
                                     ID=["ID", user.id, True],
                                     join=["Joined Server", user.joined_at.strftime("%b %d, %Y; %I:%M %p"), True],

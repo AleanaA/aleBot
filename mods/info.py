@@ -160,8 +160,8 @@ class Info(Cog):
             "online": "Online"
         }
 
-        if user.status in statuses:
-            status = statuses[user.status]
+        if str(user.status) in statuses:
+            status = statuses[str(user.status)]
 
         activities = {
             0: "Playing",

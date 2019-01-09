@@ -193,7 +193,7 @@ class BotOptions(Cog):
             'message': ctx.message,
             'channel': ctx.message.channel,
             'author': ctx.message.author,
-            'user': user
+            'user': user,
             'return': code
         }
         env.update(globals())

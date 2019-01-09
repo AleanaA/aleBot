@@ -152,7 +152,7 @@ class Info(Cog):
         if str(user.desktop_status) != "offline":
             client += "Desktop\n"
         
-        status = {
+        statuses = {
             "offline": "Offline",
             "idle": "Idle",
             "dnd": "Do Not Disturb",
@@ -160,10 +160,10 @@ class Info(Cog):
             "online": "Online"
         }
 
-        if user.status in status:
-            status = status[user.status]
+        if user.status in statuses:
+            status = statuses[user.status]
 
-        activity = {
+        activities = {
             0: "Playing",
             1: "Streaming",
             2: "Listening to",
@@ -172,8 +172,8 @@ class Info(Cog):
 
         if user.activity == None:
             activity = None
-        elif user.activity in activity:
-            activity = "{} {}".format(activity[user.activity], user.activity.name)
+        elif user.activity in activities:
+            activity = "{} {}".format(activities[user.activity], user.activity.name)
 
         roles = [role.name for role in user.roles]
         del roles[0]

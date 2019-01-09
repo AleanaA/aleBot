@@ -187,7 +187,7 @@ class Info(Cog):
         status=["Status", status, True],
         client=["Clients", client, True])
 
-        embed.set_author(name="User info for " + str(user),icon_url=user.avatar_url)
+        embed.set_author(name="User info for {} [{}]".format(str(user), user.guild.name),icon_url=user.avatar_url)
         embed.set_thumbnail(url=user.avatar_url)
         
         if rolecount > 0:

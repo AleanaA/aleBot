@@ -164,13 +164,13 @@ class Info(Cog):
             status = "Do Not Disturb"
         if user.activity == None:
             activity = None
-        elif user.activity.type == 0:
+        if user.activity.type == 0:
             activity = "Playing **{}**".format(user.activity.name)
-        elif user.activity.type == 1:
+        if user.activity.type == 1:
             activity = "Streaming **{}**".format(user.activity.name)
-        elif user.activity.type == 2:
+        if user.activity.type == 2:
             activity = "Listening to **{0}**\n*For more info, run `{1}spotify @user`*".format(user.activity.title, self.config.prefix)
-        elif user.activity.type == 3: # Users shouldn't have this type yet, however it's here to catch it for Bots and SelfBot users.
+        if user.activity.type == 3: # Users shouldn't have this type yet, however it's here to catch it for Bots and SelfBot users.
             activity = "Watching **{}**".format(user.activity.name)
 
         roles = [role.name for role in user.roles]

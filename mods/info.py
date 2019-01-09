@@ -164,16 +164,16 @@ class Info(Cog):
             status = statuses[str(user.status)]
 
         activities = {
-            0: "Playing",
-            1: "Streaming",
-            2: "Listening to",
-            3: "Watching"
+            "0": "Playing",
+            "1": "Streaming",
+            "2": "Listening to",
+            "3": "Watching"
         }
 
         if user.activity == None:
             activity = None
-        elif user.activity in activities:
-            activity = "{} {}".format(activities[user.activity], user.activity.name)
+        elif str(user.activity) in activities:
+            activity = "{} {}".format(activities[str(user.activity)], user.activity.name)
 
         roles = [role.name for role in user.roles]
         del roles[0]

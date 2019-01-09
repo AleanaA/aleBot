@@ -187,9 +187,7 @@ class Info(Cog):
 
         embed.set_author(name="User info for " + str(user),icon_url=user.avatar_url)
         embed.set_thumbnail(url=user.avatar_url)
-
-        if activity != None:
-            embed.add_field(name="Activity", value=activity, inline=False)
+        
         if rolecount > 0:
             embed.add_field(name="Highest Role", value=user.top_role, inline=True)
             embed.add_field(name="Total Roles", value=rolecount, inline=True)
@@ -207,6 +205,8 @@ class Info(Cog):
                 embed.add_field(name="Voice State", value="Muted", inline=True)
             else:
                 embed.add_field(name="Voice State", value="Open", inline=True)
+        if activity != None:
+            embed.add_field(name="Activity", value=activity, inline=False)
         await ctx.message.channel.send(embed=embed)
 
     @commands.command(name='spotify',

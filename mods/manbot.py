@@ -8,6 +8,7 @@ import math
 import re
 import time
 import subprocess
+import random
 import psutil
 from discord import Game
 from discord.ext import commands

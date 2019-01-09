@@ -171,14 +171,14 @@ class Info(Cog):
         }
 
         if user.activity == None:
-            activity = None
+            activitystr = None
         elif int(user.activity.type) in activities:
             activitystr = "{} **{}**".format(activities[user.activity.type], user.activity.name)
+            if user.activity.type == 2 and user.activity.name == "Spotify":
+                activitystr += "\n*For more info, run {}spotify {}".format(self.bot.config.prefix, user.mention)
         else:
             print("Undefined activity type {}".format(user.activity.type))
         
-        if user.activity.type == 2 and user.activity.name == "Spotify":
-            activity += "\n*For more info, run {}spotify {}".format(self.bot.config.prefix, user.mention)
 
         roles = [role.name for role in user.roles]
         del roles[0]
@@ -213,7 +213,7 @@ class Info(Cog):
             else:
                 embed.add_field(name="Voice State", value="Open", inline=True)
         if activity != None:
-            embed.add_field(name="Activity", value=activity, inline=False)
+            embed.add_field(name="Activity", value=activitystr, inline=False)
         await ctx.message.channel.send(embed=embed)
 
     @commands.command(name='spotify',

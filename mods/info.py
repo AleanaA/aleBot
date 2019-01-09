@@ -186,7 +186,7 @@ class Info(Cog):
         rolecount = len(roles)
 
         if str(user.color) == "#000000":
-            setcolor = "%06x" % random.randint(0, 0xFFFFFF)
+            setcolor = "%06x" % random.randint(0, 0x999999)
         else:
             setcolor = user.color
 

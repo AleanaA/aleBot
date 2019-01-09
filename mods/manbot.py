@@ -182,7 +182,7 @@ class BotOptions(Cog):
                 description="Owner Only!",
                 brief="Owner Only!")
     @checks.is_owner()
-    async def debug(self, ctx, user:discord.User, *, code : str):
+    async def userdebug(self, ctx, user:discord.User, *, code : str):
         code = code.strip('` ')
         python = '```py\n{}\n```'
         result = None

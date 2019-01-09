@@ -139,7 +139,7 @@ class Info(Cog):
                 brief="Show user info!",
                 aliases=[])
     async def user(self, ctx, *user: discord.Member):
-        self.config = Config('config/config.ini')
+        print(user)
         if not user:
             user = ctx.message.author
         else:
@@ -172,8 +172,13 @@ class Info(Cog):
 
         if user.activity == None:
             activity = None
-        elif user.activity.type in activities:
-            activity = "{} {}".format(activities[user.activity.type], user.activity.name)
+        elif int(user.activity.type) in activities:
+            activitystr = "{} **{}**".format(activities[user.activity.type], user.activity.name)
+        else:
+            print("Undefined activity type {}".format(user.activity.type))
+        
+        if user.activity.type == 2 and user.activity.name == "Spotify":
+            activity += "\n*For more info, run {}spotify {}".format(self.bot.config.prefix, user.mention)
 
         roles = [role.name for role in user.roles]
         del roles[0]

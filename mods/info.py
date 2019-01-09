@@ -10,6 +10,7 @@ import datetime
 import time
 import subprocess
 import psutil
+import random
 from discord import Game
 from discord.ext import commands
 from discord.ext.commands import Bot
@@ -151,6 +152,7 @@ class Info(Cog):
         if str(user.desktop_status) != "offline":
             client += "Desktop\n"
         
+        # List of available statuses. Could change in the future
         statuses = {
             "offline": "Offline",
             "idle": "Idle",
@@ -162,6 +164,7 @@ class Info(Cog):
         if str(user.status) in statuses:
             status = statuses[str(user.status)]
 
+        # List of available activities. Could change in the future.
         activities = {
             0: "Playing",
             1: "Streaming",
@@ -182,13 +185,18 @@ class Info(Cog):
         del roles[0]
         rolecount = len(roles)
 
-        embed = Embeds.create_embed(self, ctx, None, user.color, None,
-        nick=["Nickname", user.display_name, True],
-        ID=["ID", user.id, True],
-        join=["Joined Server", user.joined_at.strftime("%b %d, %Y; %I:%M %p"), True],
-        created=["Account Created", user.created_at.strftime("%b %d, %Y; %I:%M %p"), True],
-        status=["Status", status, True],
-        client=["Clients", client, True])
+        if user.color == 0x000000:
+            setcolor = "%06x" % random.randint(0, 0xFFFFFF)
+        else:
+            setcolor = user.color
+
+        embed = Embeds.create_embed(self, ctx, None, setcolor, None,
+                                    nick=["Nickname", user.display_name, True],
+                                    ID=["ID", user.id, True],
+                                    join=["Joined Server", user.joined_at.strftime("%b %d, %Y; %I:%M %p"), True],
+                                    created=["Account Created", user.created_at.strftime("%b %d, %Y; %I:%M %p"), True],
+                                    status=["Status", status, True],
+                                    client=["Clients", client, True])
 
         embed.set_author(name="User info for {} [{}]".format(str(user), user.guild.name),icon_url=user.avatar_url)
         embed.set_thumbnail(url=user.avatar_url)

@@ -139,7 +139,6 @@ class Info(Cog):
                 brief="Show user info!",
                 aliases=[])
     async def user(self, ctx, *user: discord.Member):
-        print(user)
         if not user:
             user = ctx.message.author
         else:
@@ -175,11 +174,10 @@ class Info(Cog):
         elif int(user.activity.type) in activities:
             activitystr = "{} **{}**".format(activities[int(user.activity.type)], user.activity.name)
             if user.activity.type == 2 and user.activity.name == "Spotify":
-                activitystr += "\n*For more info, run {}spotify {}".format(self.bot.config.prefix, user.mention)
+                activitystr += "\n*For more info, run {}spotify {}*".format(self.bot.config.prefix, user.mention)
         else:
             print("Undefined activity type {}".format(user.activity.type))
         
-
         roles = [role.name for role in user.roles]
         del roles[0]
         rolecount = len(roles)

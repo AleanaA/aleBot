@@ -151,27 +151,29 @@ class Info(Cog):
             client += "Web\n"
         if str(user.desktop_status) != "offline":
             client += "Desktop\n"
+        
+        status = {
+            "offline": "Offline",
+            "idle": "Idle",
+            "dnd": "Do Not Disturb",
+            "do_not_disturb": "Do Not Disturb",
+            "online": "Online"
+        }
 
-        if str(user.status) == "online":
-            status = "Online"
-        elif str(user.status) == "offline":
-            status = "Offline"
-        elif str(user.status) == "idle":
-            status = "Idle"
-        elif str(user.status) == "dnd":
-            status = "Do Not Disturb"
-        elif str(user.status) == "do_not_disturb": # This is a catch, as a 'Just in case'
-            status = "Do Not Disturb"
+        if user.status in status:
+            status = status[user.status]
+
+        activity = {
+            0: "Playing",
+            1: "Streaming",
+            2: "Listening to",
+            3: "Watching"
+        }
+
         if user.activity == None:
             activity = None
-        if user.activity.type == 0:
-            activity = "Playing **{}**".format(user.activity.name)
-        if user.activity.type == 1:
-            activity = "Streaming **{}**".format(user.activity.name)
-        if user.activity.type == 2:
-            activity = "Listening to **{0}**\n*For more info, run `{1}spotify @user`*".format(user.activity.title, self.config.prefix)
-        if user.activity.type == 3: # Users shouldn't have this type yet, however it's here to catch it for Bots and SelfBot users.
-            activity = "Watching **{}**".format(user.activity.name)
+        elif user.activity in activity:
+            activity = "{} {}".format(activity[user.activity], user.activity.name)
 
         roles = [role.name for role in user.roles]
         del roles[0]

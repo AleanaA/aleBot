@@ -88,6 +88,8 @@ class Emote(Cog):
     
     @emote.command(name='steal')
     async def emotesteal(self, ctx, emotes:commands.Greedy[discord.PartialEmoji]):
+        for emote in emotes:
+            print("test")
         await ctx.send("Stole {} emotes.".format(len(emotes)))
 
 def setup(bot):

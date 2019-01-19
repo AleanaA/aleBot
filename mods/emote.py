@@ -87,11 +87,9 @@ class Emote(Cog):
         await ctx.send(embed=emb)
     
     @emote.command(name='steal')
-    async def emotesteal(self, ctx, emotes:commands.Greedy[discord.PartialEmoji]):
-        for emote in emotes:
-            print(emote.name + ' - ' + emote.url)
-            await ctx.guild.create_custom_emoji(name=str(emote.name), image=str(emote.url))
-        await ctx.send("Stole {} emotes.".format(len(emotes)))
+    async def emotesteal(self, ctx, emotes:discord.PartialEmoji):
+        emote = await ctx.guild.create_custom_emoji(name=str(emotes.name), image=str(emotes.url))
+        await ctx.send("Stole emote {}.".format(emote))
 
 def setup(bot):
     bot.add_cog(Emote(bot))

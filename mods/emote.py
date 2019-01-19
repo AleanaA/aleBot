@@ -1,18 +1,7 @@
 import asyncio
-import os
 import discord
-import inspect
-import aiohttp
-import utils
 import requests
-import re
-import time
-import subprocess
-from discord import Game
 from discord.ext import commands
-from discord.ext.commands import Bot
-from config import emotes
-from config import config
 from utils.embed import Embeds
 from utils import checks
 from utils.config import Config
@@ -20,90 +9,88 @@ from utils.cog import Cog
 
 class Emote(Cog):
 
-    @commands.group(name='emote',
+    @commands.group(name='e',
                 description="Manage emotes on the current server!",
                 brief="Manage emotes on the current server!")
-    @checks.is_super()
+    @checks.is_owner()
     async def emote(self, ctx):
         if ctx.invoked_subcommand is None:
             emb = Embeds.create_embed(self, ctx,
-            "Emote Manager " + emotes.Warn,
+            "Emote Manager",
             0xffff00,
             "Please issue a valid subcommand!\nAvailable options are:",
-            Com1 = ["Add", "Adds an emote to the current server!", False],
-            Com2 = ["Del", "Removes an emote from the current server!", False],
-            Com3 = ["List", "Lists all emotes available to the bot!", False])
+            Com1 = ["Add", "Adds an emote to the current server.", False],
+            Com2 = ["Del", "Removes an emote from the current server.", False],
+            Com3 = ["Rep", "Replaces an emote on the current server.", False])
             await ctx.message.channel.send(embed=emb)
 
     @emote.command(name='add',
-                description="Adds an emote to the current server!")
-    async def emoteadd(self, ctx, name, url):
-        emb = Embeds.create_embed(self, ctx, "Emote Manager", None, None)
+                description="Adds an emote to the current server.")
+    async def emoteadd(self, ctx, url, name):
+        emb = Embeds.create_embed(self, ctx, "Emote Manager", 0x00ff00, None)
         try:
             response = requests.get(url)
         except (requests.exceptions.MissingSchema, requests.exceptions.InvalidURL, requests.exceptions.InvalidSchema, requests.exceptions.ConnectionError):
             emb.colour = 0xff0000
             emb.description = "An error occured. Unable to get emote from url."
-            return await ctx.message.channel.send(embed=emb)
+            return await ctx.send(embed=emb)
         if response.status_code == 404:
             emb.colour = 0xff0000
             emb.description = "404 error occured."
-            return await ctx.message.channel.send(embed=emb)
-        emote = await ctx.message.guild.create_custom_emoji(name=name, image=response.content)
-        emb.colour = 0x00ff00
+            return await ctx.send(embed=emb)
+        emote = await ctx.guild.create_custom_emoji(name=name, image=response.content)
         emb.description = "Successfully added the emote {0.name} <{1}:{0.name}:{0.id}>!".format(emote, "a" if emote.animated else "")
-        await ctx.message.channel.send(embed=emb)
+        await ctx.send(embed=emb)
 
     @emote.command(name='del',
-                description="Removes an emote from the current server!")
+                description="Removes an emote from the current server.")
     async def emotedel(self, ctx, name):
-        emb = Embeds.create_embed(self, ctx, "Emote Manager", None, None)
+        emb = Embeds.create_embed(self, ctx, "Emote Manager", 0x00ff00, None)
         emotelist = [x for x in ctx.guild.emojis if x.name == name]
         emote_length = len(emotelist)
-        if not emotes:
-            emb.colour = 0xff0000
-            emb.description = "No emotes with the name {} could be found on this server.".format(name)
-            return await ctx.message.channel.send(embed=emb)
         for emote in emotelist:
             await emote.delete()
-        if emote_length == 1:
+        if emote_length == 0:
+            emb.colour = 0xff0000
+            emb.description = "No emotes with the name {} could be found on this server.".format(name)
+        elif emote_length == 1:
             emb.description = "Successfully removed the {} emote!".format(name)
         else:
             emb.description = "Successfully removed {} emotes with the name {}.".format(emote_length, name)
-        emb.colour = 0x00ff00
-        await ctx.message.channel.send(embed=emb)
+        await ctx.send(embed=emb)
 
+    @emote.command(name='rep',
+                description="Replaces an emote on the current server.")
+    async def emoterep(self, ctx, url, name):
+        emote = discord.utils.get(ctx.guild.emojis, name=name)
+        emb = Embeds.create_embed(self, ctx, "Emote Manager", 0x00ff00, None)
 
-    @emote.command(name='list',
-                description="List all emotes available for the bot to use!")
-    async def emotelist(self, ctx):
-        emote = ""
-        for server in self.bot.guilds:
-            for emoji in server.emojis:
-                emote += "{0} - {1}\n".format(emoji.name, emoji)
-        if emote == "":
-            await ctx.message.channel.send('No available emotes!')
-        elif len(emote) >= 2000:
-            f = open("emotes.txt","w+")
-            f.write(emote)
-            f.close()
-            await ctx.message.channel.send("Too many emotes to list!", file=discord.File('emotes.txt'))
-            os.remove('emotes.txt')
+        try:
+            response = requests.get(url)
+        except (requests.exceptions.MissingSchema, requests.exceptions.InvalidURL, requests.exceptions.InvalidSchema, requests.exceptions.ConnectionError):
+            emb.colour = 0xff0000
+            emb.description = "An error occured. Unable to get emote from url."
+            return await ctx.send(embed=emb)
+        if response.status_code == 404:
+            emb.colour = 0xff0000
+            emb.description = "404 error occured."
+            return await ctx.send(embed=emb)
+
+        if emote == None:
+            emb.colour = 0xff0000
+            emb.description = "No emotes with the name {} could be found on this server.".format(name)
         else:
-            await ctx.message.channel.send(emote)
+            await emote.delete()
+            emote = await ctx.guild.create_custom_emoji(name=name, image=response.content)
+            emb.description = "Successfully replaced the emote {0.name} <{1}:{0.name}:{0.id}>!".format(emote, "a" if emote.animated else "")
 
-    #this will get cleaned up at some point, but it works for now
-    async def on_message(self, msg:discord.Message):
-        if msg.author.id == self.bot.user.id:
-            return
-        emotes = ""
-        for server in self.bot.guilds:
-            for emoji in server.emojis:
-                if "::{}::".format(emoji.name) in msg.content:
-                    if emoji.name not in emotes:
-                        emotes += "{} ".format(emoji)
-        if emotes != "":
-            await msg.channel.send(emotes)
+        await ctx.send(embed=emb)
+    
+    @emote.command(name='steal')
+    async def emotesteal(self, ctx, emotes:commands.Greedy[discord.Emoji]):
+        for emote in emotes:
+            emote = await ctx.guild.create_custom_emoji(name=emote.name, image="https://cdn.discordapp.com/emojis/{}.png".format(str(emote.id)))
+        await ctx.send("Stole {} emotes.".format(len(emotes)))
 
 def setup(bot):
     bot.add_cog(Emote(bot))

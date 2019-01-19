@@ -88,6 +88,7 @@ class Emote(Cog):
     
     @emote.command(name='steal')
     async def emotesteal(self, ctx, emotes:commands.Greedy[discord.PartialEmoji]):
+        emb = Embeds.create_embed(self, ctx, "Emote Manager", 0x00ff00, None)
         for emote in emotes:
             name = str(emote.name)
             url = str(emote.url)

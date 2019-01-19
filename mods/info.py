@@ -234,8 +234,8 @@ class Info(Cog):
             if user.activity.name == "Spotify":
                 artists = ", ".join(user.activity.artists)
                 embed=Embeds.create_embed(self, ctx, None, user.activity.color, None,
-                artist=["Artists",artists,True],
-                songtitle=["Title",user.activity.title,True],
+                songtitle=["Title",user.activity.title,False],
+                artist=["Artists",artists,False],
                 album=["Album",user.activity.album,False],
                 duration=["Duration",str(datetime.timedelta(seconds=round(float(str(user.activity.duration.total_seconds()))))),False],
                 url=["Track URL","https://open.spotify.com/track/{}".format(user.activity.track_id),False])

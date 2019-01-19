@@ -103,7 +103,9 @@ class Emote(Cog):
                 emb.description = "404 error occured."
                 return await ctx.send(embed=emb)
             await ctx.guild.create_custom_emoji(name=name, image=response.content)
-        await ctx.send("Stole {} emotes.".format(len(emotes)))
-
+        if len(emotes) != 1:
+            await ctx.send("Stole {} emotes.".format(len(emotes)))
+        else:
+            await ctx.send("Stole {} emote.".format(len(emotes)))
 def setup(bot):
     bot.add_cog(Emote(bot))

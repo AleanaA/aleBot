@@ -144,6 +144,8 @@ class Moderation(Cog):
         await server.unban(userName, reason=rsn)
         await ctx.message.channel.send(embed=discord.Embed(description=emotes.Done + " {0} was successfully softbanned!".format(str(userName))))
         await AUDDIT.send(embed=embed)
+    @commands.command(name='prune',
+                description="Clear messages!")
 
     @commands.group(name='reactions',
                 description="Manage reactions!",

@@ -3,7 +3,6 @@ from discord.ext import commands
 from utils.dataIO import fileIO
 from utils.cog import Cog
 from utils.embed import Embeds as emb
-from utils import checks
 import os
 import asyncio
 import time
@@ -15,6 +14,7 @@ class Tags:
         self.tags = fileIO("data/tags.json", "load")
 
     @commands.command(name="tag")
+    @commands.guild_only()
     async def tag(self, ctx, name:str, mention:discord.Member=None):
         for tag in self.tags:
             if tag["Guild"] == ctx.message.guild.id:
@@ -38,7 +38,8 @@ class Tags:
             await ctx.send("Unable to find tag `{}`".format(name))
 
     @commands.command(name="+tag")
-    @checks.is_appr()
+    @commands.guild_only()
+    @commands.has_permissions(manage_messages=True)
     async def mktag(self, ctx, name : str, *, content : str):
         Guild = ctx.message.guild
         Author = ctx.message.author
@@ -59,7 +60,8 @@ class Tags:
         fileIO("data/tags.json", "save", self.tags)
 
     @commands.command(name="-tag")
-    @checks.is_appr()
+    @commands.guild_only()
+    @commands.has_permissions(manage_messages=True)
     async def rmtag(self, ctx, name:str):
         to_remove = []
         for tag in self.tags:
@@ -78,6 +80,7 @@ class Tags:
             await ctx.send("Unable to remove tag. Unknown tag.")
 
     @commands.command(name="tags")
+    @commands.guild_only()
     async def lstags(self, ctx):
         taglist = ""
         for tag in self.tags:

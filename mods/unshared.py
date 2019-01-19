@@ -7,9 +7,7 @@ import re
 from discord import Game
 from discord.ext import commands
 from discord.ext.commands import Bot
-from config import emotes
 from config import config
-from utils import checks
 from utils.config import Config
 from utils.cog import Cog
 from utils.embed import Embeds
@@ -18,11 +16,11 @@ class Unshared(Cog):
     @commands.group(name='unshared',
                 description="Manage servers the bot does not share with owner.",
                 brief="Manage servers the bot does not share with owner.")
-    @checks.is_owner()
+    @commands.is_owner()
     async def unshared(self, ctx):
         if ctx.invoked_subcommand is None:
             emb = Embeds.create_embed(self, ctx,
-            "Unshared Servers " + emotes.Warn,
+            "Unshared Servers",
             0xffff00,
             "Please issue a valid subcommand!\nAvailable options are:",
             Com1 = ["leave", "Leaves all servers the bot does not share with the owner.", False],
@@ -34,14 +32,12 @@ class Unshared(Cog):
         embed = Embeds.create_embed(self, ctx,
         "Bot left unshared servers",
         0x00ffff)
-        config = Config('config/config.ini')
-        owneruser = await self.bot.get_user_info(config.owner)
-        owner = config.owner
+        owner = self.bot.AppInfo.owner
         servers = ""
         unavailable_servers = 0
         unshared_servers = 0
         for server in self.bot.guilds:
-            check = server.get_member(owner)
+            check = server.get_member(owner.id)
             botuser = server.get_member(self.bot.user.id)
             if server.unavailable:
                 unavailable_servers += 1
@@ -51,35 +47,31 @@ class Unshared(Cog):
                     servers += "**ID:** {0}\n**Owner:** {1}\n**Owner ID:** {2}\n**Members:** {3}\n**Join Date:** {4}".format(str(server.id), server.owner, server.owner.id, str(server.member_count),botuser.joined_at.strftime("%b %d, %Y; %I:%M %p"))
                     embed.add_field(name="Server Name: {0}".format(server.name), value=servers)
                     await server.leave()
-                    await owneruser.send(embed=embed)
+                    await owner.send(embed=embed)
         if unavailable_servers == 1:
-            await ctx.message.channel.send("{0} {1} server is unavailable, skipping.".format(emotes.Error, str(unavailable_servers)))
+            await ctx.message.channel.send("{0} server is unavailable, skipping.".format(str(unavailable_servers)))
         elif unavailable_servers != 0:
-            await ctx.message.channel.send("{0} {1} servers are unavailable, skipping.".format(emotes.Error, str(unavailable_servers)))
+            await ctx.message.channel.send("{0} servers are unavailable, skipping.".format(str(unavailable_servers)))
         if unshared_servers == 1:
-            await ctx.message.channel.send("{0} {1} server was left because bot does not share it with owner!".format(emotes.Done, str(unshared_servers)))
+            await ctx.message.channel.send("{0} server was left because bot does not share it with owner!".format(str(unshared_servers)))
         elif unshared_servers != 0:
-            await ctx.message.channel.send("{0} {1} servers were left because bot does not share them with owner!".format(emotes.Done, str(unshared_servers)))
+            await ctx.message.channel.send("{0} servers were left because bot does not share them with owner!".format(str(unshared_servers)))
         else:
-            await ctx.message.channel.send("{0} No servers were left because bot shares all servers with owner!".format(emotes.Warn))
+            await ctx.message.channel.send("No servers were left because bot shares all servers with owner!")
 
     @unshared.command(name='list')
     async def listunshared(self, ctx):
         embed = discord.Embed()
         embed.title = "Unshared Server List"
-        embed.color = 0x00ffff
-        config = Config('config/config.ini')
-        owneruser = await self.bot.get_user_info(config.owner)
-        owner = config.owner
-        Done = emotes.Done.strip("<").strip(">")
+        embed.colour = 0x00ffff
+        owner = self.bot.AppInfo.owner
         for server in self.bot.guilds:
-            check = server.get_member(owner)
+            check = server.get_member(owner.id)
             botuser = server.get_member(self.bot.user.id)
             if check == None:
                 servers = "**ID:** {0}\n**Owner:** {1}\n**Owner ID:** {2}\n**Members:** {3}\n**Join Date:** {4}".format(str(server.id), server.owner, server.owner.id, str(server.member_count),botuser.joined_at.strftime("%b %d, %Y; %I:%M %p"))
                 embed.add_field(name="Server Name: {0}".format(server.name), value=servers, inline=False)        
-        await owneruser.send(embed=embed)
-        await ctx.message.add_reaction(Done)
+        await owner.send(embed=embed)
 
 def setup(bot):
     bot.add_cog(Unshared(bot))

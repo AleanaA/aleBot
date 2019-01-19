@@ -5,8 +5,6 @@ import aiohttp
 from discord import Game
 from discord.ext import commands
 from discord.ext.commands import Bot
-from config import emotes
-from utils import checks
 from utils.config import Config
 from utils.cog import Cog
 from utils.embed import Embeds
@@ -15,11 +13,11 @@ class CogLoader(Cog):
     @commands.group(name='cog',
                     description="Command for Cog management.",
                     brief="Command for Cog management.")
-    @checks.is_owner()
+    @commands.is_owner()
     async def cog(self, ctx):
         if ctx.invoked_subcommand is None:
             emb = Embeds.create_embed(self, ctx,
-            "Cog Loader " + emotes.Warn,
+            "Cog Loader",
             0xffff00,
             "Please issue a valid subcommand!\nAvailable options are:",
             Com1 = ["load", "Loads a cog into the bot.", False],

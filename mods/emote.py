@@ -3,7 +3,6 @@ import discord
 import requests
 from discord.ext import commands
 from utils.embed import Embeds
-from utils import checks
 from utils.config import Config
 from utils.cog import Cog
 
@@ -12,7 +11,9 @@ class Emote(Cog):
     @commands.group(name='e',
                 description="Manage emotes on the current server!",
                 brief="Manage emotes on the current server!")
-    @checks.is_owner()
+    @commands.guild_only()
+    @commands.has_permissions(manage_emojis=True)
+    @commands.bot_has_permissions(manage_emojis=True)
     async def emote(self, ctx):
         if ctx.invoked_subcommand is None:
             emb = Embeds.create_embed(self, ctx,

@@ -7,9 +7,7 @@ import os
 from discord import Game
 from discord.ext import commands
 from discord.ext.commands import Bot
-from config import emotes
 from config import config
-from utils import checks
 from utils.config import Config
 
 class Object(object):
@@ -33,10 +31,9 @@ class bot(commands.Bot):
     def __del__(self):
         self.loop.set_exception_handler(lambda *args, **kwargs: None)
     async def on_command_error(self, ctx, e):
-        owner = await self.get_user_info(self.config.owner)
         emb.title = ("An Error Occured")
-        emb.color = discord.Color(0xff0000)
-        emb.description = emotes.Error + " " + str(e)
+        emb.colour = discord.Color(0xff0000)
+        emb.description = str(e)
         if isinstance(e, commands.MissingRequiredArgument):
             print(str(e) + " - Command - " + ctx.message.content)
             await ctx.message.channel.send(embed=emb)
@@ -46,38 +43,21 @@ class bot(commands.Bot):
         elif isinstance(e, commands.BadArgument):
             print(str(e) + " - Command - " + ctx.message.content)
             await ctx.message.channel.send(embed=emb)
-        elif isinstance(e, checks.No_Owner):
+        elif isinstance(e, commands.NotOwner):
             print("User " + str(ctx.message.author) + " lacked permission! - Command - " + ctx.message.content)
-            emb.description = emotes.Warn + " Only " + owner.name + " can use this command " + ctx.message.author.mention + "!"
-            await ctx.message.channel.send(embed=emb)
-        elif isinstance(e, checks.No_Admin):
-            emb.description = emotes.Warn + " Only Admins can use this command " + ctx.message.author.mention + "!"
+        elif isinstance(e, commands.MissingPermissions):
             print("User " + str(ctx.message.author) + " lacked permission! - Command - " + ctx.message.content)
-            await ctx.message.channel.send(embed=emb)
-        elif isinstance(e, checks.No_Super):
-            emb.description = emotes.Warn + " Only Supervisors can use this command " + ctx.message.author.mention + "!"
-            print("User " + str(ctx.message.author) + " lacked permission! - Command - " + ctx.message.content)
-            await ctx.message.channel.send(embed=emb)
-        elif isinstance(e, checks.No_Mod):
-            emb.description = emotes.Warn + " Only Moderators can use this command " + ctx.message.author.mention + "!"
-            print("User " + str(ctx.message.author) + " lacked permission! - Command - " + ctx.message.content)
-            await ctx.message.channel.send(embed=emb)
-        elif isinstance(e, checks.No_Appr):
-            emb.description = emotes.Warn + " Only Apprentices can use this command " + ctx.message.author.mention + "!"
-            print("User " + str(ctx.message.author) + " lacked permission! - Command - " + ctx.message.content)
-            await ctx.message.channel.send(embed=emb)
-        elif isinstance(e, checks.No_Event):
-            emb.description = emotes.Warn + " Only Event Hosts can use this command " + ctx.message.author.mention + "!"
-            print("User " + str(ctx.message.author) + " lacked permission! - Command - " + ctx.message.content)
-            await ctx.message.channel.send(embed=emb)
+        elif isinstance(e, commands.CommandOnCooldown):
+            await ctx.send("You cannot do that yet.")
 
     async def on_connect(self):
         loading = discord.Activity(type=3, name="Loading Bars...")
         await self.change_presence(status=discord.Status.dnd, activity=loading)
 
     async def on_ready(self):
+        self.appinfo = await self.application_info()
         await self.wait_until_ready()
-        owner = await self.get_user_info(self.config.owner)
+        owner = self.appinfo.owner
         embed=discord.Embed(title="Invite URL", url="https://discordapp.com/oauth2/authorize?client_id={0}&scope=bot&permissions=8".format(str(self.user.id)), description=self.user.name + " has just loaded.", color=0x05d1dc)
         embed.set_author(name=owner.name,icon_url=owner.avatar_url)
         embed.set_thumbnail(url=self.user.avatar_url)
@@ -89,17 +69,15 @@ class bot(commands.Bot):
         print("Current Shared Servers:")
         notsharedcount = 0
         for server in self.guilds:
-            conf = Config('config/config.ini')
-            ownercheck = conf.owner
-            check = server.get_member(ownercheck)
+            ownercheck = self.appinfo.owner
+            check = server.get_member(ownercheck.id)
             if check != None:
                 print("Server ID: "+str(server.id)+" | Server Name: "+server.name)
         print("")
         print("Current Unshared Servers:")
         for server in self.guilds:
-            conf = Config('config/config.ini')
-            ownercheck = conf.owner
-            check = server.get_member(ownercheck)
+            ownercheck = self.appinfo.owner
+            check = server.get_member(ownercheck.id)
             if check == None:
                 print("Server ID: {0} | Server Name: {1} | Server Owner: {2}".format(server.id, server.name, server.owner))
                 notsharedcount = notsharedcount+1

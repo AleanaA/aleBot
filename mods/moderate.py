@@ -5,149 +5,91 @@ import typing
 from discord import Game
 from discord.ext import commands
 from discord.ext.commands import Bot
-from utils import checks
 from utils.cog import Cog
 from utils.config import Config
-from config import emotes
-#from config import config
 
 class Moderation(Cog):        
     @commands.command(name='Unban',
                     description="Unbans a user",
                     brief="Unbans a user",
                     aliases=['unban'])
-    @checks.is_mod()
+    @commands.guild_only()
+    @commands.has_permissions(ban_members=True)
+    @commands.bot_has_permissions(ban_members=True)
     async def unban(self, ctx, userName, *reason):
-        AUDDIT = discord.utils.get(self.bot.get_all_channels(), guild__name=ctx.message.guild.name, name='audit')
-        if AUDDIT == None:
-            return await ctx.message.channel.send("No channel named 'audit'")
         server = ctx.message.guild
-        auth = ctx.message.author
         rsn = " ".join(reason)
-        banned = await self.bot.get_user_info(userName)
-        action = "Unbanned"
         if rsn == "":
             rsn = "No Reason Specified"
-        embed=discord.Embed(title=str(banned), url=banned.avatar_url, color=0x00ff00)
-        embed.set_author(name=auth.name,icon_url=auth.avatar_url)
-        embed.set_thumbnail(url=banned.avatar_url)
-        embed.add_field(name="Action", value=action, inline=True)
-        embed.add_field(name="Reason", value=rsn, inline=True)
-        await server.unban(banned, reason=rsn)
-        await ctx.message.channel.send(embed=discord.Embed(description=emotes.Done + " {0} was successfully unbanned!".format(str(banned))))
-        await AUDDIT.send(embed=embed)
+        await server.unban(discord.Object(userName), reason=rsn)
+        await ctx.message.channel.send(embed=discord.Embed(description="{0} was successfully unbanned!".format(userName)))
 
     @commands.command(name='Kick',
                     description="Kicks a user",
                     brief="Kicks a user",
                     aliases=['kick'])
-    @checks.is_appr()
+    @commands.guild_only()
+    @commands.has_permissions(kick_members=True)
+    @commands.bot_has_permissions(kick_members=True)
     async def kick(self, ctx, userName: discord.Member, *reason):
-        if ctx.message.author.top_role <= userName.top_role:
-            await ctx.message.channel.send(embed=discord.Embed(title="Permission Error", description="You don't have permission to kick that user!", color=0xff0000))
-            return
-        AUDDIT = discord.utils.get(self.bot.get_all_channels(), guild__name=ctx.message.guild.name, name='audit')
-        if AUDDIT == None:
-            return await ctx.message.channel.send("No channel named 'audit'")
         server = ctx.message.guild
-        auth = ctx.message.author
         rsn = " ".join(reason)
-        action = "Kicked"
         if rsn == "":
             rsn = "No Reason Specified"
-        embed=discord.Embed(title=str(userName), url=userName.avatar_url, color=0xff0000)
-        embed.set_author(name=auth.name,icon_url=auth.avatar_url)
-        embed.set_thumbnail(url=userName.avatar_url)
-        embed.add_field(name="Action", value=action, inline=True)
-        embed.add_field(name="Reason", value=rsn, inline=True)
         await server.kick(userName, reason=rsn)
-        await ctx.message.channel.send(embed=discord.Embed(description=emotes.Done + " {0} was successfully kicked!".format(str(userName))))
-        await AUDDIT.send(embed=embed)
+        await ctx.message.channel.send(embed=discord.Embed(description="{0} was successfully kicked!".format(str(userName))))
 
     @commands.command(name='Ban',
                     description="Bans a user",
                     brief="Bans a user",
                     aliases=['ban'])
-    @checks.is_mod()
+    @commands.guild_only()
+    @commands.has_permissions(ban_members=True)
+    @commands.bot_has_permissions(ban_members=True)
     async def ban(self, ctx, userName: discord.Member, *reason):
-        if ctx.message.author.top_role <= userName.top_role:
-            await ctx.message.channel.send(embed=discord.Embed(title="Permission Error", description="You don't have permission to kick that user!", color=0xff0000))
-            return
-        AUDDIT = discord.utils.get(self.bot.get_all_channels(), guild__name=ctx.message.guild.name, name='audit')
-        if AUDDIT == None:
-            return await ctx.message.channel.send("No channel named 'audit'")
         server = ctx.message.guild
-        auth = ctx.message.author
         rsn = " ".join(reason)
-        action = "Banned"
         if rsn == "":
             rsn = "No Reason Specified"
-        embed=discord.Embed(title=str(userName), url=userName.avatar_url, color=0xff0000)
-        embed.set_author(name=auth.name,icon_url=auth.avatar_url)
-        embed.set_thumbnail(url=userName.avatar_url)
-        embed.add_field(name="Action", value=action, inline=True)
-        embed.add_field(name="Reason", value=rsn, inline=True)
         await server.ban(userName, reason=rsn)
-        await ctx.message.channel.send(embed=discord.Embed(description=emotes.Done + " {0} was successfully banned!".format(str(userName))))
-        await AUDDIT.send(embed=embed)
+        await ctx.message.channel.send(embed=discord.Embed(description="{0} was successfully banned!".format(str(userName))))
 
     @commands.command(name='BanID',
                     description="Bans a user",
                     brief="Bans a user",
                     aliases=['banid'])
-    @checks.is_mod()
+    @commands.guild_only()
+    @commands.has_permissions(ban_members=True)
+    @commands.bot_has_permissions(ban_members=True)
     async def banid(self, ctx, userName, *reason):
-        AUDDIT = discord.utils.get(self.bot.get_all_channels(), guild__name=ctx.message.guild.name, name='audit')
-        if AUDDIT == None:
-            return await ctx.message.channel.send("No channel named 'audit'")
         server = ctx.message.guild
-        auth = ctx.message.author
         rsn = " ".join(reason)
-        banned = await self.bot.get_user_info(userName)
-        action = "Banned"
         if rsn == "":
             rsn = "No Reason Specified"
-        embed=discord.Embed(title=str(banned), url=banned.avatar_url, color=0xff0000)
-        embed.set_author(name=auth.name,icon_url=auth.avatar_url)
-        embed.set_thumbnail(url=banned.avatar_url)
-        embed.add_field(name="Action", value=action, inline=True)
-        embed.add_field(name="Reason", value=rsn, inline=True)
-        await server.ban(banned, reason=rsn)
-        await ctx.message.channel.send(embed=discord.Embed(description=emotes.Done + " {0} was successfully banned!".format(str(banned))))
-        await AUDDIT.send(embed=embed)
+        await server.ban(discord.Object(userName), reason=rsn)
+        await ctx.message.channel.send(embed=discord.Embed(description="{0} was successfully banned!".format(userName)))
 
     @commands.command(name='Softban',
                     description="Bans a user, then unbans them, deleting their messages.",
                     brief="Softbans a user",
                     aliases=['softban'])
-    @checks.is_mod()
+    @commands.guild_only()
+    @commands.has_permissions(ban_members=True)
+    @commands.bot_has_permissions(ban_members=True)
     async def softban(self, ctx, userName: discord.Member, *reason):
-        if ctx.message.author.top_role <= userName.top_role:
-            await ctx.message.channel.send(embed=discord.Embed(title="Permission Error", description="You don't have permission to kick that user!", color=0xff0000))
-            return
-        AUDDIT = discord.utils.get(self.bot.get_all_channels(), guild__name=ctx.message.guild.name, name='audit')
-        if AUDDIT == None:
-            return await ctx.message.channel.send("No channel named 'audit'")
         server = ctx.message.guild
-        auth = ctx.message.author
         rsn = " ".join(reason)
-        action = "Softbanned"
         if rsn == "":
             rsn = "No Reason Specified"
-        embed=discord.Embed(title=str(userName), url=userName.avatar_url, color=0xff0000)
-        embed.set_author(name=auth.name,icon_url=auth.avatar_url)
-        embed.set_thumbnail(url=userName.avatar_url)
-        embed.add_field(name="Action", value=action, inline=True)
-        embed.add_field(name="Reason", value=rsn, inline=True)
-        embed.add_field(name="ID", value=str(userName.id), inline=True)
-        embed.set_footer(text=emotes.Done)
         await server.ban(userName, reason=rsn)
         await server.unban(userName, reason=rsn)
-        await ctx.message.channel.send(embed=discord.Embed(description=emotes.Done + " {0} was successfully softbanned!".format(str(userName))))
-        await AUDDIT.send(embed=embed)
+        await ctx.message.channel.send(embed=discord.Embed(description="{0} was successfully softbanned!".format(str(userName))))
+
     @commands.command(name='prune',
                 description="Clear messages!")
-    @checks.is_mod()
+    @commands.guild_only()
+    @commands.has_permissions(manage_messages=True)
+    @commands.bot_has_permissions(bot_manage_messages=True)
     async def prune(self, ctx, amount:typing.Optional[int] = 5, *, ptype:typing.Union[discord.Member, int, str]="all"):
         def checking(m):
             if type(ptype) == discord.Member:
@@ -169,11 +111,13 @@ class Moderation(Cog):
     @commands.group(name='reactions',
                 description="Manage reactions!",
                 brief="Manage Reactions!")
-    @checks.is_mod()
+    @commands.guild_only()
+    @commands.has_permissions(manage_messages=True)
+    @commands.bot_has_permissions(bot_manage_messages=True)
     async def reactions(self, ctx):
         if ctx.invoked_subcommand is None:
             emb = discord.Embed()
-            emb.title = "Reaction Manager " + emotes.Warn
+            emb.title = "Reaction Manager"
             emb.colour = 0xffff00
             emb.description = "Please issue a valid subcommand!\nAvailable options are:"
             emb.add_field(name="Add", value="Add an available reaction to a message.", inline=False)
@@ -221,7 +165,9 @@ class Moderation(Cog):
     
     @commands.command(name='serverimage',
                 description="Changes the server image!")
-    @checks.is_admin()
+    @commands.guild_only()
+    @commands.has_permissions(manage_guild=True)
+    @commands.bot_has_permissions(manage_guild=True)
     async def serverimage(self, ctx, url):
         emb = discord.Embed()
         try:

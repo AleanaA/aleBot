@@ -10,9 +10,7 @@ import requests
 from discord import Game
 from discord.ext import commands
 from discord.ext.commands import Bot
-from config import emotes
 from config import config
-from utils import checks
 from utils.embed import Embeds
 from utils.config import Config
 from utils.cog import Cog
@@ -37,14 +35,7 @@ class Commands(Cog):
                 brief="Ping!",
                 aliases=['Ping', 'Ping!'])
     async def ping(self, ctx):
-        if math.ceil(self.bot.latency * 1000) <= 30:
-            emote = emotes.Done
-        elif math.ceil(self.bot.latency * 1000) <= 60:
-            emote = emotes.Warn
-        else:
-            emote = emotes.Error
-            
-        await ctx.message.channel.send(ctx.message.author.mention + " " + str(math.ceil(self.bot.latency * 1000)) + " ms " + emote)
+        await ctx.message.channel.send(ctx.message.author.mention + " " + str(math.ceil(self.bot.latency * 1000)) + " ms")
 
     @commands.command(name='cat',
                 description="Kitty!")

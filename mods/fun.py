@@ -4,7 +4,6 @@ from discord.ext import commands
 from utils.dataIO import fileIO
 from utils.cog import Cog
 from utils.embed import Embeds
-from utils import checks
 import os
 import re
 import asyncio

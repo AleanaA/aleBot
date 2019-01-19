@@ -13,10 +13,8 @@ import psutil
 from discord import Game
 from discord.ext import commands
 from discord.ext.commands import Bot
-from config import emotes
 from config import config
 from utils.embed import Embeds
-from utils import checks
 from utils.config import Config
 from utils.cog import Cog
 
@@ -24,11 +22,11 @@ class BotOptions(Cog):
     @commands.group(name='bot',
                     description="Manage settings for the bot.",
                     brief="Manage settings for the bot.")
-    @checks.is_owner()
+    @commands.is_owner()
     async def manbot(self, ctx):
         if ctx.invoked_subcommand is None:
             emb = Embeds.create_embed(self, ctx,
-            "Bot Manager " + emotes.Warn,
+            "Bot Manager",
             0xffff00,
             "Please issue a valid subcommand!\nAvailable options are:",
             Com1 = ["invite", "Gets the invite URL for the bot.", False],
@@ -46,7 +44,7 @@ class BotOptions(Cog):
         emb = discord.Embed()
         emb.title = "Invite URL"
         emb.description = "<https://discordapp.com/oauth2/authorize?client_id={0}&scope=bot&permissions=8>".format(str(self.bot.user.id))
-        emb.color = 0x00ffff
+        emb.colour = 0x00ffff
         emb.set_thumbnail(url=self.bot.user.avatar_url)
         await ctx.message.channel.send(embed=emb)
 
@@ -58,7 +56,7 @@ class BotOptions(Cog):
         self.aiosession = aiohttp.ClientSession(loop=self.bot.loop)
         emb = discord.Embed()
         emb.title = "Avatar Changed!"
-        emb.color = 0x00ff00
+        emb.colour = 0x00ff00
         picture = msg.strip('<>')
         emb.set_thumbnail(url=msg)
         emb.description = "Avatar successfully changed to " + msg
@@ -74,7 +72,7 @@ class BotOptions(Cog):
     async def username(self, ctx, msg):
         emb = discord.Embed()
         emb.title = "Username Changed!"
-        emb.color = 0x00ff00
+        emb.colour = 0x00ff00
         emb.set_thumbnail(url=self.bot.user.avatar_url)
         emb.description = "Username successfully changed to " + msg
         await self.bot.user.edit(username=msg)
@@ -86,7 +84,7 @@ class BotOptions(Cog):
                     aliases=['sd', 'shutdown'])
     async def die(self, ctx):
         print(str(ctx.message.author) + " triggered a shutdown!")
-        await ctx.message.channel.send(embed=discord.Embed(description=emotes.Done + " " + self.bot.user.name + " is now shutting down... " + ctx.message.author.mention, color=0x0035ff))
+        await ctx.message.channel.send(embed=discord.Embed(description=self.bot.user.name + " is now shutting down... " + ctx.message.author.mention, color=0x0035ff))
         await self.bot.logout()
 
     @manbot.command(name='update',
@@ -97,7 +95,7 @@ class BotOptions(Cog):
         out, err = process.communicate()
         emb = discord.Embed()
         emb.title = "Bot Updater"
-        emb.color = 0x00aaff
+        emb.colour = 0x00aaff
         msg = ''
         for cog in config.Modules:
                 try:
@@ -130,7 +128,7 @@ class BotOptions(Cog):
                 description="Owner Only!",
                 brief="Owner Only!",
                 aliases=['debug', 'Eval', 'Debug'])
-    @checks.is_owner()
+    @commands.is_owner()
     async def debug(self, ctx, *, code : str):
         code = code.strip('` ')
         python = '```py\n{}\n```'
@@ -150,14 +148,14 @@ class BotOptions(Cog):
             if inspect.isawaitable(result):
                 result = await result
         except Exception as e:
-            await ctx.message.channel.send(embed=discord.Embed(colour=discord.Colour(0xff0000), title=emotes.Terminal+" Python Eval", description=python.format(type(e).__name__ + ': ' + str(e))))
+            await ctx.message.channel.send(embed=discord.Embed(colour=discord.Colour(0xff0000), title="Python Eval", description=python.format(type(e).__name__ + ': ' + str(e))))
             return
-        await ctx.message.channel.send(embed=discord.Embed(colour=discord.Colour(0x0094ff), title=emotes.Terminal+" Python Eval", description=python.format(result)))
+        await ctx.message.channel.send(embed=discord.Embed(colour=discord.Colour(0x0094ff), title="Python Eval", description=python.format(result)))
 
     @commands.command(name='exec',
                 description="Owner Only!",
                 brief="Owner Only!")
-    @checks.is_owner()
+    @commands.is_owner()
     async def exec(self, ctx, *, code : str):
         code = code.strip('``` ')
         python = '```py\n{}\n```'
@@ -175,14 +173,14 @@ class BotOptions(Cog):
         try:
             result = exec(code, env)
         except Exception as e:
-            await ctx.message.channel.send(embed=discord.Embed(colour=discord.Colour(0xff0000), title=emotes.Terminal+" Python Exec", description=python.format(type(e).__name__ + ': ' + str(e))))
+            await ctx.message.channel.send(embed=discord.Embed(colour=discord.Colour(0xff0000), title="Python Exec", description=python.format(type(e).__name__ + ': ' + str(e))))
             return
-        await ctx.message.channel.send(embed=discord.Embed(colour=discord.Colour(0x0094ff), title=emotes.Terminal+" Python Exec", description=python.format(result)))
+        await ctx.message.channel.send(embed=discord.Embed(colour=discord.Colour(0x0094ff), title="Python Exec", description=python.format(result)))
 
     @commands.command(name='usereval',
                 description="Owner Only!",
                 brief="Owner Only!")
-    @checks.is_owner()
+    @commands.is_owner()
     async def userdebug(self, ctx, user:discord.Member, *, code : str):
         code = code.strip('` ')
         python = '```py\n{}\n```'
@@ -203,9 +201,9 @@ class BotOptions(Cog):
             if inspect.isawaitable(result):
                 result = await result
         except Exception as e:
-            await ctx.message.channel.send(embed=discord.Embed(colour=discord.Colour(0xff0000), title=emotes.Terminal+" Python Eval", description=python.format(type(e).__name__ + ': ' + str(e))))
+            await ctx.message.channel.send(embed=discord.Embed(colour=discord.Colour(0xff0000), title="Python Eval", description=python.format(type(e).__name__ + ': ' + str(e))))
             return
-        await ctx.message.channel.send(embed=discord.Embed(colour=discord.Colour(0x0094ff), title=emotes.Terminal+" Python Eval", description=python.format(result)))
+        await ctx.message.channel.send(embed=discord.Embed(colour=discord.Colour(0x0094ff), title="Python Eval", description=python.format(result)))
 
 def setup(bot):
     bot.add_cog(BotOptions(bot))

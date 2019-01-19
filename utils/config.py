@@ -34,10 +34,6 @@ class Config:
         self.prefix = config.get('Bot', 'Prefix', fallback=None)
         self.status = config.get('Bot', 'Status', fallback=None)
         self.activity = config.get('Bot', 'Activity', fallback=0)
-        # [Extras]
-        self.owner = int(config.get('Extras', 'Owner', fallback=None))
-        self.log = int(config.get('Extras', 'LogChannel', fallback=None))
-        self.stream = config.get('Extras', 'Stream', fallback='http://aleana.mynetgear.com/stream')
 
         self.validate()
 
@@ -51,9 +47,5 @@ class Config:
             critical = True
         if not self.status:
             print('No Status provided!')
-        if not self.owner:
-            print('No Owner ID provided!')
-        if not self.log:
-            print('No Log ID provided!')
         if critical:
             raise Shutdown()

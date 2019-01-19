@@ -3,7 +3,6 @@ from discord.ext import commands
 from utils.dataIO import dataIO
 from utils.cog import Cog
 from utils.embed import Embeds
-from utils import checks
 import os
 import asyncio
 import time
@@ -139,6 +138,7 @@ class Profiles:
         await ctx.send("{}, {} divorced you!".format(marriedto.mention, ctx.message.author.name))
 
     @commands.command(name="givekudos")
+    @commands.cooldown(1, 86400, type=commands.BucketType.user)
     async def givekudos(self, ctx, user: discord.User):
         if ctx.message.author == user:
             await ctx.send("You can't give yourself Kudos!")
@@ -181,7 +181,7 @@ class Profiles:
         await ctx.send("Description set to {}".format(content))
 
     @commands.command(name="setattrib")
-    @checks.is_owner()
+    @commands.is_owner()
     async def setattrib(self, ctx, user:discord.User, attrib, *, content:str):
         userid = str(user.id)
         # Check if specified user has a profile already, if they don't, make one

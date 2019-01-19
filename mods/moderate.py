@@ -147,6 +147,7 @@ class Moderation(Cog):
         await AUDDIT.send(embed=embed)
     @commands.command(name='prune',
                 description="Clear messages!")
+    @checks.is_mod()
     async def prune(self, ctx, amount:typing.Optional[int] = 5, *, ptype:typing.Union[discord.Member, int, str]="all"):
         def checking(m):
             if type(ptype) == discord.Member:

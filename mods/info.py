@@ -24,7 +24,7 @@ class Info(Cog):
     async def stats(self, ctx):
         ping = math.floor(self.bot.latency * 1000)
         prefix = self.bot.config.prefix
-        owner = await self.bot.get_user_info(self.bot.config.owner)
+        owner = self.bot.appinfo.owner
         info = discord.__version__
         servers = len(self.bot.guilds)
         messages_seen = str(self.bot.messages_seen)

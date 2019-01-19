@@ -24,7 +24,6 @@ from utils.cog import Cog
 class Info(Cog):
     @commands.command(name='stats')
     async def stats(self, ctx):
-        time_then = time.monotonic()
         ping = math.floor(self.bot.latency * 1000)
         prefix = self.bot.config.prefix
         owner = await self.bot.get_user_info(self.bot.config.owner)
@@ -233,8 +232,9 @@ class Info(Cog):
             user = user[0]
         if user.activity:
             if user.activity.name == "Spotify":
-                embed=Embeds.create_embed(self, ctx, None, user.color, None,
-                artist=["Artists",user.activity.artist,True],
+                artists = ", ".join(user.activity.artists)
+                embed=Embeds.create_embed(self, ctx, None, user.activity.color, None,
+                artist=["Artists",artists,True],
                 songtitle=["Title",user.activity.title,True],
                 album=["Album",user.activity.album,False],
                 duration=["Duration",str(datetime.timedelta(seconds=round(float(str(user.activity.duration.total_seconds()))))),False],

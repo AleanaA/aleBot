@@ -89,7 +89,19 @@ class Emote(Cog):
     @emote.command(name='steal')
     async def emotesteal(self, ctx, emotes:commands.Greedy[discord.PartialEmoji]):
         for emote in emotes:
-            print(emote.url)
+            name = str(emote.name)
+            url = str(emote.url)
+            try:
+                response = requests.get(url)
+            except (requests.exceptions.MissingSchema, requests.exceptions.InvalidURL, requests.exceptions.InvalidSchema, requests.exceptions.ConnectionError):
+                emb.colour = 0xff0000
+                emb.description = "An error occured. Unable to get emote."
+                return await ctx.send(embed=emb)
+            if response.status_code == 404:
+                emb.colour = 0xff0000
+                emb.description = "404 error occured."
+                return await ctx.send(embed=emb)
+            await ctx.guild.create_custom_emoji(name=name, image=response.content)
         await ctx.send("Stole {} emotes.".format(len(emotes)))
 
 def setup(bot):

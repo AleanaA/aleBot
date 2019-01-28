@@ -158,7 +158,10 @@ class BotOptions(Cog):
         cmd = cmd.split(' ')
         print(cmd)
         process = subprocess.Popen(cmd, stdout=subprocess.PIPE)
-        out, err = process.communicate()
+        try:
+            out, err = process.communicate(timeout=15)
+        except subprocess.TimeoutExpired:
+            process.kill()
         print(out)
         print(err)
         await ctx.message.channel.send("```{}```".format(out.decode('utf8')))

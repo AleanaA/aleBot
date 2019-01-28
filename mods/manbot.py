@@ -167,8 +167,8 @@ class BotOptions(Cog):
         except subprocess.TimeoutExpired:
             process.kill()
             out, err = process.communicate()
-        print(out)
-        print(err)
+        print("\n{}".format(out.decode('utf8')))
+        print("\n{}".format(err.decode('utf8')))
         if out.decode('utf8') != '':
             output = out.decode('utf8')
         else:

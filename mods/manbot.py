@@ -179,7 +179,7 @@ class BotOptions(Cog):
             error = None
 
         if output and error:
-            result = "{}\n\n{}".format(output, error)
+            result = "{}\n{}".format(output, error)
         elif output:
             result = output
         elif error:

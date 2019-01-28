@@ -155,7 +155,7 @@ class BotOptions(Cog):
     @commands.command(name='sys')
     @commands.is_owner()
     async def sys(self, ctx, *, cmd : str):
-        cmd = ' '.split(cmd)
+        cmd = cmd.split(' ')
         print(cmd)
         process = subprocess.Popen(cmd, stdout=subprocess.PIPE)
         out, err = process.communicate()

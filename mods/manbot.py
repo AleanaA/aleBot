@@ -163,6 +163,9 @@ class BotOptions(Cog):
         except subprocess.TimeoutExpired:
             process.kill()
             out, err = process.communicate()
+        except FileNotFoundError as e:
+            await ctx.message.channel.send("```{}```".format(e))
+            return
         print(out)
         print(err)
         if out.decode('utf8') != '':

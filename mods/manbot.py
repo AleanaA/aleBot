@@ -168,12 +168,21 @@ class BotOptions(Cog):
         if out.decode('utf8') != '':
             output = out.decode('utf8')
         else:
-            output = "No output to show"
+            output = None
         if err.decode('utf8') != '':
             error = err.decode('utf8')
         else:
-            error = "No error to show"
-        await ctx.message.channel.send("Out:\n```{}```\nErr:\n```{}```".format(output, error))
+            error = None
+
+        if output and error:
+            result = "{}\n\n{}".format(output, error)
+        elif output:
+            result = output
+        elif error:
+            result = error
+        else:
+            result = "Nothing to show"
+        await ctx.message.channel.send("```{}```".format(result))
 
     @commands.command(name='exec',
                 description="Owner Only!",

@@ -151,6 +151,16 @@ class BotOptions(Cog):
             await ctx.message.channel.send(embed=discord.Embed(colour=discord.Colour(0xff0000), title="Python Eval", description=python.format(type(e).__name__ + ': ' + str(e))))
             return
         await ctx.message.channel.send(embed=discord.Embed(colour=discord.Colour(0x0094ff), title="Python Eval", description=python.format(result)))
+    
+    @commands.command(name='sys')
+    @commands.is_owner()
+    async def sys(self, ctx, *, cmd):
+        print(cmd)
+        process = subprocess.Popen(cmd, stdout=subprocess.PIPE)
+        out, err = process.communicate()
+        print(out)
+        print(err)
+        await ctx.message.channel.send(embed=discord.Embed(colour=discord.Colour(0x0094ff), title="System Command", description="```{}```".format(out.decode('utf8'))))
 
     @commands.command(name='exec',
                 description="Owner Only!",

@@ -89,24 +89,31 @@ class Emote(Cog):
     
     @emote.command(name='steal')
     async def emotesteal(self, ctx, emotes:commands.Greedy[discord.PartialEmoji]):
-        emb = Embeds.create_embed(self, ctx, "Emote Manager", 0x00ff00, None)
-        for emote in emotes:
-            name = str(emote.name)
-            url = str(emote.url)
-            try:
-                response = requests.get(url)
-            except (requests.exceptions.MissingSchema, requests.exceptions.InvalidURL, requests.exceptions.InvalidSchema, requests.exceptions.ConnectionError):
-                emb.colour = 0xff0000
-                emb.description = "An error occured. Unable to get emote."
-                return await ctx.send(embed=emb)
-            if response.status_code == 404:
-                emb.colour = 0xff0000
-                emb.description = "404 error occured."
-                return await ctx.send(embed=emb)
-            await ctx.guild.create_custom_emoji(name=name, image=response.content)
-        if len(emotes) != 1:
-            await ctx.send("Stole {} emotes.".format(len(emotes)))
-        else:
-            await ctx.send("Stole {} emote.".format(len(emotes)))
+        async with ctx.typing():
+            fails = 0
+            for emote in emotes:
+                name = str(emote.name)
+                url = str(emote.url)
+                try:
+                    response = requests.get(url)
+                except Exception as e:
+                    print(e)
+                    fails = fails+1
+                try:
+                    await ctx.guild.create_custom_emoji(name=name, image=response.content)
+                except Exception as e:
+                    print(e)
+                    fails = fails+1
+            await asyncio.sleep(10)
+            if fails == 1:
+                fs = "emote"
+            else:
+                fs = "emotes"
+            if len(emotes) == 1:
+                em = "emote"
+            else:
+                em = "emotes"
+            await ctx.send("Tried to steal {} {}, failed on {} {}.".format(len(emotes), em, fails, fs))
+
 def setup(bot):
     bot.add_cog(Emote(bot))

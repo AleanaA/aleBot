@@ -173,7 +173,7 @@ class BotOptions(Cog):
             error = err.decode('utf8')
         else:
             error = "No error to show"
-        await ctx.message.channel.send("Out:\n```{}```\n\nErr:\n```{}```".format(output, error))
+        await ctx.message.channel.send("Out:\n```{}```\nErr:\n```{}```".format(output, error))
 
     @commands.command(name='exec',
                 description="Owner Only!",

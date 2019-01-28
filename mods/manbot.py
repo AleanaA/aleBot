@@ -161,7 +161,7 @@ class BotOptions(Cog):
         out, err = process.communicate()
         print(out)
         print(err)
-        await ctx.message.channel.send(embed=discord.Embed(colour=discord.Colour(0x0094ff), title="System Command", description="```{}```".format(out.decode('utf8'))))
+        await ctx.message.channel.send("```{}```".format(out.decode('utf8')))
 
     @commands.command(name='exec',
                 description="Owner Only!",

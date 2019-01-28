@@ -157,15 +157,16 @@ class BotOptions(Cog):
     async def sys(self, ctx, *, cmd : str):
         cmd = cmd.split(' ')
         print(cmd)
-        process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        try:
+            process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        except Exception as e:
+            await ctx.message.channel.send("```{}```".format(e))
+            return
         try:
             out, err = process.communicate(timeout=15)
         except subprocess.TimeoutExpired:
             process.kill()
             out, err = process.communicate()
-        except FileNotFoundError as e:
-            await ctx.message.channel.send("```{}```".format(e))
-            return
         print(out)
         print(err)
         if out.decode('utf8') != '':

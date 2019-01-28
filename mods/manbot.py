@@ -167,14 +167,14 @@ class BotOptions(Cog):
         except subprocess.TimeoutExpired:
             process.kill()
             out, err = process.communicate()
-        print("\n{}".format(out.decode('utf8')))
-        print("\n{}".format(err.decode('utf8')))
+        print("\n{}".format(re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]').sub('', out.decode('utf8'))))
+        print("\n{}".format(re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]').sub('', err.decode('utf8'))))
         if out.decode('utf8') != '':
-            output = out.decode('utf8')
+            output = re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]').sub('', out.decode('utf8'))
         else:
             output = None
         if err.decode('utf8') != '':
-            error = err.decode('utf8')
+            error = re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]').sub('', err.decode('utf8'))
         else:
             error = None
 

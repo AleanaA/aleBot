@@ -157,7 +157,7 @@ class BotOptions(Cog):
     async def sys(self, ctx, *, cmd : str):
         cmd = cmd.split(' ')
         print(cmd)
-        process = subprocess.Popen(cmd, stdout=subprocess.PIPE)
+        process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         try:
             out, err = process.communicate(timeout=15)
         except subprocess.TimeoutExpired:
@@ -165,7 +165,15 @@ class BotOptions(Cog):
             out, err = process.communicate()
         print(out)
         print(err)
-        await ctx.message.channel.send("```{}```".format(out.decode('utf8')))
+        if out.decode('utf8') != '':
+            output = out.decode('utf8')
+        else:
+            output = "No output to show"
+        if err.decode('utf8') != '':
+            error = err.decode('utf8')
+        else:
+            error = "No error to show"
+        await ctx.message.channel.send("Out:\n```{}```\n\nErr:\n```{}```".format(output, error))
 
     @commands.command(name='exec',
                 description="Owner Only!",

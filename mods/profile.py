@@ -176,6 +176,7 @@ class Profiles:
     async def setdesc(self, ctx, *, content : str):
         if len(content) > 25:
             await ctx.send("Descriptions have a character limit of 25 characters!")
+            return
         user = ctx.message.author
         userid = str(user.id)
         # Check if specified user has a profile already, if they don't, make one

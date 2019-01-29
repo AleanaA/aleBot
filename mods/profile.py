@@ -259,12 +259,14 @@ class Profiles:
 
     @commands.command(name="xplb")
     async def xplb(self, ctx):
+        xplbls = {}
         for userid, dic in self.profiles.items():
-            print(userid)
+            user = await self.bot.get_user_info(int(userid))
             try:
-                print(dic['xp'])
+                xplbls[str(user)] = dic['xp']
             except KeyError:
                 pass
+        await ctx.send(xplbls)
 
 def check_folders():
     if not os.path.exists("data"):

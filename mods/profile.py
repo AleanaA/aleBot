@@ -270,7 +270,7 @@ class Profiles:
                 xplbls[str(user)] = dic['xp']
             except KeyError:
                 pass
-        for key, value in sorted(xplbls, key=xplbls.__getitem__, reverse=True):
+        for key, value in sorted(xplbls, reverse=True):
             lbtext += "{} - {} XP\n".format(key, value)
         await ctx.send(lbtext)
 

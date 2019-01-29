@@ -259,8 +259,11 @@ class Profiles:
 
     @commands.command(name="xplb")
     async def xplb(self, ctx):
-        od = collections.OrderedDict(sorted(self.profiles.items(), key=lambda x: x[1]['xp']))
-        await ctx.send(od)
+        xplb = {}
+        for key, value in self.profiles:
+            user = await self.bot.get_user_info(int(key))
+            xplb[user].append(value["xp"])
+        print(xplb)
 
 def check_folders():
     if not os.path.exists("data"):

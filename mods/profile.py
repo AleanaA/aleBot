@@ -261,7 +261,7 @@ class Profiles:
     async def xplb(self, ctx):
         for userid, dic in self.profiles.items():
             print(userid)
-            print(type(dic))
+            print(dic)
 
 def check_folders():
     if not os.path.exists("data"):

@@ -7,7 +7,7 @@ import os
 import asyncio
 import time
 import datetime
-from operator import itemgetter
+import collections
 
 class Profiles:
     def __init__(self, bot):
@@ -259,8 +259,8 @@ class Profiles:
 
     @commands.command(name="xplb")
     async def xplb(self, ctx):
-        sort = sorted(self.profiles, key=itemgetter('xp'))
-        await ctx.send(sort[0])
+        od = collections.OrderedDict(sorted(self.profiles.items(), key=lambda x: x[1]['xp']))
+        await ctx.send(od)
 
 def check_folders():
     if not os.path.exists("data"):

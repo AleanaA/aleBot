@@ -242,7 +242,7 @@ class Profiles:
 
     def user_add_xp(self, user_id, xp):
         if user_id in self.profiles:
-            profile = self.profiles[user_id]
+            profile = self.profiles[str(user_id)]
             try:
                 time_diff = (datetime.datetime.utcnow() - self.epoch).total_seconds() - profile['xp_time']
                 if time_diff >= 120:
@@ -255,7 +255,6 @@ class Profiles:
 
     async def on_message(self, message):
         self.user_add_xp(message.author.id, 2)
-
 
 def check_folders():
     if not os.path.exists("data"):

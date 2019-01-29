@@ -272,7 +272,7 @@ class Profiles:
                 pass
         for value in sorted(xplbls):
             lbtext += "{} - {} XP\n".format(value, xplbls[value])
-        await ctx.send(lbtext)
+        await ctx.send("```{}```".format(lbtext))
 
 def check_folders():
     if not os.path.exists("data"):

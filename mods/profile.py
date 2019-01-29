@@ -241,7 +241,7 @@ class Profiles:
                 await ctx.send("Added {} Kudos to {}'s profile!".format(split[1], user.name))
 
     def user_add_xp(self, user_id, xp):
-        if user_id in self.profiles:
+        if str(user_id) in self.profiles:
             profile = self.profiles[str(user_id)]
             try:
                 time_diff = (datetime.datetime.utcnow() - self.epoch).total_seconds() - profile['xp_time']

@@ -267,7 +267,8 @@ class Profiles:
             except ValueError:
                 pass
             try:
-                xplbls[str(user)] = dic['xp']
+                if user.bot == False:
+                    xplbls[str(user)] = dic['xp']
             except KeyError:
                 pass
         for value in sorted(xplbls):

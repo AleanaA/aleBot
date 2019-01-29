@@ -262,7 +262,7 @@ class Profiles:
         xplb = {}
         for profile in self.profiles:
             user = await self.bot.get_user_info(int(profile))
-            xplb[user].append(profile["xp"])
+            xplb[str(user)] = profile["xp"]
         print(xplb)
 
 def check_folders():

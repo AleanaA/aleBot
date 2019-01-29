@@ -260,9 +260,9 @@ class Profiles:
     @commands.command(name="xplb")
     async def xplb(self, ctx):
         xplb = {}
-        for key, value in self.profiles:
-            user = await self.bot.get_user_info(int(key))
-            xplb[user].append(value["xp"])
+        for profile in self.profiles:
+            user = await self.bot.get_user_info(int(profile))
+            xplb[user].append(profile["xp"])
         print(xplb)
 
 def check_folders():

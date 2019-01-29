@@ -245,7 +245,7 @@ class Profiles:
             profile = self.profiles[str(user_id)]
             try:
                 time_diff = (datetime.datetime.utcnow() - self.epoch).total_seconds() - profile['xp_time']
-                if time_diff >= 60:
+                if time_diff >= 45:
                     profile['xp'] += xp
                     profile['xp_time'] = (datetime.datetime.utcnow() - self.epoch).total_seconds()
             except KeyError:

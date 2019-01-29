@@ -34,7 +34,7 @@ class Config:
         self.prefix = config.get('Bot', 'Prefix', fallback=None)
         self.status = config.get('Bot', 'Status', fallback=None)
         self.activity = config.get('Bot', 'Activity', fallback=0)
-
+        self.osu = config.get('Bot', 'OsuAPI', fallback=None)
         self.validate()
 
     def validate(self):
@@ -47,5 +47,7 @@ class Config:
             critical = True
         if not self.status:
             print('No Status provided!')
+        if not self.osu:
+            print('No osu!api key provided!')
         if critical:
             raise Shutdown()

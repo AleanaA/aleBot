@@ -271,7 +271,7 @@ class Profiles:
                     xplbls[str(user)] = dic['xp']
             except KeyError:
                 pass
-        for value in sorted(xplbls.items(), key = lambda kv:(kv[1], kv[0])):
+        for value in sorted(xplbls.items(), key = lambda kv:(kv[1])):
             lbtext += "{} - {} XP\n".format(value, xplbls[value])
         await ctx.send("```{}```".format(lbtext))
 

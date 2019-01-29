@@ -215,13 +215,11 @@ class Profiles:
     
         if attrib.lower() == "description":
             profile["Description"] = content
-            self.profiles[userid] = profile
             dataIO.save_json(self.profilepath, self.profiles)
             await ctx.send("User {}'s description set to {}".format(user.name, content))
 
         if attrib.lower() == "title":
             profile["Title"] = content
-            self.profiles[userid] = profile
             dataIO.save_json(self.profilepath, self.profiles)
             await ctx.send("User {}'s title was set to {}".format(user.name, content))
         
@@ -229,17 +227,18 @@ class Profiles:
             message = ''.join(content)
             split = message.split(' ')
             if split[0] == "remove":
-                profile = self.profiles[userid]
                 profile["Kudos"] = profile["Kudos"] - int(split[1])
-                self.profiles[userid] = profile
                 dataIO.save_json(self.profilepath, self.profiles)
                 await ctx.send("Removed {} Kudos from {}'s profile!".format(split[1], user.name))
             if split[0] == "add":
-                profile = self.profiles[userid]
                 profile["Kudos"] = profile["Kudos"] + int(split[1])
-                self.profiles[userid] = profile
                 dataIO.save_json(self.profilepath, self.profiles)
                 await ctx.send("Added {} Kudos to {}'s profile!".format(split[1], user.name))
+
+        if attrib.lower() == "xp":
+            profile['xp'] = content
+            dataIO.save_json(self.profilepath, self.profiles)
+            await ctx.send("Set {}'s xp to {}!".format(content, user.name))
 
     def user_add_xp(self, user_id, xp):
         if str(user_id) in self.profiles:

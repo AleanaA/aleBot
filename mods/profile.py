@@ -259,7 +259,7 @@ class Profiles:
 
     @commands.command(name="xplb")
     async def xplb(self, ctx):
-        sort = sorted(self.profiles, key=(itemgetter('xp')))
+        sort = sorted(self.profiles, key=itemgetter('xp'))
         await ctx.send(sort)
 
 def check_folders():

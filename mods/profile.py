@@ -259,6 +259,7 @@ class Profiles:
 
     @commands.command(name="xplb")
     async def xplb(self, ctx):
+        lbtext =''
         xplbls = {}
         for userid, dic in self.profiles.items():
             try:
@@ -269,7 +270,9 @@ class Profiles:
                 xplbls[str(user)] = dic['xp']
             except KeyError:
                 pass
-        await ctx.send(xplbls)
+        for key, value in sorted(xplbls, key=xplbls.__getitem__, reverse=True):
+            lbtext += "{} - {} XP\n".format(key, value)
+        await ctx.send(lbtext)
 
 def check_folders():
     if not os.path.exists("data"):

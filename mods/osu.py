@@ -35,3 +35,6 @@ class Osu:
                                     Info=["Player Info", "Playcount - {}\nLevel - {}\nCountry - {}".format(player.playcount, player.level, player.country), True],
                                     Stats=["Player Stats", "Rank - {}\nPP - {}\nAccuracy - {}".format(player.pp_rank, player.pp_raw, player.accuracy), True])
             await ctx.send(embed=emb)
+
+def setup(bot):
+    bot.add_cog(Osu(bot))

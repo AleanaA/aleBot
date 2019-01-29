@@ -23,6 +23,12 @@ class Osu:
             "mania": enums.OsuMode.mania,
             "catch": enums.OsuMode.ctb,
             }
+        formattedmodes={
+            "standard": "osu!Standard",
+            "taiko": "osu!Taiko",
+            "mania": "osu!Mania",
+            "catch": "osu!Catch",
+            }
         if mode not in modes:
             await ctx.send("Please specify a valid mode.")
             return
@@ -31,9 +37,11 @@ class Osu:
 
         if players:
             player = players[0]
-            emb = Embeds.create_embed(self, ctx, player.username, color=0xbb1177, message=mode,
+            emb = Embeds.create_embed(self, ctx, formattedmodes[mode], color=0xbb1177, message=None,
                                     Info=["Player Info", "Playcount - {}\nLevel - {}\nCountry - {}".format(player.playcount, player.level, player.country), True],
                                     Stats=["Player Stats", "Rank - {}\nPP - {}\nAccuracy - {}".format(player.pp_rank, player.pp_raw, player.accuracy), True])
+            emb.set_author(name=player.username, url="https://osu.ppy.sh/users/{}".format(player.user_id))
+            emb.set_thumbnail(url="https://a.ppy.sh/{}?1487388464.png".format(player.user_id))
             await ctx.send(embed=emb)
 
 def setup(bot):

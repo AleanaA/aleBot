@@ -164,7 +164,6 @@ class BotOptions(Cog):
             return
         try:
             out, err = process.communicate(timeout=15)
-            process.wait()
         except subprocess.TimeoutExpired:
             process.kill()
             out, err = process.communicate()

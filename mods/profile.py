@@ -174,8 +174,8 @@ class Profiles:
 
     @commands.command(name="setdesc")
     async def setdesc(self, ctx, *, content : str):
-        if len(content) > 25:
-            await ctx.send("Descriptions have a character limit of 25 characters!")
+        if len(content) > 50:
+            await ctx.send("Descriptions have a character limit of 50 characters!")
             return
         user = ctx.message.author
         userid = str(user.id)

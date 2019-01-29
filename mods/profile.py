@@ -7,6 +7,7 @@ import os
 import asyncio
 import time
 import datetime
+from operator import itemgetter
 
 class Profiles:
     def __init__(self, bot):
@@ -255,6 +256,11 @@ class Profiles:
 
     async def on_message(self, message):
         self.user_add_xp(message.author.id, 2)
+
+    @commands.command(name="xplb")
+    async def xplb(self, ctx):
+        sort = sorted(self.profiles, key=(itemgetter('xp')))
+        await ctx.send(sort)
 
 def check_folders():
     if not os.path.exists("data"):

@@ -270,8 +270,8 @@ class Profiles:
                 xplbls[str(user)] = dic['xp']
             except KeyError:
                 pass
-        for key, value in sorted(xplbls, reverse=True):
-            lbtext += "{} - {} XP\n".format(key, value)
+        for value in sorted(xplbls, reverse=True):
+            lbtext += "{} - {} XP\n".format(value, xplbls[value])
         await ctx.send(lbtext)
 
 def check_folders():

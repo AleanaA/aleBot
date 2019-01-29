@@ -260,7 +260,7 @@ class Profiles:
     @commands.command(name="xplb")
     async def xplb(self, ctx):
         sort = sorted(self.profiles, key=itemgetter('xp'))
-        print(sort)
+        await ctx.send(sort[0])
 
 def check_folders():
     if not os.path.exists("data"):

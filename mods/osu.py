@@ -17,6 +17,7 @@ class Osu:
     
     @commands.command(name='osu')
     async def osu(self, ctx, mode, *, user : str):
+        mode = mode.lower()
         modes={
             "standard": enums.OsuMode.osu,
             "taiko": enums.OsuMode.taiko,

@@ -9,10 +9,10 @@ from utils.cog import Cog
 
 class Osu:
     def __init__(self, bot):
-        if bot.config.osuapi == None:
+        if bot.config.osu == None:
             bot.unload_extension("mods.osu")
         else:
-            self.osuapi = OsuApi(bot.config.osuapi, connector=AHConnector())
+            self.osuapi = OsuApi(bot.config.osu, connector=AHConnector())
             self.bot = bot 
     
     @commands.command(name='osu')

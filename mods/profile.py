@@ -261,7 +261,10 @@ class Profiles:
     async def xplb(self, ctx):
         xplbls = {}
         for userid, dic in self.profiles.items():
-            user = await self.bot.get_user_info(int(userid))
+            try:
+                user = await self.bot.get_user_info(int(userid))
+            except ValueError:
+                pass
             try:
                 xplbls[str(user)] = dic['xp']
             except KeyError:

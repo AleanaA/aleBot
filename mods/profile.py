@@ -237,9 +237,9 @@ class Profiles:
                 await ctx.send("Added {} Kudos to {}'s profile!".format(split[1], user.name))
 
         if attrib.lower() == "xp":
-            profile['xp'] = content
+            profile['xp'] = int(content)
             dataIO.save_json(self.profilepath, self.profiles)
-            await ctx.send("Set {}'s xp to {}!".format(content, user.name))
+            await ctx.send("Set {}'s xp to {}!".format(user.name, content))
 
     def user_add_xp(self, user_id, xp):
         if str(user_id) in self.profiles:

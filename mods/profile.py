@@ -262,7 +262,7 @@ class Profiles:
         xplb = {}
         for profile in self.profiles:
             user = await self.bot.get_user_info(int(profile))
-            xplb[str(user)] = profile["xp"]
+            xplb[str(user)] = int(profile["xp"])
 
 def check_folders():
     if not os.path.exists("data"):

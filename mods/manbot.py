@@ -16,9 +16,10 @@ from discord.ext.commands import Bot
 from config import config
 from utils.embed import Embeds
 from utils.config import Config
-from utils.cog import Cog
 
-class BotOptions(Cog):
+class BotOptions(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
     @commands.group(name='bot',
                     description="Manage settings for the bot.",
                     brief="Manage settings for the bot.")

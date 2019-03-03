@@ -2,7 +2,6 @@ import discord
 import random
 from discord.ext import commands
 from utils.dataIO import fileIO
-from utils.cog import Cog
 from utils.embed import Embeds
 import os
 import re
@@ -10,7 +9,7 @@ import asyncio
 import time
 from datetime import datetime
 
-class Fun:
+class Fun(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         #

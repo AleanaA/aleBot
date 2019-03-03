@@ -17,9 +17,11 @@ from discord.ext.commands import Bot
 from config import config
 from utils.embed import Embeds
 from utils.config import Config
-from utils.cog import Cog
 
-class Info(Cog):
+class Info(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
+
     @commands.command(name='stats')
     async def stats(self, ctx):
         ping = math.floor(self.bot.latency * 1000)

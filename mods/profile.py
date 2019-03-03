@@ -1,7 +1,6 @@
 import discord
 from discord.ext import commands
 from utils.dataIO import dataIO
-from utils.cog import Cog
 from utils.embed import Embeds
 import os
 import asyncio
@@ -9,7 +8,7 @@ import time
 import datetime
 import collections
 
-class Profiles:
+class Profiles(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.epoch = datetime.datetime.utcfromtimestamp(0)

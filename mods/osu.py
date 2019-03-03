@@ -5,9 +5,8 @@ from osuapi import OsuApi, AHConnector, enums
 from discord.ext import commands
 from utils.embed import Embeds
 from utils.config import Config
-from utils.cog import Cog
 
-class Osu:
+class Osu(commands.Cog):
     def __init__(self, bot):
         if bot.config.osu == None:
             bot.unload_extension("mods.osu")

@@ -9,10 +9,11 @@ from discord.ext import commands
 from discord.ext.commands import Bot
 from config import config
 from utils.config import Config
-from utils.cog import Cog
 from utils.embed import Embeds
 
-class Unshared(Cog):
+class Unshared(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
     @commands.group(name='unshared',
                 description="Manage servers the bot does not share with owner.",
                 brief="Manage servers the bot does not share with owner.")

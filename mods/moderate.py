@@ -5,10 +5,11 @@ import typing
 from discord import Game
 from discord.ext import commands
 from discord.ext.commands import Bot
-from utils.cog import Cog
 from utils.config import Config
 
-class Moderation(Cog):        
+class Moderation(commands.Cog):        
+    def __init__(self, bot):
+        self.bot = bot
     @commands.command(name='Unban',
                     description="Unbans a user",
                     brief="Unbans a user",

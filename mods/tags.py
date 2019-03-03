@@ -1,14 +1,13 @@
 import discord
 from discord.ext import commands
 from utils.dataIO import fileIO
-from utils.cog import Cog
 from utils.embed import Embeds as emb
 import os
 import asyncio
 import time
 from datetime import datetime
 
-class Tags:
+class Tags(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.tags = fileIO("data/tags.json", "load")

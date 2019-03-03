@@ -6,10 +6,11 @@ from discord import Game
 from discord.ext import commands
 from discord.ext.commands import Bot
 from utils.config import Config
-from utils.cog import Cog
 from utils.embed import Embeds
 
-class CogLoader(Cog):
+class CogLoader(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
     @commands.group(name='cog',
                     description="Command for Cog management.",
                     brief="Command for Cog management.")

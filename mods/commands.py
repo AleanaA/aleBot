@@ -13,9 +13,10 @@ from discord.ext.commands import Bot
 from config import config
 from utils.embed import Embeds
 from utils.config import Config
-from utils.cog import Cog
 
-class Commands(Cog):
+class Commands(commands.Cog):
+    def __init__(self, bot):
+        self.bot = bot
     @commands.command(name='testhelp',
                 hidden=True)
     async def testhelp(self, ctx):

@@ -10,7 +10,7 @@ import asyncio
 import time
 import logging
 
-class RemindMe:
+class RemindMe(commands.Cog):
     """Never forget anything anymore."""
 
     def __init__(self, bot):

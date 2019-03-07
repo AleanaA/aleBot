@@ -259,6 +259,7 @@ class Profiles(commands.Cog):
     @commands.command(name="xplb")
     async def xplb(self, ctx):
         lbtext =''
+        usercount = 0
         xplbls = {}
         for userid, dic in self.profiles.items():
             try:
@@ -272,7 +273,9 @@ class Profiles(commands.Cog):
                 pass
         sortedlb = sorted(xplbls, key=lambda x: xplbls[x], reverse=True)
         for value in sortedlb:
-            lbtext += "{} - {} XP\n".format(value, xplbls[value])
+            if usercount != 10:
+                lbtext += "{} - {} XP\n".format(value, xplbls[value])
+                usercount += 1
         await ctx.send("```{}```".format(lbtext))
 
 def check_folders():

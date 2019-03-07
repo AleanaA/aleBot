@@ -21,7 +21,13 @@ from utils.config import Config
 class Info(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-    
+    @commands.command(name='ping',
+                description="Ping!",
+                brief="Ping!",
+                aliases=['Ping', 'Ping!'])
+    async def ping(self, ctx):
+        await ctx.message.channel.send(ctx.message.author.mention + " " + str(math.ceil(self.bot.latency * 1000)) + " ms")
+
     @commands.command(name='createdat')
     async def createdat(self, ctx, id:int):
         created_at=discord.utils.snowflake_time(id).strftime("%b %d, %Y; %I:%M %p")

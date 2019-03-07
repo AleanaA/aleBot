@@ -1,5 +1,6 @@
 import discord
 import random
+import requests
 from discord.ext import commands
 from utils.dataIO import fileIO
 from utils.embed import Embeds
@@ -60,7 +61,13 @@ class Fun(commands.Cog):
         'https://em.wattpad.com/be664a8e8b471f49798ad367e7e809bea6dff987/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f776174747061642d6d656469612d736572766963652f53746f7279496d6167652f5470763473634d653344323357413d3d2d3331373535353132392e3134373938323930393132363361666232353737353336373930322e676966?s=fit&w=1280&h=1280', 'http://fanserviceftw.com/gallery/_images/38ae1c6bd36796a463e3b916a066e264/5092%20-%20animated_gif%20hasegawa_haruka%20kiss%20moyashimon%20oikawa_hazuki%20yuri.gif', 
         'http://i.myniceprofile.com/1503/150305.gif', 'http://images6.fanpop.com/image/photos/36100000/yuri-image-yuri-36185616-300-169.gif', 'http://media.giphy.com/media/514rRMooEn8ti/giphy.gif', 
         'http://stream1.gifsoup.com/view1/1537307/anime-kiss-12-o.gif', 'http://37.media.tumblr.com/53bf74a951fc87a0cc15686f5aadb769/tumblr_n14rfuvCe41sc1kfto1_500.gif', 
-        'http://24.media.tumblr.com/d4f03ca449e3d51325e9ba0cc6a11b24/tumblr_mmjr3zHgmw1s6qc3bo1_500.gif', 'https://media.giphy.com/media/tiML8HAwHkWDm/giphy.gif', 'http://cdn.awwni.me/n0eo.gif']
+        'http://24.media.tumblr.com/d4f03ca449e3d51325e9ba0cc6a11b24/tumblr_mmjr3zHgmw1s6qc3bo1_500.gif', 'https://media.giphy.com/media/tiML8HAwHkWDm/giphy.gif', 'http://cdn.awwni.me/n0eo.gif', 'https://33.media.tumblr.com/b867332ef4f014a1c6da99d5bd29bebb/tumblr_n35yy0Udsw1qbvovho1_500.gif', 'http://i.imgur.com/QgfTZrS.gif', 'http://i.imgur.com/Z6V6mUE.mp4', 
+        'http://orig00.deviantart.net/06a9/f/2015/054/a/a/cheekkainora_by_nikadonna-d8j8grg.gif', 'http://68.media.tumblr.com/2ced143e6bba445d359f982d0c3d659f/tumblr_n1ipntQonM1qbvovho8_500.gif', 
+        'http://cdn.awwni.me/n3pg.gif', 'http://25.media.tumblr.com/3b8a73c70947679a6af56178762bdc1f/tumblr_mk8xzkenY71qzd219o1_500.gif', 'http://rs1099.pbsrc.com/albums/g399/Tantei-san/Conan-Kissonthecheek.gif~c200', 
+        'https://i.giphy.com/media/12MEJ2ArZc23cY/source.gif', 'http://images6.fanpop.com/image/photos/32800000/Willis-kissing-Kari-and-Yolei-on-the-cheek-anime-32853445-500-250.gif', 
+        'https://33.media.tumblr.com/90e09a6725fa20e59a69f2f7b2c4ad45/tumblr_n7wf3hH6rm1tv1jtto1_500.gif', 'http://data.whicdn.com/images/59643377/large.gif', 
+        'https://38.media.tumblr.com/601f2d61d90e635968629bbb45a395e6/tumblr_nhd3g61Q6R1szhmk0o8_500.gif', 'http://www.lovethisgif.com/uploaded_images/5618-Anime-Kiss-Connect-Cheek-Kokoro-Animated-Gif.gif',
+        'https://m.imgur.com/IVNTe32', 'https://thumbs.gfycat.com/ClearcutVainImperatorangel-max-1mb.gif', 'https://78.media.tumblr.com/043cadead20ea26375ef2730f9de736f/tumblr_o1ei0jcAZN1ufdoz0o1_500.gif']
 
         #
         self.pickupline = ["Are you a tamale? ‘Cause you’re hot.",'You may fall from the sky, you may fall from a tree, but the best way to fall... is in love with me.', "Know what's on the menu? Me-n-u.", 
@@ -80,15 +87,6 @@ class Fun(commands.Cog):
         "Well, here I am. What are your other two wishes?", "Do you have a quarter? My mom told me to call her when I found the woman of my dreams.", "Do you have a band aid? I hurt my knee when I fell for you.",
          "The word of the day is legs. Let’s go back to my place and spread the word.", "You are so sweet you are giving me a toothache.", "Life without you would be like a broken pencil…pointless.", 
          "My magic watch says that you don’t have on any underwear. Oh..oh.. you, you do? \nDamn! it must be 15 minutes fast", "You turn my software into hardware!", "You must be in a wrong place – the Miss Universe contest is over there."]
-
-        #
-        self.ckiss = ['https://33.media.tumblr.com/b867332ef4f014a1c6da99d5bd29bebb/tumblr_n35yy0Udsw1qbvovho1_500.gif', 'http://i.imgur.com/QgfTZrS.gif', 'http://i.imgur.com/Z6V6mUE.mp4', 
-        'http://orig00.deviantart.net/06a9/f/2015/054/a/a/cheekkainora_by_nikadonna-d8j8grg.gif', 'http://68.media.tumblr.com/2ced143e6bba445d359f982d0c3d659f/tumblr_n1ipntQonM1qbvovho8_500.gif', 
-        'http://cdn.awwni.me/n3pg.gif', 'http://25.media.tumblr.com/3b8a73c70947679a6af56178762bdc1f/tumblr_mk8xzkenY71qzd219o1_500.gif', 'http://rs1099.pbsrc.com/albums/g399/Tantei-san/Conan-Kissonthecheek.gif~c200', 
-        'https://i.giphy.com/media/12MEJ2ArZc23cY/source.gif', 'http://images6.fanpop.com/image/photos/32800000/Willis-kissing-Kari-and-Yolei-on-the-cheek-anime-32853445-500-250.gif', 
-        'https://33.media.tumblr.com/90e09a6725fa20e59a69f2f7b2c4ad45/tumblr_n7wf3hH6rm1tv1jtto1_500.gif', 'http://data.whicdn.com/images/59643377/large.gif', 
-        'https://38.media.tumblr.com/601f2d61d90e635968629bbb45a395e6/tumblr_nhd3g61Q6R1szhmk0o8_500.gif', 'http://www.lovethisgif.com/uploaded_images/5618-Anime-Kiss-Connect-Cheek-Kokoro-Animated-Gif.gif',
-        'https://m.imgur.com/IVNTe32', 'https://thumbs.gfycat.com/ClearcutVainImperatorangel-max-1mb.gif', 'https://78.media.tumblr.com/043cadead20ea26375ef2730f9de736f/tumblr_o1ei0jcAZN1ufdoz0o1_500.gif']
 
         #
         self.pat = ['http://media.giphy.com/media/L2z7dnOduqEow/giphy.gif', 'http://33.media.tumblr.com/229ec0458891c4dcd847545c81e760a5/tumblr_mpfy232F4j1rxrpjzo1_r2_500.gif', 'https://media.giphy.com/media/12hvLuZ7uzvCvK/giphy.gif', 
@@ -138,13 +136,6 @@ class Fun(commands.Cog):
         'http://s2.favim.com/orig/36/ash-bed-hug-pikachu-pokemon-Favim.com-295600.gif']
 
         #
-        self.snuggle = ['http://media.giphy.com/media/QlFyrikSI01Fe/giphy.gif', 'http://media.tumblr.com/01949fb828854480b513a87fa4e8eee7/tumblr_inline_n5r8vyJZa61qc7mf8.gif', 'http://media.giphy.com/media/Ki88u2LhvDhyE/giphy.gif', 
-        'http://www.ohmagif.com/wp-content/uploads/2012/07/cute-puppy-cuddling-with-cat.gif', 'http://awesomegifs.com/wp-content/uploads/cat-and-dog-cuddling.gif', 'http://big.assets.huffingtonpost.com/cuddlecat.gif', 
-        'http://25.media.tumblr.com/d9f3e83abe3e01d1174dae0a771750cd/tumblr_mi4ll7Rqqe1rqszceo1_400.gif', 'https://lh3.googleusercontent.com/-H8YQfmNXcus/UNH4jtH3gkI/AAAAAAAAGpA/FHslZSXRs6I/s233/141.gif', 
-        'https://media.giphy.com/media/ipTpDF6TOdgc/giphy.gif', 'https://media.giphy.com/media/ztXa20eZi18oo/giphy.gif', 'http://www.rinchupeco.com/wp-content/uploads/2013/06/cuddle.gif', 
-        'http://s2.favim.com/orig/36/ash-bed-hug-pikachu-pokemon-Favim.com-295600.gif']
-
-        #
         self.punch = ['https://media.tenor.co/images/c22ccca9bccec97234cfa3f0147c32a9/raw', 'https://media.giphy.com/media/11zD6xIdX4UOfS/giphy.gif', 'https://media.tenor.co/images/c119c32b931abd9c9d6471839d0e35f2/raw', 
         'http://media3.giphy.com/media/LdsJrFnANh6HS/giphy.gif', 'http://media.giphy.com/media/mLn5AIQK2WEwg/giphy.gif', 'https://media.tenor.co/images/9117e543eb665a49ae73fd960c5f7d57/raw', 
         'https://media.giphy.com/media/Z5zuypybI5dYc/giphy.gif', 'https://media.giphy.com/media/10Im1VWMHQYfQI/giphy.gif', 'http://24.media.tumblr.com/tumblr_llzoy4WqVw1qd9kxeo1_500.gif', 'http://i.imgur.com/t7UzKxg.gif', 
@@ -157,6 +148,52 @@ class Fun(commands.Cog):
         'https://s-media-cache-ak0.pinimg.com/originals/69/fc/82/69fc828893e612d86fc7bb85862be96e.gif', 'http://25.media.tumblr.com/c65a4af4ff032d1ca06350b66a1e819c/tumblr_mtxk6zVzaa1sogk1do1_r1_500.gif', 
         'http://media.giphy.com/media/ROF8OQvDmxytW/giphy.gif', 'http://media.giphy.com/media/QUKkvRTIYLgMo/giphy.gif', 'http://media.tumblr.com/tumblr_mdaindozZF1ryvbtl.gif', 
         'https://31.media.tumblr.com/b307cca19d29eb1625bd841e661c0f59/tumblr_mvjhgmknl91stfs7go1_500.gif', 'http://media1.giphy.com/media/4pk6ba2LUEMi4/giphy.gif']
+
+    @commands.command(name='pay')
+    async def payuser(self, ctx, who:discord.User=None, amount=None):
+        emb = Embeds.create_embed(self, ctx, title="Payment", color=0x00ffff)
+        if who == None:
+            emb.description = "No user!"
+            await ctx.send(embed=emb)
+            return
+        if amount == None:
+            emb.description = "Empty amount!"
+            await ctx.send(embed=emb)
+            return
+        if "$" not in amount:
+            amount = "${}".format(amount)
+        emb.description = "{} paid {} to {}!".format(ctx.message.author.name, amount, who.name)
+        await ctx.send(embed=emb)
+
+    @commands.command(name='cat',
+                description="Kitty!")
+    async def cat(self, ctx):
+        isVideo = True
+        while isVideo:
+            r = requests.get('http://aws.random.cat/meow')
+            parsed_json = r.json()
+            if parsed_json['file'].endswith('.mp4'):
+                pass
+            else:
+                isVideo = False
+        embed = discord.Embed()
+        embed.set_image(url=parsed_json['file'])
+        await ctx.message.channel.send(embed=embed)
+
+    @commands.command(name='dog',
+                description="Puppo!")
+    async def dog(self, ctx):
+        isVideo = True
+        while isVideo:
+            r = requests.get('https://random.dog/woof.json')
+            parsed_json = r.json()
+            if parsed_json['url'].endswith('.mp4'):
+                pass
+            else:
+                isVideo = False
+        embed = discord.Embed()
+        embed.set_image(url=parsed_json['url'])
+        await ctx.send(embed=embed)
 
     @commands.command(name="8ball")
     async def eightballcmd(self, ctx, *, question: str):
@@ -248,22 +285,6 @@ class Fun(commands.Cog):
         emb.set_image(url=result)
         await ctx.send(embed=emb)
 
-    @commands.command(name="ckiss")
-    async def ckisscmd(self, ctx, *, user:str=None):
-        result = random.choice(self.ckiss)
-        if user:
-            if user[0:2] == "<@" and user[-1] == ">":
-                user = int(re.sub("[^0-9]", "", user))
-                user = await self.bot.get_user_info(user)
-                user = user.name
-            else:
-                pass
-        else:
-            user = ctx.message.author.name
-        emb = Embeds.create_embed(self, ctx, "Kissing {} on the cheek".format(user), 0x00aaff)
-        emb.set_image(url=result)
-        await ctx.send(embed=emb)
-
     @commands.command(name="cuddle")
     async def cuddlecmd(self, ctx, *, user:str=None):
         result = random.choice(self.cuddle)
@@ -279,23 +300,7 @@ class Fun(commands.Cog):
         emb = Embeds.create_embed(self, ctx, "Cuddling with {}".format(user), 0x00aaff)
         emb.set_image(url=result)
         await ctx.send(embed=emb)
-
-    @commands.command(name="snuggle")
-    async def snugglecmd(self, ctx, *, user:str=None):
-        result = random.choice(self.snuggle)
-        if user:
-            if user[0:2] == "<@" and user[-1] == ">":
-                user = int(re.sub("[^0-9]", "", user))
-                user = await self.bot.get_user_info(user)
-                user = user.name
-            else:
-                pass
-        else:
-            user = ctx.message.author.name
-        emb = Embeds.create_embed(self, ctx, "Snuggled up with {}".format(user), 0x00aaff)
-        emb.set_image(url=result)
-        await ctx.send(embed=emb)
-
+        
     @commands.command(name="slap")
     async def slapcmd(self, ctx, *, user:str=None):
         result = random.choice(self.slap)

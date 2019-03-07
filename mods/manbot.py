@@ -53,7 +53,7 @@ class BotOptions(commands.Cog):
                     description="Changes the bots avatar!",
                     brief="Changes the bots avatar!",
                     aliases=['Avatar'])
-    async def avatar(self, ctx, msg=None):
+    async def avatar(self, ctx, msg):
         self.aiosession = aiohttp.ClientSession(loop=self.bot.loop)
         emb = discord.Embed()
         emb.title = "Avatar Changed!"

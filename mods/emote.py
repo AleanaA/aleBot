@@ -21,9 +21,10 @@ class Emote(commands.Cog):
             "Emote Manager",
             0xffff00,
             "Please issue a valid subcommand!\nAvailable options are:",
-            Com1 = ["Add", "Adds an emote to the current server.", False],
+            Com1 = ["Add", "ale!e add <URL> <Name>", False],
             Com2 = ["Del", "Removes an emote from the current server.", False],
-            Com3 = ["Rep", "Replaces an emote on the current server.", False])
+            Com3 = ["Rep", "Replaces an emote on the current server.", False],
+            Com4 = ["Steal", "Steals an emote to add to the current server.", False])
             await ctx.message.channel.send(embed=emb)
 
     @emote.command(name='add',

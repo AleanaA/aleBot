@@ -21,6 +21,12 @@ from utils.config import Config
 class Info(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+    
+    @commands.command(name='createdat')
+    async def createdat(self, ctx, id:int):
+        created_at=discord.utils.snowflake_time(id).strftime("%b %d, %Y; %I:%M %p")
+        emb=Embeds.create_embed(self, ctx, "This snowflake was created at", color=0x00fbff, message=created_at)
+        await ctx.send(embed=emb)
 
     @commands.command(name='stats')
     async def stats(self, ctx):

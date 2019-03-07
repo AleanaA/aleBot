@@ -118,7 +118,7 @@ class Info(commands.Cog):
             await ctx.message.channel.send(embed=discord.Embed(title="Unknown server", description="The bot probably isn't in that server!", color=0xff0000))
             return
 
-        roles = [role.name for role in server.role_hierarchy]
+        roles = [role.name for role in server.roles]
         del roles[-1]
         rolecount = len(roles)
         channelcount = len(server.text_channels)+len(server.voice_channels)

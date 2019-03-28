@@ -80,49 +80,29 @@ class Info(commands.Cog):
         pid = os.getpid()
         py = psutil.Process(pid)
 
-        embed=Embeds.create_embed(self, ctx, "Bot stats", None, None, 
+        embed=Embeds.create_embed(self, ctx, "Bot stats", None, None)
 
-        CPU=["CPU Usage", py.cpu_percent(), True],
-
-        Memory=["Memory Usage (MB)", round(py.memory_info()[0]/1024/1024, 2), True],
-
-        Owner=["Owner", owner, True],
-
-        Ping=["Ping", str(ping) + ' ms', True],
-
-        DPyVer=["Discord.py version", info, True],
-
-        Prefix=["Bot prefix", prefix, True],
-
-        Servers=["Servers", servers, True],
-
-        Messages=["Messages seen", messages_seen, True],
-
-        Users=["Users", len(memberlist), True],
-
-        Bots=["Bots", bots, True],
-
-        Channels=["Channels", channels, True],
-
-        Roles=["Roles", roles, True],
-
-        Online=["Online", online, True],
-
-        DND=["Do not disturb", dnd, True],
-
-        Idle=["Idle", idle, True],
-
-        Offline=["Offline", offline, True],
-
-        Mobile=["On Mobile", onmobile, True],
-
-        Commands=["Commands", len(self.bot.commands), True],
-
-        Uptime=["Uptime", "**%d** weeks, **%d** days, **%d** hours, **%d** minutes, **%d** seconds" % (week, day, hour, minute, second), True],
-
-        Source=["Source Code", "https://github.com/AleanaA/aleBot - Created by Aleana#2643", False],
-        
-        Support=["Support Server", "https://discord.gg/eJhG4Tq", False])
+        embed.add_field(name="CPU Usage", value=py.cpu_percent(), inline=True)
+        embed.add_field(name="Memory Usage (MB)", value=round(py.memory_info()[0]/1024/1024, 2), inline=True)
+        embed.add_field(name="Owner", value=owner, inline=True)
+        embed.add_field(name="Ping", value=str(ping) + ' ms', inline=True)
+        embed.add_field(name="Discord.py version", value=info, inline=True)
+        embed.add_field(name="Bot prefix", value=prefix, inline=True)
+        embed.add_field(name="Servers", value=servers, inline=True)
+        embed.add_field(name="Messages seen", value=messages_seen, inline=True)
+        embed.add_field(name="Users", value=len(memberlist), inline=True)
+        embed.add_field(name="Bots", value=bots, inline=True)
+        embed.add_field(name="Channels", value=channels, inline=True)
+        embed.add_field(name="Roles", value=roles, inline=True)
+        embed.add_field(name="Online", value=online, inline=True)
+        embed.add_field(name="Do not disturb", value=dnd, inline=True)
+        embed.add_field(name="Idle", value=idle, inline=True)
+        embed.add_field(name="Offline", value=offline, inline=True)
+        embed.add_field(name="On Mobile", value=onmobile, inline=True)
+        embed.add_field(name="Commands", value=len(self.bot.commands), inline=True)
+        embed.add_field(name="Uptime", value="**%d** weeks, **%d** days, **%d** hours, **%d** minutes, **%d** seconds" % (week, day, hour, minute, second), inline=True)
+        embed.add_field(name="Source Code", value="https://github.com/AleanaA/aleBot - Created by Aleana#2643", inline=False)
+        embed.add_field(name="Support Server", value="https://discord.gg/eJhG4Tq", inline=False)
 
         embed.set_thumbnail(url=self.bot.user.avatar_url)
 

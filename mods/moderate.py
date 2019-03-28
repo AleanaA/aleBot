@@ -10,6 +10,15 @@ from utils.config import Config
 class Moderation(commands.Cog):        
     def __init__(self, bot):
         self.bot = bot
+    
+    def roleHeight(self, ctx, user:typing.Union[discord.Member, int]):
+        if user is int:
+            return True
+        elif ctx.author.top_role > user.top_role:
+            return True
+        else:
+            return False
+
     @commands.command(name='Unban',
                     description="Unbans a user",
                     brief="Unbans a user",
@@ -33,6 +42,10 @@ class Moderation(commands.Cog):
     @commands.has_permissions(kick_members=True)
     @commands.bot_has_permissions(kick_members=True)
     async def kick(self, ctx, userName: discord.Member, *reason):
+        if self.roleHeight(ctx, userName):
+            pass
+        else:
+            return
         server = ctx.message.guild
         rsn = " ".join(reason)
         if rsn == "":
@@ -48,6 +61,10 @@ class Moderation(commands.Cog):
     @commands.has_permissions(ban_members=True)
     @commands.bot_has_permissions(ban_members=True)
     async def ban(self, ctx, userName: discord.Member, *reason):
+        if self.roleHeight(ctx, userName):
+            pass
+        else:
+            return
         server = ctx.message.guild
         rsn = " ".join(reason)
         if rsn == "":
@@ -63,6 +80,10 @@ class Moderation(commands.Cog):
     @commands.has_permissions(ban_members=True)
     @commands.bot_has_permissions(ban_members=True)
     async def banid(self, ctx, userName, *reason):
+        if self.roleHeight(ctx, userName):
+            pass
+        else:
+            return
         server = ctx.message.guild
         rsn = " ".join(reason)
         if rsn == "":
@@ -78,6 +99,10 @@ class Moderation(commands.Cog):
     @commands.has_permissions(ban_members=True)
     @commands.bot_has_permissions(ban_members=True)
     async def softban(self, ctx, userName: discord.Member, *reason):
+        if self.roleHeight(ctx, userName):
+            pass
+        else:
+            return
         server = ctx.message.guild
         rsn = " ".join(reason)
         if rsn == "":

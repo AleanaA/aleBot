@@ -13,11 +13,8 @@ class Moderation(commands.Cog):
     
     def roleHeight(self, ctx, user:typing.Union[discord.Member, int]):
         if isinstance(user, int):
-            try:
-                user = ctx.guild.get_member(user)
-            except Exception:
-                return True
-        if ctx.author.top_role > user.top_role:
+            user = ctx.guild.get_member(user)
+        if user is None or ctx.author.top_role > user.top_role:
             return True
         else:
             return False

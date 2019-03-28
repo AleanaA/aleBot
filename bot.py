@@ -82,7 +82,7 @@ class bot(commands.Bot):
             if check == None:
                 print("Server ID: {0} | Server Name: {1} | Server Owner: {2}".format(server.id, server.name, server.owner))
                 notsharedcount = notsharedcount+1
-        embed.add_field(name="Unshared Servers", value=str(notsharedcount))
+        embed.add_field(name="Total Users", value=len(set(self.get_all_members())))
         embed.add_field(name="Total Servers", value=str(len(self.guilds)))
         try:
             await owner.send(embed=embed)

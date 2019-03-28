@@ -56,27 +56,23 @@ class Info(commands.Cog):
         hour, minute = divmod(minute, 60)
         day, hour = divmod(hour, 24)
         week, day = divmod(day, 7)
-        memberlist = []
+        memberlist = set(self.bot.get_all_members())
+        for member in memberlist:
+            if member.status == discord.Status.dnd or member.status == discord.Status.do_not_disturb:
+                dnd += 1
+            elif member.status == discord.Status.online:
+                online += 1
+            elif member.status ==  discord.Status.offline:
+                offline += 1
+            elif member.status == discord.Status.idle:
+                idle += 1
+            if not member.bot:
+                members += 1
+            else:
+                bots +=  1
+            if member.is_on_mobile():
+                onmobile += 1
         for guild in self.bot.guilds:
-            for member in guild.members:
-                if member in memberlist:
-                    break
-                else:
-                    memberlist.append(member)
-                if member.status == discord.Status.dnd or member.status == discord.Status.do_not_disturb:
-                    dnd += 1
-                elif member.status == discord.Status.online:
-                    online += 1
-                elif member.status ==  discord.Status.offline:
-                    offline += 1
-                elif member.status == discord.Status.idle:
-                    idle += 1
-                if not member.bot:
-                    members += 1
-                else:
-                    bots +=  1
-                if member.is_on_mobile():
-                    onmobile += 1
             for channel in guild.channels:
                 channels += 1
             for role in guild.roles:
@@ -93,7 +89,7 @@ class Info(commands.Cog):
         Prefix=["Bot prefix", prefix, True],
         Servers=["Servers", servers, True],
         Messages=["Messages seen", messages_seen, True],
-        Users=["Users", members, True],
+        Users=["Users", len(memberlist), True],
         Bots=["Bots", bots, True],
         Channels=["Channels", channels, True],
         Roles=["Roles", roles, True],
@@ -262,6 +258,18 @@ class Info(commands.Cog):
         else:
             embed=Embeds.create_embed(self, ctx, "Spotify Error", 0xff0000, "{} is not listening to spotify, tell them to listen to some music!".format(user.mention))
             await ctx.message.channel.send(embed=embed)
+
+    @commands.command(name='invite',
+                description="Gets the bots invite url!",
+                brief="Gets the bots invite url!",
+                aliases=['Invite'])
+    async def invite(self, ctx):
+        emb = discord.Embed()
+        emb.title = "Invite URL"
+        emb.description = "<https://discordapp.com/oauth2/authorize?client_id={0}&scope=bot&permissions=8>".format(str(self.bot.user.id))
+        emb.colour = 0x00ffff
+        emb.set_thumbnail(url=self.bot.user.avatar_url)
+        await ctx.message.channel.send(embed=emb)
 
 def setup(bot):
     bot.add_cog(Info(bot))

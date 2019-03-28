@@ -80,7 +80,7 @@ class Moderation(commands.Cog):
     @commands.has_permissions(ban_members=True)
     @commands.bot_has_permissions(ban_members=True)
     async def banid(self, ctx, userName, *reason):
-        if self.roleHeight(ctx, userName):
+        if self.roleHeight(ctx, int(userName)):
             pass
         else:
             return

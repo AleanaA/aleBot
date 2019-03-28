@@ -12,9 +12,9 @@ class Moderation(commands.Cog):
         self.bot = bot
     
     def roleHeight(self, ctx, user:typing.Union[discord.Member, int]):
-        if user is int:
-            return True
-        elif ctx.author.top_role > user.top_role:
+#        if isinstance(user, int):
+#            return True
+        if ctx.author.top_role > user.top_role:
             return True
         else:
             return False
@@ -80,7 +80,7 @@ class Moderation(commands.Cog):
     @commands.has_permissions(ban_members=True)
     @commands.bot_has_permissions(ban_members=True)
     async def banid(self, ctx, userName, *reason):
-        if self.roleHeight(ctx, int(userName)):
+        if self.roleHeight(ctx, discord.Object(userName)):
             pass
         else:
             return

@@ -81,27 +81,49 @@ class Info(commands.Cog):
         py = psutil.Process(pid)
 
         embed=Embeds.create_embed(self, ctx, "Bot stats", None, None, 
+
         CPU=["CPU Usage", py.cpu_percent(), True],
+
         Memory=["Memory Usage (MB)", round(py.memory_info()[0]/1024/1024, 2), True],
+
         Owner=["Owner", owner, True],
+
         Ping=["Ping", str(ping) + ' ms', True],
+
         DPyVer=["Discord.py version", info, True],
+
         Prefix=["Bot prefix", prefix, True],
+
         Servers=["Servers", servers, True],
+
         Messages=["Messages seen", messages_seen, True],
+
         Users=["Users", len(memberlist), True],
+
         Bots=["Bots", bots, True],
+
         Channels=["Channels", channels, True],
+
         Roles=["Roles", roles, True],
+
         Online=["Online", online, True],
+
         DND=["Do not disturb", dnd, True],
+
         Idle=["Idle", idle, True],
+
         Offline=["Offline", offline, True],
+
         Mobile=["On Mobile", onmobile, True],
+
         Commands=["Commands", len(self.bot.commands), True],
+
         Uptime=["Uptime", "**%d** weeks, **%d** days, **%d** hours, **%d** minutes, **%d** seconds" % (week, day, hour, minute, second), True],
+
         Source=["Source Code", "https://github.com/AleanaA/aleBot - Created by Aleana#2643", False],
+        
         Support=["Support Server", "https://discord.gg/eJhG4Tq", False])
+
         embed.set_thumbnail(url=self.bot.user.avatar_url)
 
         await ctx.message.channel.send(embed=embed)

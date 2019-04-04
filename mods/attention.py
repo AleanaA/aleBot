@@ -24,7 +24,7 @@ class Attention(commands.Cog):
     async def hey_listen(self, ctx, *, alert:str):
         if ctx.message.author.id in self.whitelisted:
             self.pb.push_note("{} wants your attention:".format(ctx.message.author.name), alert)
-            await ctx.send("Conner was notified that you wanted his attention!")
+            await ctx.send("The bot owner was notified that you wanted their attention!")
 
 def setup(bot):
     bot.add_cog(Attention(bot))

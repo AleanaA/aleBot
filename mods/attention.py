@@ -15,7 +15,7 @@ class Attention(commands.Cog):
 
     @commands.command(name="alert")
 #    @commands.cooldown(1, 900, type=commands.BucketType.user)
-    async def alert(self, ctx, alert):
+    async def alert(self, ctx, *alert):
         alerttt = {}
         alerttt["value1"] = "{} sent an alert:".format(ctx.message.author)
         alerttt["value2"] = str(alert)

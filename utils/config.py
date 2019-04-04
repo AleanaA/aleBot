@@ -35,6 +35,7 @@ class Config:
         self.status = config.get('Bot', 'Status', fallback=None)
         self.activity = config.get('Bot', 'Activity', fallback=0)
         self.osu = config.get('Bot', 'OsuAPI', fallback=None)
+        self.ifttt = config.get('Bot', 'IFTTTKey', fallback=None)
         self.validate()
 
     def validate(self):
@@ -49,5 +50,7 @@ class Config:
             print('No Status provided!')
         if not self.osu:
             print('No osu!api key provided!')
+        if not self.ifttt:
+            print('No IFTTT key provided!')
         if critical:
             raise Shutdown()

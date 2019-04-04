@@ -5,7 +5,7 @@ from discord.ext import commands
 from utils.embed import Embeds
 from utils.config import Config
 
-class Osu(commands.Cog):
+class Attention(commands.Cog):
     def __init__(self, bot):
         if bot.config.ifttt == None:
             bot.unload_extension("mods.ifttt")
@@ -22,3 +22,6 @@ class Osu(commands.Cog):
         requests.post("https://maker.ifttt.com/trigger/aleBotnotif/with/key/{}".format(self.ifttt), data=alert)
         await self.bot.owner.send("{} sent an alert:\n{}".format(ctx.message.author, alert))
         await ctx.send("An alert was sent to the bot owner!\nPlease note, you won't be able to send another alert for 15 minutes!")
+
+def setup(bot):
+    bot.add_cog(Attention(bot))

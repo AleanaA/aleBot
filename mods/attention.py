@@ -19,8 +19,8 @@ class Attention(commands.Cog):
         alerttt = {}
         alerttt["value1"] = "{} sent an alert:".format(ctx.message.author)
         alerttt["value2"] = str(alert)
-        requests.post("https://maker.ifttt.com/trigger/aleBotnotif/with/key/{}".format(self.ifttt), data=alert)
-        await self.bot.appinfo.owner.send("{} sent an alert:\n{}".format(ctx.message.author, alerttt))
+        requests.post("https://maker.ifttt.com/trigger/aleBotnotif/with/key/{}".format(self.ifttt), data=alerttt)
+        await self.bot.appinfo.owner.send("{} sent an alert:\n{}".format(ctx.message.author, alert))
         await ctx.send("An alert was sent to the bot owner!\nPlease note, you won't be able to send another alert for 15 minutes!")
 
 def setup(bot):

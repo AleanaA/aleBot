@@ -21,7 +21,7 @@ class bot(commands.Bot):
         self.token = self.config.token
         command_prefix = kwargs.pop('command_prefix', commands.when_mentioned_or(self.config.prefix))
         super().__init__(command_prefix=command_prefix, *args, **kwargs)
-        self.owner = None
+        self.owner = self.appinfo.owner
         self.start_time = time.time()
         self.own_task = None
         self.last_message = None

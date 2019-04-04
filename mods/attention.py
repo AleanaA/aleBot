@@ -1,0 +1,24 @@
+import asyncio
+import discord
+import requests
+from discord.ext import commands
+from utils.embed import Embeds
+from utils.config import Config
+
+class Osu(commands.Cog):
+    def __init__(self, bot):
+        if bot.config.ifttt == None:
+            bot.unload_extension("mods.ifttt")
+        else:
+            self.ifttt = bot.config.ifttt
+            self.bot = bot 
+
+    @commands.command(name="alert")
+    @commands.cooldown(1, 900, type=commands.BucketType.user)
+    async def alert(self, ctx, alert):
+        alert = {}
+        alert["value1"] = "{} sent an alert:".format(ctx.message.author)
+        alert["value2"] = alert
+        requests.post("https://maker.ifttt.com/trigger/aleBotnotif/with/key/{}".format(self.ifttt), data=alert)
+        await self.bot.owner.send("{} sent an alert:\n{}".format(ctx.message.author, alert))
+        await ctx.send("An alert was sent to the bot owner!\nPlease note, you won't be able to send another alert for 15 minutes!")

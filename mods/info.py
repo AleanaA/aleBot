@@ -43,7 +43,7 @@ class Info(commands.Cog):
         servers = len(self.bot.guilds)
         messages_seen = str(self.bot.messages_seen)
         members = sum([member.bot != True for member in self.bot.get_all_members()])
-        bots = sum([member.bot == True for member in {self.bot.get_all_members()}])
+        bots = sum([member.bot == True for member in self.bot.get_all_members()])
         channels = len(self.bot.get_all_channels())
         roles = 0
         online = sum([member.status == discord.Status.online for member in {self.bot.get_all_members()}])

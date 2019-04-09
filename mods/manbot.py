@@ -114,9 +114,8 @@ class BotOptions(commands.Cog):
         print("Bot has updated to the latest commit in repository.\nAll mods in `config.py` have attempted to be reloaded.\nIt is advised that you restart if anything outside the mods folder was updated.")
         print(msg)
         print(out.decode('utf8'))
-        f = open("output.txt","w+")
-        f.write(out.decode('utf8'))
-        f.close()
+        with open("output.txt","w+") as f:
+            f.write(out.decode('utf8'))
         await ctx.message.channel.send(embed=emb)
         if len(out.decode('utf8')) >=500:
             await ctx.message.channel.send(file=discord.File('output.txt'))

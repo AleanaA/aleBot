@@ -42,39 +42,21 @@ class Info(commands.Cog):
         info = discord.__version__
         servers = len(self.bot.guilds)
         messages_seen = str(self.bot.messages_seen)
-        members = 0
-        bots = 0
-        channels = 0
+        members = sum([member.bot != True for member in {self.bot.get_all_members()}])
+        bots = sum([member.bot == True for member in {self.bot.get_all_members()}])
+        channels = len(self.bot.get_all_channels())
         roles = 0
-        online = 0
-        dnd = 0
-        offline = 0
-        idle = 0
-        onmobile = 0
+        online = sum([member.status == discord.Status.online for member in {self.bot.get_all_members()}])
+        dnd = sum([member.status == discord.Status.dnd or discord.Status.do_not_disturb for member in {self.bot.get_all_members()}])
+        offline = sum([member.status == discord.Status.offline for member in {self.bot.get_all_members()}])
+        idle = sum([member.status == discord.Status.idle for member in {self.bot.get_all_members()}])
+        onmobile = sum([member.is_on_mobile() == True for member in {self.bot.get_all_members()}])
         second = time.time() - self.bot.start_time
         minute, second = divmod(second, 60)
         hour, minute = divmod(minute, 60)
         day, hour = divmod(hour, 24)
         week, day = divmod(day, 7)
-        memberlist = set(self.bot.get_all_members())
-        for member in memberlist:
-            if member.status == discord.Status.dnd or member.status == discord.Status.do_not_disturb:
-                dnd += 1
-            elif member.status == discord.Status.online:
-                online += 1
-            elif member.status ==  discord.Status.offline:
-                offline += 1
-            elif member.status == discord.Status.idle:
-                idle += 1
-            if not member.bot:
-                members += 1
-            else:
-                bots +=  1
-            if member.is_on_mobile():
-                onmobile += 1
         for guild in self.bot.guilds:
-            for channel in guild.channels:
-                channels += 1
             for role in guild.roles:
                 roles += 1
         pid = os.getpid()
@@ -90,7 +72,7 @@ class Info(commands.Cog):
         embed.add_field(name="Bot prefix", value=prefix, inline=True)
         embed.add_field(name="Servers", value=servers, inline=True)
         embed.add_field(name="Messages seen", value=messages_seen, inline=True)
-        embed.add_field(name="Users", value=len(memberlist), inline=True)
+        embed.add_field(name="Users", value=members, inline=True)
         embed.add_field(name="Bots", value=bots, inline=True)
         embed.add_field(name="Channels", value=channels, inline=True)
         embed.add_field(name="Roles", value=roles, inline=True)

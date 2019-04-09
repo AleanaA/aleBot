@@ -47,7 +47,7 @@ class Info(commands.Cog):
         channels = len(list(self.bot.get_all_channels()))
         roles = 0
         online = sum([member.status == discord.Status.online for member in self.bot.get_all_members()])
-        dnd = sum([member.status == discord.Status.dnd or discord.Status.do_not_disturb for member in self.bot.get_all_members()])
+        dnd = sum([member.status == discord.Status.dnd or member.status == discord.Status.do_not_disturb for member in self.bot.get_all_members()])
         offline = sum([member.status == discord.Status.offline for member in self.bot.get_all_members()])
         idle = sum([member.status == discord.Status.idle for member in self.bot.get_all_members()])
         onmobile = sum([member.is_on_mobile() == True for member in self.bot.get_all_members()])

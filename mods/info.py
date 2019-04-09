@@ -58,7 +58,8 @@ class Info(commands.Cog):
         week, day = divmod(day, 7)
         for guild in self.bot.guilds:
             for role in guild.roles:
-                roles += 1
+                if role.name != "@everyone":
+                    roles += 1
         pid = os.getpid()
         py = psutil.Process(pid)
 

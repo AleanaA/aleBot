@@ -31,6 +31,7 @@ class bot(commands.Bot):
     
     async def on_message(self, ctx):
         self.messages_seen += 1
+        await self.process_commands(ctx)
 
     def __del__(self):
         self.loop.set_exception_handler(lambda *args, **kwargs: None)

@@ -275,6 +275,7 @@ class Profiles(commands.Cog):
     
     async def on_message(self, message):
         self.user_add_xp(message.author.id, 2)
+        self.bot.messages_seen += 1
         print('it did it')
 
 def check_folders():

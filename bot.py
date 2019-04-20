@@ -9,8 +9,6 @@ from discord.ext import commands
 from discord.ext.commands import Bot
 from config import config
 from utils.config import Config
-from mods.profile import Profiles as profile
-from utils.dataIO import dataIO
 
 class Object(object):
     pass
@@ -29,8 +27,6 @@ class bot(commands.Bot):
         self.last_message = None
         self.command_messages = {}
         self.messages_seen = 0
-        self.profilepath = "data/profiles.json"
-        self.profiles = dataIO.load_json(self.profilepath)
         self.remove_command('help')
     
     async def on_message(self, ctx):

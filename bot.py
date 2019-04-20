@@ -9,7 +9,7 @@ from discord.ext import commands
 from discord.ext.commands import Bot
 from config import config
 from utils.config import Config
-from mods.profile import Profiles as profile
+from mods.profile import Profiles
 
 class Object(object):
     pass
@@ -32,7 +32,7 @@ class bot(commands.Bot):
     
     async def on_message(self, ctx):
         self.messages_seen += 1
-        profile.user_add_xp(self, ctx.author.id, 2)
+        Profiles.user_add_xp(Profiles, ctx.author.id, 2)
         await self.process_commands(ctx)
 
     def __del__(self):

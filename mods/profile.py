@@ -51,7 +51,7 @@ class Profiles(commands.Cog):
         emb.add_field(name="Kudos", value=str(profile["Kudos"]))
 
         if profile["Married"] != None:
-            marriedto = await self.bot.get_user(profile["Married"])
+            marriedto = self.bot.get_user(profile["Married"])
             emb.add_field(name="Married To", value=":heart: {} :heart:".format(marriedto.name), inline=False)
 
         emb.add_field(name="XP", value=str(profile["xp"]), inline=False)
@@ -263,7 +263,7 @@ class Profiles(commands.Cog):
         xplbls = {}
         for userid, dic in self.profiles.items():
             try:
-                user = await self.bot.get_user(int(userid))
+                user = self.bot.get_user(int(userid))
             except ValueError:
                 pass
             try:

@@ -227,7 +227,7 @@ class Fun(commands.Cog):
         if user:
             if user[0:2] == "<@" and user[-1] == ">":
                 user = int(re.sub("[^0-9]", "", user))
-                user = await self.bot.get_user(user)
+                user = self.bot.get_user(user)
                 user = user.name
             else:
                 pass
@@ -243,7 +243,7 @@ class Fun(commands.Cog):
         if user:
             if user[0:2] == "<@" and user[-1] == ">":
                 user = int(re.sub("[^0-9]", "", user))
-                user = await self.bot.get_user(user)
+                user = self.bot.get_user(user)
                 user = user.name
             else:
                 pass
@@ -259,7 +259,7 @@ class Fun(commands.Cog):
         if user:
             if user[0:2] == "<@" and user[-1] == ">":
                 user = int(re.sub("[^0-9]", "", user))
-                user = await self.bot.get_user(user)
+                user = self.bot.get_user(user)
                 user = user.name
             else:
                 pass
@@ -275,7 +275,7 @@ class Fun(commands.Cog):
         if user:
             if user[0:2] == "<@" and user[-1] == ">":
                 user = int(re.sub("[^0-9]", "", user))
-                user = await self.bot.get_user(user)
+                user = self.bot.get_user(user)
                 user = user.name
             else:
                 pass
@@ -291,7 +291,7 @@ class Fun(commands.Cog):
         if user:
             if user[0:2] == "<@" and user[-1] == ">":
                 user = int(re.sub("[^0-9]", "", user))
-                user = await self.bot.get_user(user)
+                user = self.bot.get_user(user)
                 user = user.name
             else:
                 pass
@@ -308,7 +308,7 @@ class Fun(commands.Cog):
             await ctx.send(user[0:2] + user[-1])
             if user[0:2] == "<@" and user[-1] == ">":
                 user = int(re.sub("[^0-9]", "", user))
-                user = await self.bot.get_user(user)
+                user = self.bot.get_user(user)
                 user = user.name
             else:
                 pass
@@ -324,7 +324,7 @@ class Fun(commands.Cog):
         if user:
             if user[0:2] == "<@" and user[-1] == ">":
                 user = int(re.sub("[^0-9]", "", user))
-                user = await self.bot.get_user(user)
+                user = self.bot.get_user(user)
                 user = user.name
             else:
                 pass
@@ -340,7 +340,7 @@ class Fun(commands.Cog):
         if user:
             if user[0:2] == "<@" and user[-1] == ">":
                 user = int(re.sub("[^0-9]", "", user))
-                user = await self.bot.get_user(user)
+                user = self.bot.get_user(user)
                 user = user.name
             else:
                 pass
@@ -356,7 +356,7 @@ class Fun(commands.Cog):
         if user:
             if user[0:2] == "<@" and user[-1] == ">":
                 user = int(re.sub("[^0-9]", "", user))
-                user = await self.bot.get_user(user)
+                user = self.bot.get_user(user)
                 user = user.name
             else:
                 pass
@@ -372,7 +372,7 @@ class Fun(commands.Cog):
         if user:
             if user[0:2] == "<@" and user[-1] == ">":
                 user = int(re.sub("[^0-9]", "", user))
-                user = await self.bot.get_user(user)
+                user = self.bot.get_user(user)
                 user = user.name
             else:
                 pass
@@ -388,7 +388,7 @@ class Fun(commands.Cog):
         if user:
             if user[0:2] == "<@" and user[-1] == ">":
                 user = int(re.sub("[^0-9]", "", user))
-                user = await self.bot.get_user(user)
+                user = self.bot.get_user(user)
                 user = user.name
             else:
                 pass
@@ -403,7 +403,7 @@ class Fun(commands.Cog):
         if user:
             if user[0:2] == "<@" and user[-1] == ">":
                 user = int(re.sub("[^0-9]", "", user))
-                user = await self.bot.get_user(user)
+                user = self.bot.get_user(user)
                 user = user.name
             else:
                 pass

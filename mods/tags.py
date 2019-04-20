@@ -20,7 +20,7 @@ class Tags(commands.Cog):
                 if tag["Name"] == name:
                     timestamp_str = tag["Creation"]
                     timestamp_obj = datetime.strptime(timestamp_str, "%Y-%m-%d %H:%M:%S")
-                    author = await self.bot.get_user(tag["Creator"])
+                    author = self.bot.get_user(tag["Creator"])
                     embed = emb.create_embed(self, ctx, tag["Name"], None, tag["Content"])
                     embed.set_footer(text=author.name, icon_url=author.avatar_url)
                     embed.timestamp = timestamp_obj

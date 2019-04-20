@@ -251,9 +251,6 @@ class Profiles(commands.Cog):
                 profile['xp'] = xp
             dataIO.save_json(self.profilepath, self.profiles)
 
-    async def on_message(self, message):
-        self.user_add_xp(message.author.id, 2)
-
     @commands.command(name="xplb")
     async def xplb(self, ctx):
         lbtext =''

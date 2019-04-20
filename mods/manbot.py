@@ -120,9 +120,6 @@ class BotOptions(commands.Cog):
         if len(out.decode('utf8')) >=500:
             await ctx.message.channel.send(file=discord.File('output.txt'))
         os.remove('output.txt')
-
-    async def on_message(self, msg:discord.Message):
-        self.bot.messages_seen += 1
     
     @commands.command(name='eval',
                 description="Owner Only!",

@@ -30,7 +30,6 @@ class Profiles(commands.Cog):
             self.profiles[userid]["Married"] = None
             self.profiles[userid]["Kudos"] = 0
             self.profiles[userid]["xp"] = 0
-            self.profiles[userid]['xp_time'] = (datetime.datetime.utcnow() - self.epoch).total_seconds()
             dataIO.save_json(self.profilepath, self.profiles)
 
         profile = self.profiles[userid]
@@ -76,7 +75,6 @@ class Profiles(commands.Cog):
             self.profiles[authid]["Married"] = None
             self.profiles[authid]["Kudos"] = 0
             self.profiles[userid]["xp"] = 0
-            self.profiles[userid]['xp_time'] = (datetime.datetime.utcnow() - self.epoch).total_seconds()
             dataIO.save_json(self.profilepath, self.profiles)
         if userid not in self.profiles:
             self.profiles[userid] = {}
@@ -85,7 +83,6 @@ class Profiles(commands.Cog):
             self.profiles[userid]["Married"] = None
             self.profiles[userid]["Kudos"] = 0
             self.profiles[userid]["xp"] = 0
-            self.profiles[userid]['xp_time'] = (datetime.datetime.utcnow() - self.epoch).total_seconds()
             dataIO.save_json(self.profilepath, self.profiles)
 
         authprofile = self.profiles[authid]
@@ -131,7 +128,6 @@ class Profiles(commands.Cog):
             self.profiles[userid]["Married"] = None
             self.profiles[userid]["Kudos"] = 0
             self.profiles[userid]["xp"] = 0
-            self.profiles[userid]['xp_time'] = (datetime.datetime.utcnow() - self.epoch).total_seconds()
             dataIO.save_json(self.profilepath, self.profiles)
         authprofile = self.profiles[userid]
         if authprofile["Married"] is None:
@@ -163,7 +159,6 @@ class Profiles(commands.Cog):
             self.profiles[userid]["Married"] = None
             self.profiles[userid]["Kudos"] = 1
             self.profiles[userid]["xp"] = 0
-            self.profiles[userid]['xp_time'] = (datetime.datetime.utcnow() - self.epoch).total_seconds()
             dataIO.save_json(self.profilepath, self.profiles)
         else:
             profile = self.profiles[userid]
@@ -187,7 +182,6 @@ class Profiles(commands.Cog):
             self.profiles[userid]["Married"] = None
             self.profiles[userid]["Kudos"] = 0
             self.profiles[userid]["xp"] = 0
-            self.profiles[userid]['xp_time'] = (datetime.datetime.utcnow() - self.epoch).total_seconds()
             dataIO.save_json(self.profilepath, self.profiles)
         else:
             profile = self.profiles[userid]
@@ -208,7 +202,6 @@ class Profiles(commands.Cog):
             self.profiles[userid]["Married"] = None
             self.profiles[userid]["Kudos"] = 0
             self.profiles[userid]["xp"] = 0
-            self.profiles[userid]['xp_time'] = (datetime.datetime.utcnow() - self.epoch).total_seconds()
             dataIO.save_json(self.profilepath, self.profiles)
 
         profile = self.profiles[userid]
@@ -241,16 +234,21 @@ class Profiles(commands.Cog):
             await ctx.send("Set {}'s xp to {}!".format(user.name, content))
 
     def user_add_xp(self, user_id, xp):
-        if str(user_id) in self.profiles:
+        # Check if specified user has a profile already, if they don't, make one
+        if str(user_id) not in self.profiles:
+            self.profiles[user_id] = {}
+            self.profiles[user_id]["Description"] = None
+            self.profiles[user_id]["Title"] = None
+            self.profiles[user_id]["Married"] = None
+            self.profiles[user_id]["Kudos"] = 0
+            self.profiles[user_id]["xp"] = xp
+            dataIO.save_json(self.profilepath, self.profiles)
+        else:
             profile = self.profiles[str(user_id)]
             try:
-                time_diff = (datetime.datetime.utcnow() - self.epoch).total_seconds() - profile['xp_time']
-                if time_diff >= 45:
-                    profile['xp'] += xp
-                    profile['xp_time'] = (datetime.datetime.utcnow() - self.epoch).total_seconds()
+                profile['xp'] += xp
             except KeyError:
                 profile['xp'] = xp
-                profile['xp_time'] = (datetime.datetime.utcnow() - self.epoch).total_seconds()
             dataIO.save_json(self.profilepath, self.profiles)
 
     async def on_message(self, message):

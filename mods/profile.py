@@ -272,6 +272,10 @@ class Profiles(commands.Cog):
                 lbtext += "{} - {} XP\n".format(value, xplbls[value])
                 usercount += 1
         await ctx.send("```{}```".format(lbtext))
+    
+    async def on_message(self, message):
+        self.user_add_xp(message.author.id, 2)
+        print('it did it')
 
 def check_folders():
     if not os.path.exists("data"):

@@ -32,7 +32,6 @@ class bot(commands.Bot):
     
     async def on_message(self, ctx):
         self.messages_seen += 1
-        Profiles.user_add_xp(Profiles, ctx.author.id, 2)
         await self.process_commands(ctx)
 
     def __del__(self):

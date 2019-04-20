@@ -35,9 +35,6 @@ class bot(commands.Bot):
     
     async def on_message(self, ctx):
         self.messages_seen += 1
-        profile.user_add_xp(self, ctx.author.id, 2)
-        profile.profiles = dataIO.load_json(self.profilepath)
-        self.profiles = dataIO.load_json(self.profilepath)
         await self.process_commands(ctx)
 
     def __del__(self):

@@ -29,7 +29,6 @@ class Profiles(commands.Cog):
             self.profiles[userid]["Title"] = None
             self.profiles[userid]["Married"] = None
             self.profiles[userid]["Kudos"] = 0
-            self.profiles[userid]["xp"] = 0
             dataIO.save_json(self.profilepath, self.profiles)
 
         profile = self.profiles[userid]
@@ -53,8 +52,6 @@ class Profiles(commands.Cog):
             marriedto = self.bot.get_user(profile["Married"])
             emb.add_field(name="Married To", value=":heart: {} :heart:".format(marriedto.name), inline=False)
 
-        emb.add_field(name="XP", value=str(profile["xp"]), inline=False)
-
         await ctx.send(embed=emb)   
     
     @commands.command(name="marry")
@@ -74,7 +71,6 @@ class Profiles(commands.Cog):
             self.profiles[authid]["Title"] = None
             self.profiles[authid]["Married"] = None
             self.profiles[authid]["Kudos"] = 0
-            self.profiles[userid]["xp"] = 0
             dataIO.save_json(self.profilepath, self.profiles)
         if userid not in self.profiles:
             self.profiles[userid] = {}
@@ -82,7 +78,6 @@ class Profiles(commands.Cog):
             self.profiles[userid]["Title"] = None
             self.profiles[userid]["Married"] = None
             self.profiles[userid]["Kudos"] = 0
-            self.profiles[userid]["xp"] = 0
             dataIO.save_json(self.profilepath, self.profiles)
 
         authprofile = self.profiles[authid]
@@ -127,7 +122,6 @@ class Profiles(commands.Cog):
             self.profiles[userid]["Title"] = None
             self.profiles[userid]["Married"] = None
             self.profiles[userid]["Kudos"] = 0
-            self.profiles[userid]["xp"] = 0
             dataIO.save_json(self.profilepath, self.profiles)
         authprofile = self.profiles[userid]
         if authprofile["Married"] is None:
@@ -158,7 +152,6 @@ class Profiles(commands.Cog):
             self.profiles[userid]["Title"] = None
             self.profiles[userid]["Married"] = None
             self.profiles[userid]["Kudos"] = 1
-            self.profiles[userid]["xp"] = 0
             dataIO.save_json(self.profilepath, self.profiles)
         else:
             profile = self.profiles[userid]
@@ -181,7 +174,6 @@ class Profiles(commands.Cog):
             self.profiles[userid]["Title"] = None
             self.profiles[userid]["Married"] = None
             self.profiles[userid]["Kudos"] = 0
-            self.profiles[userid]["xp"] = 0
             dataIO.save_json(self.profilepath, self.profiles)
         else:
             profile = self.profiles[userid]
@@ -201,7 +193,6 @@ class Profiles(commands.Cog):
             self.profiles[userid]["Title"] = None
             self.profiles[userid]["Married"] = None
             self.profiles[userid]["Kudos"] = 0
-            self.profiles[userid]["xp"] = 0
             dataIO.save_json(self.profilepath, self.profiles)
 
         profile = self.profiles[userid]
@@ -227,51 +218,6 @@ class Profiles(commands.Cog):
                 profile["Kudos"] = profile["Kudos"] + int(split[1])
                 dataIO.save_json(self.profilepath, self.profiles)
                 await ctx.send("Added {} Kudos to {}'s profile!".format(split[1], user.name))
-
-        if attrib.lower() == "xp":
-            profile['xp'] = int(content)
-            dataIO.save_json(self.profilepath, self.profiles)
-            await ctx.send("Set {}'s xp to {}!".format(user.name, content))
-
-    def user_add_xp(self, user_id, xp):
-        # Check if specified user has a profile already, if they don't, make one
-        if str(user_id) not in self.profiles:
-            self.profiles[user_id] = {}
-            self.profiles[user_id]["Description"] = None
-            self.profiles[user_id]["Title"] = None
-            self.profiles[user_id]["Married"] = None
-            self.profiles[user_id]["Kudos"] = 0
-            self.profiles[user_id]["xp"] = xp
-            dataIO.save_json(self.profilepath, self.profiles)
-        else:
-            profile = self.profiles[str(user_id)]
-            try:
-                profile['xp'] += xp
-            except KeyError:
-                profile['xp'] = xp
-            dataIO.save_json(self.profilepath, self.profiles)
-
-    @commands.command(name="xplb")
-    async def xplb(self, ctx):
-        lbtext =''
-        usercount = 0
-        xplbls = {}
-        for userid, dic in self.profiles.items():
-            try:
-                user = self.bot.get_user(int(userid))
-            except ValueError:
-                pass
-            try:
-                if user.bot == False:
-                    xplbls[str(user)] = dic['xp']
-            except KeyError:
-                pass
-        sortedlb = sorted(xplbls, key=lambda x: xplbls[x], reverse=True)
-        for value in sortedlb:
-            if usercount != 10:
-                lbtext += "{} - {} XP\n".format(value, xplbls[value])
-                usercount += 1
-        await ctx.send("```{}```".format(lbtext))
 
 def check_folders():
     if not os.path.exists("data"):

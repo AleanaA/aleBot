@@ -138,7 +138,7 @@ class Profiles(commands.Cog):
             await ctx.send("You aren't married, {}!".format(ctx.message.author.name))
             return
         
-        marriedto = await self.bot.get_user(authprofile["Married"])
+        marriedto = self.bot.get_user(authprofile["Married"])
         userprofile = self.profiles[str(authprofile["Married"])]
     
         authprofile["Married"] = None

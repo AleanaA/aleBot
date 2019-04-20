@@ -73,8 +73,8 @@ class RemindMe(commands.Cog):
             for reminder in self.reminders:
                 if reminder["FUTURE"] <= int(time.time()):
                     try:
-                        user = await self.bot.get_user_info(reminder["ID"])
-                        author = await self.bot.get_user_info(reminder["AUTHOR"])
+                        user = await self.bot.get_user(reminder["ID"])
+                        author = await self.bot.get_user(reminder["AUTHOR"])
                         if reminder["ID"] == reminder["AUTHOR"]:
                             await user.send("You asked me to remind you of this:\n{}".format(reminder["TEXT"]))
                         else:

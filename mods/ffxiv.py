@@ -61,6 +61,9 @@ class FFXIV(commands.Cog):
             name = character["Name"]
             portrait = character["Portrait"]
             avatar = character["Avatar"]
+            activeclass = character["ActiveClassJob"]
+            activeclassname = activeclass["JobID"]
+            activeclasslevel = activeclass["Level"]
         except Exception:
             request = requests.get("https://xivapi.com/character/search?name={0}&server={1}".format(name, world)).content.decode('utf8')
             result = json.loads(request)["Results"][0]

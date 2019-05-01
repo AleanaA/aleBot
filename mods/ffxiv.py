@@ -26,3 +26,6 @@ class FFXIV(commands.Cog):
         emb.set_image(url=avatar)
         emb.set_author(name=server)
         await ctx.send(embed=emb)
+
+def setup(bot):
+    bot.add_cog(FFXIV(bot))

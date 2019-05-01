@@ -12,7 +12,7 @@ class FFXIV(commands.Cog):
         self.bot = bot
 
     @commands.command(name="ffchar")
-    async def ffchar(self, ctx, world, *name):
+    async def ffchar(self, ctx, world, *, name):
         request = requests.get("https://xivapi.com/character/search?name={0}&server={1}".format(name, world)).content.decode('utf8')
         result = json.loads(request)["Results"][0]
         id = result["ID"]

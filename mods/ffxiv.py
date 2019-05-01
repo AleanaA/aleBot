@@ -22,8 +22,8 @@ class FFXIV(commands.Cog):
         portrait = character["Portrait"]
         avatar = character["Avatar"]
         emb = Embeds.create_embed(self, ctx, "Final Fantasy XIV", None, name)
-        emb.set_thumbnail(url=portrait)
-        emb.set_image(url=avatar)
+        emb.set_thumbnail(url=avatar)
+        emb.set_image(url=portrait)
         emb.set_author(name=server)
         await ctx.send(embed=emb)
 

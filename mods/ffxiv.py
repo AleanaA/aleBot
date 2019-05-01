@@ -74,10 +74,10 @@ class FFXIV(commands.Cog):
             activeclass = character["ActiveClassJob"]
             activeclassname = activeclass["JobID"]
             activeclasslevel = activeclass["Level"]
-        emb = Embeds.create_embed(self, ctx, "Final Fantasy XIV", None, server)
+        emb = Embeds.create_embed(self, ctx, name, None, server)
         emb.set_thumbnail(url=avatar)
         emb.set_image(url=portrait)
-        emb.set_author(name=name)
+        emb.set_author(name="Final Fantasy XIV")
         emb.add_field(name="Active Job", value="{0} - Level {1}".format(self.jobs[activeclassname], activeclasslevel), inline=True)
         await ctx.send(embed=emb)
 

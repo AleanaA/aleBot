@@ -11,6 +11,7 @@ import subprocess
 import random
 import psutil
 import requests
+import json
 from discord import Game
 from discord.ext import commands
 from discord.ext.commands import Bot

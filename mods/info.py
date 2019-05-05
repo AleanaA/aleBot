@@ -187,8 +187,10 @@ class Info(commands.Cog):
                                     ID=["ID", user.id, True],
                                     join=["Joined Server", user.joined_at.strftime("%b %d, %Y; %I:%M %p"), True],
                                     created=["Account Created", user.created_at.strftime("%b %d, %Y; %I:%M %p"), True],
-                                    status=["Status", status, True],
-                                    client=["Clients", client, True])
+                                    status=["Status", status, True])
+        
+        if status != "Offline":
+            embed.add_field(name="Clients", value=client, inline=True)
 
         embed.set_author(name="User info for {} [{}]".format(str(user), user.guild.name),icon_url=user.avatar_url)
         embed.set_thumbnail(url=user.avatar_url)

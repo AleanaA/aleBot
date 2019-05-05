@@ -182,13 +182,12 @@ class Info(commands.Cog):
         else:
             setcolor = user.color
 
-        embed = Embeds.create_embed(self, ctx, None, setcolor, None,
-                                    nick=["Nickname", user.display_name, True],
-                                    ID=["ID", user.id, True],
-                                    join=["Joined Server", user.joined_at.strftime("%b %d, %Y; %I:%M %p"), True],
-                                    created=["Account Created", user.created_at.strftime("%b %d, %Y; %I:%M %p"), True],
-                                    status=["Status", status, True])
-        
+        embed = Embeds.create_embed(self, ctx, None, setcolor, None)
+        embed.add_field(name="Nickname", value=user.display_name, inline=True)
+        embed.add_field(name="ID", value=user.id, inline=True)
+        embed.add_field(name="Joined Server", value=user.joined_at.strftime("%b %d, %Y; %I:%M %p"), inline=True)
+        embed.add_field(name="Account Created", value=user.created_at.strftime("%b %d, %Y; %I:%M %p"), inline=True)
+        embed.add_field(name="Status", value=status, inline=True)
         if status != "Offline":
             embed.add_field(name="Clients", value=client, inline=True)
 
@@ -228,12 +227,13 @@ class Info(commands.Cog):
         if user.activity:
             if user.activity.name == "Spotify":
                 artists = ", ".join(user.activity.artists)
-                embed=Embeds.create_embed(self, ctx, None, user.activity.color, None,
-                songtitle=["Title",user.activity.title,False],
-                artist=["Artists",artists,False],
-                album=["Album",user.activity.album,False],
-                duration=["Duration",str(datetime.timedelta(seconds=round(float(str(user.activity.duration.total_seconds()))))),False],
-                url=["Track URL","https://open.spotify.com/track/{}".format(user.activity.track_id),False])
+                embed=Embeds.create_embed(self, ctx, None, user.activity.color, None)
+
+                embed.add_field(name="Title", value=user.activity.title, inline=False)
+                embed.add_field(name="Artists", value=artists, inline=False)
+                embed.add_field(name="Album", value=user.activity.album, inline=False)
+                embed.add_field(name="Duration", value=str(datetime.timedelta(seconds=round(float(str(user.activity.duration.total_seconds()))))), inline=False)
+                embed.add_field(name="Track URL", value="https://open.spotify.com/track/{}".format(user.activity.track_id), inline=False)                
 
                 embed.set_author(name="Spotify info for " + str(user),icon_url=user.avatar_url)
                 embed.set_image(url=user.activity.album_cover_url)

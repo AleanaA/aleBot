@@ -31,6 +31,10 @@ class Tags(commands.Cog):
                     embed = emb.create_embed(self, ctx, tag["Name"], None, tag["Content"])
                     embed.set_footer(text=author.name, icon_url=author.avatar_url)
                     embed.timestamp = timestamp_obj
+                    try:
+                        embed.set_image(self.FindURL(tag["Content"]))
+                    except Exception:
+                        pass
                     if mention:
                         men = mention.mention
                     else:
@@ -96,12 +100,6 @@ class Tags(commands.Cog):
             await ctx.send("Tag list:\n```{}```".format(taglist[:-2]))
         else:
             await ctx.send("There are no tags on this server!")
-
-    @commands.command(name="test")
-    @commands.guild_only()
-    async def test(self, ctx, *, string):
-        url = self.FindURL(string)
-        await ctx.send(url)
 
 
 def check_folders():

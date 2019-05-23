@@ -32,7 +32,7 @@ class Tags(commands.Cog):
                     embed.set_footer(text=author.name, icon_url=author.avatar_url)
                     embed.timestamp = timestamp_obj
                     try:
-                        embed.set_image(url=self.FindURL(tag["Content"]))
+                        embed.set_image(url=self.FindURL(tag["Content"])[0])
                     except Exception:
                         pass
                     if mention:

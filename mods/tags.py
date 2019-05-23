@@ -6,11 +6,18 @@ import os
 import asyncio
 import time
 from datetime import datetime
+import re 
 
 class Tags(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
-        self.tags = fileIO("data/tags.json", "load")
+        self.tags = fileIO("data/tags.json", "load")  
+
+    def FindURL(self, string): 
+        # findall() has been used  
+        # with valid conditions for urls in string 
+        url = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\), ]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', string) 
+        return url 
 
     @commands.command(name="tag")
     @commands.guild_only()
@@ -89,6 +96,13 @@ class Tags(commands.Cog):
             await ctx.send("Tag list:\n```{}```".format(taglist[:-2]))
         else:
             await ctx.send("There are no tags on this server!")
+
+    @commands.command(name="test")
+    @commands.guild_only()
+    async def test(self, ctx, *, string):
+        url = self.FindURL(string)
+        await ctx.send(url)
+
 
 def check_folders():
     if not os.path.exists("data"):

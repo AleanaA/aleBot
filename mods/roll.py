@@ -10,7 +10,7 @@ class Roll(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     
-    @commands.command(name='roll')
+    @commands.group(name='roll')
     async def roll(self, ctx, dice, sides):
         rolling = []
 
@@ -25,6 +25,15 @@ class Roll(commands.Cog):
             await ctx.send(err)
         
         await ctx.send('You rolled: \n{0}\nWhich has a total of\n------\n{1}'.format("\n".join(str(x) for x in rolling), sum(rolling)))
+
+    @roll.command(name='charroll')
+    async def charroll(self, ctx):
+        stats = []
+
+        for x in range(4):
+            stats.append(randint(1,6))
+
+        await ctx.send('Your characters stats are: {}'.format(", ".join(srt(x) for x in stats)))
 
 def setup(bot):
     bot.add_cog(Roll(bot))

@@ -16,11 +16,11 @@ class Roll(commands.Cog):
 
         try:
             if 'd' in sides:
-                for x in range(int(sides.split('d')[1:])):
-                        rolling.append(randint(int(dice),int(sides.split('d')[1])))
+                for x in range(int(dice)):
+                        rolling.append(randint(1,int(sides[1:])))
             else:
-                for x in range(int(sides)):
-                        rolling.append(randint(int(dice),int(sides)))
+                for x in range(int(dice)):
+                        rolling.append(randint(1,int(sides)))
         except Exception as err:
             await ctx.send(err)
         

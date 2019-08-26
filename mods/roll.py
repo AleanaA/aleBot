@@ -16,10 +16,10 @@ class Roll(commands.Cog):
 
         try:
             if 'd' in sides:
-                for x in range(int(sides.split('d')[0]))):
+                for x in range(int(sides.split('d')[0])):
                         rolling.append(randint(int(dice),int(roll.split('d')[1])))
             else:
-                for x in range(int(sides))):
+                for x in range(int(sides)):
                         rolling.append(randint(int(dice),int(sides)))
         except Exception as err:
             await ctx.send("An issue occurred trying to roll.")

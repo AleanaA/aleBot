@@ -18,6 +18,7 @@ from discord.ext.commands import Bot
 from config import config
 from utils.embed import Embeds
 from utils.config import Config
+from random import randint
 
 class BotOptions(commands.Cog):
     def __init__(self, bot):

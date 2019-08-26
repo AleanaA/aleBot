@@ -24,7 +24,7 @@ class Roll(commands.Cog):
         except Exception as err:
             await ctx.send(err)
         
-        await ctx.send('You rolled: \n{0} which has a total of\n------\n{1}'.format("\n".join(str(x) for x in rolling), sum(rolling)))
+        await ctx.send('You rolled: \n{0}\n which has a total of\n------\n{1}'.format("\n".join(str(x) for x in rolling), sum(rolling)))
 
 def setup(bot):
     bot.add_cog(Roll(bot))

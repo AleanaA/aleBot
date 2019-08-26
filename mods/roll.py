@@ -22,7 +22,7 @@ class Roll(commands.Cog):
                 for x in range(int(sides)):
                         rolling.append(randint(int(dice),int(sides)))
         except Exception as err:
-            await ctx.send("An issue occurred trying to roll.")
+            await ctx.send(err)
         
         await ctx.send('You rolled: \n{0} which has a total of\n------\n{1}'.format("\n".join(str(x) for x in rolling), sum(rolling)))
 

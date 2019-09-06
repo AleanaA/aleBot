@@ -106,6 +106,7 @@ class Info(commands.Cog):
             return
 
         roles = [role.name for role in server.roles]
+        highest_role = server.roles[-1]
         del roles[-1]
         rolecount = len(roles)
         channelcount = len(server.text_channels)+len(server.voice_channels)
@@ -117,7 +118,7 @@ class Info(commands.Cog):
         embed.add_field(name="Server Created", value=server.created_at.strftime("%b %d, %Y; %I:%M %p"), inline=False)
         embed.add_field(name="Members", value=server.member_count, inline=False)
         if rolecount != 0:
-            embed.add_field(name="Highest Role", value=roles[0], inline=False)
+            embed.add_field(name="Highest Role", value=highest_role, inline=False)
             embed.add_field(name="Roles", value=rolecount, inline=False)
         if len(server.categories) != 0:
             embed.add_field(name="Categories",value=len(server.categories), inline=False)

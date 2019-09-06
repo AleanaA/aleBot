@@ -6,3 +6,8 @@ config/emotes.py
 .vscode/
 mods/testmods/
 data/
+mods/memberEvents.py
+mods/manbot.py
+mods/info.py
+mods/info.py
+*.py

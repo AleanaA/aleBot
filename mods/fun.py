@@ -237,6 +237,23 @@ class Fun(commands.Cog):
         emb.set_image(url=result)
         await ctx.send(embed=emb)
 
+    @commands.command(name='snuggle')
+    async def snugglecmd(self, ctx, *, user:str=None):
+        result = random.choice(self.cuddle)
+        if user:
+            if user[0:2] == "<@" and user[-1] == ">":
+                user = int(re.sub("[^0-9]", "", user))
+                user = self.bot.get_user(user)
+                user = user.name
+            else:
+                pass
+        else:
+            user = ctx.message.author.name
+        emb = Embeds.create_embed(self, ctx, "Snuggling {}".format(user), 0x00aaff)
+        emb.set_image(url=result)
+        await ctx.send(embed=emb)
+
+
     @commands.command(name="hug")
     async def hugcmd(self, ctx, *, user:str=None):
         result = random.choice(self.hug)
@@ -418,6 +435,27 @@ class Fun(commands.Cog):
         numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
         rating = random.choice(numbers)
         emb = Embeds.create_embed(self, ctx, "Waifu Rating", 0xaaff, "{}\n{}/10".format(user, rating))
+        await ctx.send(embed=emb)
+
+    @commands.command(name="kill")
+    async def killcmd(self, ctx, * user:str):
+        kill_methods = ['Rock to the head, basic but hey it gets the job done!', 'stranggling them. Yikes!', 'Lazers Q-Q', "Nukes...how..howd you even get those.", "Poison, very sneaky!"]
+        final_kill_methods = []
+        #randomness is hard for computers this a little way to get more random
+        kill_method_1 = final_kill_methods.append(random.choice(kill_methods))
+        kill_method_2 = final_kill_methods.append(random.choice(kill_methods))
+        kill_method_3 = final_kill_methods.append(random.choice(kill_methods))
+        final_kill_method = random.choice(final_kill_methods)
+        if user:
+            if user[0:2] == "<@" and user[-1] == ">":
+                user = int(re.sub("^0-9", "", user))
+                user = self.bot.get_user(user)
+                user = user.name
+            else:
+                pass
+        else:
+            user = ctx.message.author.name
+        emb = Embeds.create_embed(self, ctx, "{} kills {} via {}".format(ctx.message.author, user, final_kill_method))
         await ctx.send(embed=emb)
 
 def setup(bot):

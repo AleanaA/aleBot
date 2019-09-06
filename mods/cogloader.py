@@ -49,7 +49,7 @@ class CogLoader(commands.Cog):
                 description="Unloads a cog",
                 brief="Unloads a cog")
     async def unload(self, ctx, mod):
-        cog = "mods." + mod.lower()
+        cog = "mods." + mod
         emb = discord.Embed()
         emb.title = "Cog Loader"
         if mod.lower() == "cogloader":

@@ -3,7 +3,6 @@ Script for reminders, all credit for this script goes to Twentysix26
 https://github.com/Twentysix26/26-Cogs/blob/master/remindme/remindme.py
 '''
 import discord
-import typing
 import datetime
 from datetime import date
 from discord.ext import commands
@@ -28,7 +27,7 @@ class RemindMe(commands.Cog):
         """Sends you <text> when the time is up
         Accepts: minutes, hours, days, weeks, month
         Example:
-        [p]remindme 3 days Have sushi with Asu and JennJenn"""
+        remind me 3 days Have sushi with Asu and JennJenn"""
         time_unit = time_unit.lower()
         author = ctx.message.author
         s = ""
@@ -53,39 +52,33 @@ class RemindMe(commands.Cog):
         seconds = self.units[time_unit] * quantity
         future = int(time.time()+seconds)
         time_now = datetime.datetime.now()
-        self.reminders.append({"ID" : who.id, "AUTHOR" : author.id, "FUTURE" : future, "TEXT" : text, "SET" : time_now.strftime("%d/%m/%Y, %I:%M:%S%p")})
+        self.reminders.append({"WHO_ID" : who.id, "AUTHOR" : author.id, "FUTURE" : future, "TEXT" : text, "SET" : time_now.strftime("%d/%m/%Y, %I:%M:%S%p")})
         logger.info("{} ({}) set a reminder for {} ({}).".format(author.name, author.id, who.name, who.id))
         await ctx.send("I will remind {} of that in {} {}.".format(who.name, str(quantity), time_unit + s))
         fileIO("data/reminders.json", "save", self.reminders)
 
     @commands.command(pass_context=True)
-    async def unremind(self, ctx, target:typing.Optional[int], who:typing.Optional[discord.User]):
-        """Removes all your upcoming notifications"""
+    async def unremind(self, ctx, target: int=None):
+        """Removes all your upcoming notifications, or one."""
         author = ctx.message.author
         to_remove = []
-        for reminder in self.reminders:
-            if not target:
-                if who == None:
-                    if reminder["ID"] == author.id:
-                        to_remove.append(reminder)
-                else:
-                    if reminder["ID"] == who.id:
-                        to_remove.append(reminder)
-            else:
-                if who == None:
-                    for a, b in enumerate(reminder, 1):
-                        if target == a and reminder["ID"] == author.id:
-                            to_remove.append(reminder)
-                else:
-                    for a, b in enumerate(reminder, 1):
-                        if reminder["ID"] == who.id == target == a:
-                            to_remove.append(reminder)
+        if target:
+            for a, reminder in enumerate(self.reminders, 1):
+                if target == a and reminder["AUTHOR"] == ctx.message.author.id:
+                    to_remove.append(reminder)
+        else:
+            for reminder in self.reminders:
+                if reminder["AUTHOR"] == ctx.message.author.id:
+                    to_remove.append(reminder)
 
         if not to_remove == []:
             for reminder in to_remove:
                 self.reminders.remove(reminder)
             fileIO("data/reminders.json", "save", self.reminders)
-            await ctx.send("All your notifications have been removed.")
+            if not target:
+                await ctx.send("All your notifications have been removed.")
+            else:
+                await ctx.send("{} has been removed from your reminders".format(target))
         else:
             await ctx.send("You don't have any upcoming notification.")
 
@@ -97,11 +90,12 @@ class RemindMe(commands.Cog):
 
         for reminder in self.reminders:
             if who == None:
-                if reminder["ID"] == author.id:
+                if reminder["AUTHOR"] == author.id:
                     reminders.append(reminder)
             else:
-                if reminder["ID"] == who.id:
+                if reminder["WHO_ID"] == who.id:
                     reminders.append(reminder)
+
 
         if not reminders:
             if not who:
@@ -127,9 +121,9 @@ class RemindMe(commands.Cog):
             for reminder in self.reminders:
                 if reminder["FUTURE"] <= int(time.time()):
                     try:
-                        user = self.bot.get_user(reminder["ID"])
+                        user = self.bot.get_user(reminder["WHO_ID"])
                         author = self.bot.get_user(reminder["AUTHOR"])
-                        if reminder["ID"] == reminder["AUTHOR"]:
+                        if reminder["WHO_ID"] == reminder["AUTHOR"]:
                             await user.send("You asked me to remind you of this:\n{}".format(reminder["TEXT"]))
                         else:
                             await user.send("{} asked me to remind you of this:\n{}".format(author.name, reminder["TEXT"]))

@@ -9,7 +9,6 @@ class Embeds:
         emb.set_footer(text=ctx.author.name, icon_url=ctx.author.avatar_url)
         emb.timestamp = ctx.message.created_at
         emb.colour = 0x005aff
-        print(Config('config/config.ini').embedname)
         if Config('config/config.ini').embedname == True:
             try:
                 request = requests.get(ctx.command.cog.url)

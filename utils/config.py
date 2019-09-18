@@ -34,7 +34,6 @@ class Config:
         self.prefix = config.get('Bot', 'Prefix', fallback=None)
         self.status = config.get('Bot', 'Status', fallback=None)
         self.embedname = config.getboolean('Bot', 'EmbedCogAuthor', fallback=False)
-        print(self.embedname)
         self.activity = config.get('Bot', 'Activity', fallback=0)
         self.validate()
 

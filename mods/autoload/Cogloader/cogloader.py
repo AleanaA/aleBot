@@ -123,10 +123,10 @@ class CogLoader(commands.Cog):
             print(e)
         await ctx.send(embed=emb)
 
-    @cog.command(name='bulk',
+    @cog.command(name='zipdl',
                 description="Bulk download a set of cogs or include a cogs utilities from a zip!",
                 brief="Download a zip!")
-    async def bulkdl(self, ctx, zipurl:str):
+    async def zipdl(self, ctx, zipurl:str):
         emb = Embeds.create_embed(self, ctx)
         emb.title = "Download Cogs"
         emb.colour = 0x00ffff

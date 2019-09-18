@@ -33,9 +33,9 @@ class Config:
         self.token = config.get('Bot', 'Token', fallback=None)
         self.prefix = config.get('Bot', 'Prefix', fallback=None)
         self.status = config.get('Bot', 'Status', fallback=None)
+        self.embedname = config.getboolean('Bot', 'EmbedCogAuthor', fallback=False)
+        print(self.embedname)
         self.activity = config.get('Bot', 'Activity', fallback=0)
-        self.osu = config.get('Bot', 'OsuAPI', fallback=None)
-        self.pb = config.get('Bot', 'PushBulletToken', fallback=None)
         self.validate()
 
     def validate(self):
@@ -46,11 +46,5 @@ class Config:
         if not self.token:
             print('You must provide a token in the config.ini')
             critical = True
-        if not self.status:
-            print('No Status provided!')
-        if not self.osu:
-            print('No osu!api key provided!')
-        if not self.pb:
-            print('No Push Bullet Token provided!')
         if critical:
             raise Shutdown()

@@ -19,12 +19,21 @@
 
 ### Usage
 Using aleBot is fairly straightforward, however you do need to have some prior knowledge of coding to make full use of it!  
-To download a cog, you can use the cogloader's download command, or zipdl command.  
+To download a cog, you can use the cogloader's download command, or zipdl command.
+
 Usage of these commands is as follows:  
+```
 cog download name URLtopy  
-cog zipdl URLtozip  
-Note that while cog download will attempt to load your cog, you'll need to ensure you have the required dependencies for the cog before it will load correctly.  
+cog zipdl URLtozip
+```
+cog download will attempt to load your cog, you'll need to ensure you have the required dependencies for the cog before it will load correctly.  
 Note that cog zipdl will not attempt to load your cog in any way.
+
+Cogs can be manually loaded using the cog load command, ensuring you notate the folder and cog file.  
+```
+cog load autoload.Cogloader cogloader  
+cog load Debug debug
+```
 
 The file structure for the mods folder, and expected followed listing, is as follows:  
 mods  

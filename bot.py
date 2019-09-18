@@ -3,11 +3,10 @@ import inspect
 import discord
 import logging
 import time
-import os
+import os, glob
 from discord import Game
 from discord.ext import commands
 from discord.ext.commands import Bot
-from config import config
 from utils.config import Config
 
 class Object(object):
@@ -27,7 +26,6 @@ class bot(commands.Bot):
         self.last_message = None
         self.command_messages = {}
         self.messages_seen = 0
-        self.remove_command('help')
     
     async def on_message(self, ctx):
         self.messages_seen += 1
@@ -62,42 +60,20 @@ class bot(commands.Bot):
     async def on_ready(self):
         self.appinfo = await self.application_info()
         await self.wait_until_ready()
-        owner = self.appinfo.owner
-        embed=discord.Embed(title="Invite URL", url="https://discordapp.com/oauth2/authorize?client_id={0}&scope=bot&permissions=8".format(str(self.user.id)), description=self.user.name + " has just loaded.", color=0x05d1dc)
-        embed.set_author(name=owner.name,icon_url=owner.avatar_url)
-        embed.set_thumbnail(url=self.user.avatar_url)
+        self.owner = self.appinfo.owner
         game = discord.Activity(type=self.config.activity, name=self.config.status + " | {0}help".format(self.config.prefix))
         await self.change_presence(activity=game)
         print("---------------------------------------")
-        print("Logged in as " + self.user.name)
-        print("")
-        print("Current Shared Servers:")
-        notsharedcount = 0
-        for server in self.guilds:
-            ownercheck = self.appinfo.owner
-            check = server.get_member(ownercheck.id)
-            if check != None:
-                print("Server ID: "+str(server.id)+" | Server Name: "+server.name)
-        print("")
-        print("Current Unshared Servers:")
-        for server in self.guilds:
-            ownercheck = self.appinfo.owner
-            check = server.get_member(ownercheck.id)
-            if check == None:
-                print("Server ID: {0} | Server Name: {1} | Server Owner: {2}".format(server.id, server.name, server.owner))
-                notsharedcount = notsharedcount+1
-        embed.add_field(name="Total Users", value=len(set(self.get_all_members())))
-        embed.add_field(name="Total Servers", value=str(len(self.guilds)))
-        try:
-            await owner.send(embed=embed)
-        except Exception as e:
-            print("Unable to DM owner.")
-        print("")
+        print("User: " + str(self.user))
+        print("Owner: " + str(self.owner))
+        print("Prefix: " + self.config.prefix)
         print("---------------------------------------")
         print("Remember to invite your bot to your server!")
         print("https://discordapp.com/oauth2/authorize?client_id={0}&scope=bot&permissions=8".format(str(self.user.id)))
         print("---------------------------------------")
-        for cog in config.Modules:
+        for mod in os.listdir("mods/autoload"):
+            for cog in glob.glob("mods/autoload/{}/*.py".format(os.path.splitext(mod)[0])):
+                cog = "mods.autoload.{}.{}".format(os.path.splitext(mod)[0], os.path.split(os.path.splitext(cog)[0])[-1])
                 try:
                     self.load_extension(cog)
                 except Exception as e:

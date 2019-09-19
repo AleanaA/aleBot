@@ -1,7 +1,4 @@
 discord.py
 aiohttp
-python-mpd2
 requests
 psutil
-osuapi
-pushbullet.py

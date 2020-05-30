@@ -438,8 +438,8 @@ class Fun(commands.Cog):
         await ctx.send(embed=emb)
 
     @commands.command(name="kill")
-    async def killcmd(self, ctx, * user:str):
-        kill_methods = ['Rock to the head, basic but hey it gets the job done!', 'stranggling them. Yikes!', 'Lazers Q-Q', "Nukes...how..howd you even get those.", "Poison, very sneaky!"]
+    async def killcmd(self, ctx, * user:str=None):
+        kill_methods = ['Rock to the head, basic but hey it gets the job done!', 'stranggling them. Yikes!', 'Lazers Q-Q', "Nukes...how..how'd you even get those...", "Poison, very sneaky!"]
         final_kill_methods = []
         #randomness is hard for computers this a little way to get more random
         kill_method_1 = final_kill_methods.append(random.choice(kill_methods))

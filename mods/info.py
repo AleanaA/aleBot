@@ -24,9 +24,14 @@ class Info(commands.Cog):
     @commands.command(name='ping',
                 description="Ping!",
                 brief="Ping!",
-                aliases=['Ping', 'Ping!'])
+                aliases=['Ping', 'Ping!', 'Pong', 'Pong!', 'Latency', 'Test'])
     async def ping(self, ctx):
-        await ctx.message.channel.send(ctx.message.author.mention + " " + str(math.ceil(self.bot.latency * 1000)) + " ms")
+        emb = Embeds.create_embed(self, ctx, "Bot Latency", None, None)
+        latency = str(math.ceil(self.bot.latency * 1000))
+        emb.add_field(name="Latency", value=":ping_pong: | bot latency is {}ms".format(latency), inline=False)
+        emb.set_footer(text="Requested by {0}".format(ctx.message.author), icon_url=ctx.message.author.avatar_url)
+        emb.timestamp = ctx.message.created_at
+        await ctx.send(embed=emb)
 
     @commands.command(name='createdat')
     async def createdat(self, ctx, id:int):

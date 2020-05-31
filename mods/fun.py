@@ -151,18 +151,18 @@ class Fun(commands.Cog):
         'http://media.giphy.com/media/ROF8OQvDmxytW/giphy.gif', 'http://media.giphy.com/media/QUKkvRTIYLgMo/giphy.gif', 'http://media.tumblr.com/tumblr_mdaindozZF1ryvbtl.gif', 
         'https://31.media.tumblr.com/b307cca19d29eb1625bd841e661c0f59/tumblr_mvjhgmknl91stfs7go1_500.gif', 'http://media1.giphy.com/media/4pk6ba2LUEMi4/giphy.gif']
         
-       #
-       self.filt = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890$-_.+!*'(),"
+        #
+        self.filt = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890$-_.+!*'(),"
        
        #
-       def url_encode(word):
-	url = ""
-	for c in word:
-		if c not in self.filt:
-			url += "%" +  str(hex(ord(c))).replace("0x", "")
-		else:
-			url += c
-	return url
+        def url_encode(word):
+            url = ""
+            for c in word:
+                if c not in self.filt:
+                    url += "%" +  str(hex(ord(c))).replace("0x", "")
+                else:
+                    url += c
+            return url
 
     @commands.command(name='pay')
     async def payuser(self, ctx, who:discord.User=None, amount=None):
@@ -453,7 +453,7 @@ class Fun(commands.Cog):
         await ctx.send(embed=emb)
 
     @commands.command(name="kill")
-    async def killcmd(self, ctx, * user:str=None):
+    async def killcmd(self, ctx, *, user:str=None):
         kill_methods = ['Rock to the head, basic but hey it gets the job done!', 'stranggling them. Yikes!', 'Lazers Q-Q', "Nukes...how..how'd you even get those...", "Poison, very sneaky!"]
         final_kill_methods = []
         #randomness is hard for computers this a little way to get more random
@@ -474,7 +474,7 @@ class Fun(commands.Cog):
         await ctx.send(embed=emb)
 
 
-    @command(name='urban',
+    @commands.command(name='urban',
              description= "search urban dictionary for definitions",
              brief = "Search Urban Dictionary",
              aliases= ['ud'])
@@ -488,9 +488,9 @@ class Fun(commands.Cog):
         if data["list"]:
             entry = data["list"][0]
             emb = Embeds.create_embed(self, ctx, "Urban Dictionary", None, None)
-            emb.add_field(name="Search", value="**{e[word]}**, inline=True)
-            emb.add_field(name="Result", value=**{e[definition]}**, inline=True)
-            emb.add_field(name="Example", value=**{e[example]}**, inline=True)
+            emb.add_field(name="Search", value="**{e[word]}**", inline=True)
+            emb.add_field(name="Result", value="**{e[definition]}**", inline=True)
+            emb.add_field(name="Example", value="**{e[example]}**", inline=True)
         else:
             emb = Embeds.create_embed(self, ctx, "Error!", None, None)
             emb.add_field(name="Search Error", value="I couldn't find anything for **{e[word]}. I'm so sorry!", inline=True)
@@ -498,17 +498,16 @@ class Fun(commands.Cog):
         emb.timestamp = ctx.message.created_at
         await ctx.send(embed=emb)
 
-    @command(name="ascii",
+    @commands.command(name="ascii",
              description='Convert your text to ascii art!',
-             brief="Ascii art"
-)
+             brief="Ascii art")
     async def ascii(self, ctx, *, text: str=None):
-    url = "http://artii.herokuapp.com/make?text="
-		if text:
-		    word = url_encode(text)
-		response = urllib.request.urlopen('http://artii.herokuapp.com/make?text=' + word)
-		text = str(response.read())
-    await ctx.send('```%s```' % text)
+        url = "http://artii.herokuapp.com/make?text="
+        if text:
+            word = url_encode(text)
+        response = urllib.request.urlopen('http://artii.herokuapp.com/make?text=' + word)
+        text = str(response.read())
+        await ctx.send('```%s```' % text)
 
 def setup(bot):
     bot.add_cog(Fun(bot))
